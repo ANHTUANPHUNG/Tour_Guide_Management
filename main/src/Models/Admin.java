@@ -1,24 +1,33 @@
 package Models;
 
-import Body.User;
+
 
 import java.util.Date;
 
-public class Admin extends User {
-    private String manager;
+public class Admin  {
+    private String userName;
+    private String passWord;
+
     public Admin() {
     }
 
-    public Admin(int id, String userName, String passWord, Date dob, String address, long phone, String gender, String level, long citizenIdentification, String manager) {
-        super(id, userName, passWord, dob, address, phone, gender, level, citizenIdentification);
-        this.manager= manager;
+    public Admin(String passWord) {
+        this.passWord = passWord;
     }
 
-    public String getManager() {
-        return manager;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setManager(String manager) {
-        this.manager = manager;
+    public void setUserName(String userName) {
+        this.userName = userName;
+    }
+
+    public String getPassWord() {
+        return passWord;
+    }
+
+    public void setPassWord(String passWord) {
+        this.passWord = passWord;
     }
 }

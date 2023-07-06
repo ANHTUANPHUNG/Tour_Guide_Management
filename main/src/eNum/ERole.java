@@ -1,6 +1,6 @@
 package eNum;
 
-public enum eRole {
+public enum ERole {
     ADMIN,
     CLIENT;
 }
