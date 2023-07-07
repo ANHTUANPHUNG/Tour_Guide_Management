@@ -11,7 +11,8 @@ public class Admin  {
     public Admin() {
     }
 
-    public Admin(String passWord) {
+    public Admin(String userName, String passWord) {
+        this.userName = userName;
         this.passWord = passWord;
     }
 

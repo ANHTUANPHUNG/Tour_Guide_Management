@@ -29,4 +29,13 @@ public enum EGender {
     public void setName(String name) {
         this.name = name;
     }
+
+    public static EGender getGenderFromInt(int id) {
+        for (EGender e : EGender.values()) {
+            if (e.getId() == id) {
+                return e;
+            }
+        }
+        return null;
+    }
 }

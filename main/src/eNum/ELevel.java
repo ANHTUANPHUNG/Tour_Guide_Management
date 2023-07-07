@@ -1,16 +1,15 @@
 package eNum;
 
-public enum ERole {
-    admin(1,"ADMIN"),
-    guideTour(2,"GUIDETOUR"),
+public enum ELevel {
+    vip(1,"Vip"),
+    normal(2,"Normal");
 
-    client(3,"CLIENT");
     private int id;
     private String name;
 
 
 
-    ERole(int id, String name) {
+    ELevel(int id, String name) {
         this.id = id;
         this.name = name;
     }
