@@ -4,22 +4,36 @@ import Models.Guide;
 import Repository.CRUD;
 import eNum.EDescription;
 import eNum.EGender;
+import utils.AppConstant;
 import utils.SerializationUtil;
 
 import java.io.IOException;
-import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
+
+import static eNum.EDescription.Phone;
+import static service.MainSv.nextId;
 import static utils.AppUltis.getInt;
 import static utils.getValue.getString;
+import static utils.getValue.getStringWithPattern;
 
-public class GuideService implements CRUD<Guide> {
-
+public class GuideSV implements CRUD<Guide> {
     public static List<Guide> guideList = (List<Guide>) SerializationUtil.deserialize("D:\\code gym\\Tour_Guide_Management\\main\\src\\data\\guide.txt");
+    private static GuideSV instance;
+
+    public static GuideSV getInstance() {
+        if (instance == null) {
+            instance = new GuideSV();
+        }
+        return instance;
+    }
+
+    public List<Guide> getGuideList() {
+        return guideList;
+    }
 
     public static void displayGuide() {
         System.out.println("                                                              Thông tin hướng dẫn viên:");
@@ -31,8 +45,8 @@ public class GuideService implements CRUD<Guide> {
                     guide.getPhone(), guide.getSkill(), guide.getStatus(), guide.getFeedBack(), guide.getRate(), guide.getHastag());
         }
         System.out.println("====================================================================================================================================================================\n\n");
-
     }
+
 
     @Override
     public Guide getById(int id) {
@@ -43,20 +57,13 @@ public class GuideService implements CRUD<Guide> {
     }
 
     @Override
-    public void createGuide() throws IOException {
-        int maxId = 0;
-        for (Guide guide : guideList) {
-            if (guide.getIdGuide() > maxId) {
-                maxId = guide.getIdGuide();
-            }
-        }
-        maxId += 1;
-        int IdGuide = maxId;
+    public void create() throws IOException {
+        int IdGuide = nextId();
         String Name = getString("Nhập họ tên");
         String Age = getString("Nhập tuổi");
         String Address = getString("Nhập địa chỉ");
         EGender Gender = EGender.getGenderFromInt(getInt("nhập giơi tính"));
-        long Phone = Long.parseLong(getString("Nhập sdt"));
+        String Phone = getStringWithPattern("Nhập số điện thoại", AppConstant.REGEX_PHONE);
         List<String> Language = Collections.singletonList(getString("Nhập ngoại ngữa"));
         String Status = getString("Nhập trạng thái");
         List<String> FeedBack = Collections.singletonList(getString("Nhập phản hồi"));
@@ -67,8 +74,8 @@ public class GuideService implements CRUD<Guide> {
         SerializationUtil.serialize(guideList, "D:\\code gym\\Tour_Guide_Management\\main\\src\\data\\guide.txt");
     }
 
-    @Override
-    public void update(int id) {
+    public void update() throws IOException {
+        int id = getInt("Nhập vị trí nhân viên bạn muốn xóa bạn");
         for (Guide guide : guideList) {
             if (guide.getIdGuide() == id) {
                 EDescription description1 = EDescription.getDescriptionFromInt(getInt("nhập"));
@@ -90,7 +97,7 @@ public class GuideService implements CRUD<Guide> {
                         guide.seteGender(Gender);
                     }
                     case 5 -> {
-                        long Phone = Long.parseLong(getString("Nhập sdt"));
+                        String Phone = getStringWithPattern("Nhập số điện thoại", AppConstant.REGEX_PHONE);
                         guide.setPhone(Phone);
                     }
                     case 6 -> {

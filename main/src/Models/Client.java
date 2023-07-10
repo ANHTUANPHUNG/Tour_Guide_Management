@@ -5,39 +5,37 @@ package Models;
 import eNum.EGender;
 import eNum.ELevel;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class Client{
-    private int id ;
+public class Client implements Serializable {
+    private int id;
     private String userName;
     private String password;
     private String name;
-    private String dob ;
+    private String dob;
     private String address;
-    private long phone;
+    private String phone;
     private EGender gender;
-    private String level;
-    private long citizenIdentification; //cccd
-    private ELevel typeAccount;
+
 
     public Client() {
-    }
-
-    public Client(int id, String name, String dob, String address, long phone, EGender gender, String level, long citizenIdentification, ELevel typeAccount) {
-        this.id = id;
-        this.name = name;
-        this.dob = dob;
-        this.address = address;
-        this.phone = phone;
-        this.gender = gender;
-        this.level = level;
-        this.citizenIdentification = citizenIdentification;
-        this.typeAccount = typeAccount;
     }
 
     public Client(String userName, String password) {
         this.userName = userName;
         this.password = password;
+    }
+
+    public Client(int id, String userName, String password, String name, String dob, String address, String phone, EGender gender) {
+        this.id = id;
+        this.userName = userName;
+        this.password = password;
+        this.name = name;
+        this.dob = dob;
+        this.address = address;
+        this.phone = phone;
+        this.gender = gender;
     }
 
     public int getId() {
@@ -88,11 +86,11 @@ public class Client{
         this.address = address;
     }
 
-    public long getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(long phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
     }
 
@@ -104,27 +102,4 @@ public class Client{
         this.gender = gender;
     }
 
-    public String getLevel() {
-        return level;
-    }
-
-    public void setLevel(String level) {
-        this.level = level;
-    }
-
-    public long getCitizenIdentification() {
-        return citizenIdentification;
-    }
-
-    public void setCitizenIdentification(long citizenIdentification) {
-        this.citizenIdentification = citizenIdentification;
-    }
-
-    public ELevel getTypeAccount() {
-        return typeAccount;
-    }
-
-    public void setTypeAccount(ELevel typeAccount) {
-        this.typeAccount = typeAccount;
-    }
 }

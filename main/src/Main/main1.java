@@ -1,21 +1,24 @@
 package Main;
 
-import service.AuthService;
-import service.GuideService;
+import utils.InitAdmin;
+import utils.InitClients;
+import utils.InitGuide;
 
 import java.io.IOException;
 
-import static utils.InitGuide.intGuide;
+import static View.TotalView.menu;
 
 public class main1 {
-    public static void main(String[] args) throws IOException {
-        if( GuideService.guideList ==null){
-            intGuide();
+    public static void main(String[] args){
+//        Khi muốn fake dữ liệu CLient
+        InitClients.initClients();
+        InitAdmin.initAdmin();
+        InitGuide.intGuide();;
+        try{
+            menu();}
+        catch (IOException e) {
+            throw new RuntimeException(e);
         }
-        GuideService.displayGuide();
-    }
 
-//    public static void main(String[] args) {
-//        if(AuthService.)
-//    }
+    }
 }

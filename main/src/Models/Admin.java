@@ -2,13 +2,18 @@ package Models;
 
 
 
+import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
-public class Admin  {
+public class Admin implements Serializable {
     private String userName;
     private String passWord;
 
+
     public Admin() {
+
     }
 
     public Admin(String userName, String passWord) {
@@ -16,7 +21,7 @@ public class Admin  {
         this.passWord = passWord;
     }
 
-    public String getUserName() {
+    public  String getUserName() {
         return userName;
     }
 

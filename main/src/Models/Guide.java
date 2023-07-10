@@ -6,7 +6,8 @@ import utils.SerializationUtil;
 import java.io.Serializable;
 import java.util.List;
 
-import static service.GuideService.guideList;
+import static service.GuideSV.guideList;
+
 
 public class Guide implements Serializable {
     private int idGuide;
@@ -15,7 +16,7 @@ public class Guide implements Serializable {
     private String name;
     private String age;
     private String address;
-    private long phone;
+    private String phone;
     private List<String> skill;
     private EGender eGender;
     private String status;
@@ -27,9 +28,24 @@ public class Guide implements Serializable {
     public Guide() {
     }
 
-    public Guide(int idGuide, String name, String age, String address, long phone, List<String> skill, EGender eGender, String status, List<String> feedBack, double rate, List<String> hastag) {
+    public Guide(int idGuide,String userName, String passWord, String name, String age, String address, String phone, List<String> skill, EGender eGender, String status, List<String> feedBack, double rate, List<String> hastag) {
         this.idGuide = idGuide;
+        this.userName = userName;
+        this.passWord = passWord;
+        this.name = name;
+        this.age = age;
+        this.address = address;
+        this.phone = phone;
+        this.skill = skill;
+        this.eGender = eGender;
+        this.status = status;
+        this.feedBack = feedBack;
+        this.rate = rate;
+        this.hastag = hastag;
+    }
 
+    public Guide(int idGuide, String name, String age, String address, String phone, List<String> skill, EGender eGender, String status, List<String> feedBack, double rate, List<String> hastag) {
+        this.idGuide = idGuide;
         this.name = name;
         this.age = age;
         this.address = address;
@@ -99,11 +115,11 @@ public class Guide implements Serializable {
         save();
     }
 
-    public long getPhone() {
+    public String getPhone() {
         return phone;
     }
 
-    public void setPhone(long phone) {
+    public void setPhone(String phone) {
         this.phone = phone;
         save();
     }
@@ -163,7 +179,7 @@ public class Guide implements Serializable {
     }
 
     private void save() {
-        SerializationUtil.serialize(guideList, "guide.txt");
+        SerializationUtil.serialize(guideList, "D:\\code gym\\Tour_Guide_Management\\main\\src\\data\\guide.txt");
     }
 
     @Override
