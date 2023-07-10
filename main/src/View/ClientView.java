@@ -1,52 +1,92 @@
 package View;
 
+import utils.AppUltis;
 import utils.getValue;
 
+import static View.TotalView.menu;
 import static View.TotalView.menuTotal;
+import static service.GuideSV.displayGuide;
 
 public class ClientView {
 
-    static int luachon =-1;
-    public static void menuClient(){
-        do {
-            switch (menuClientView()) {
-                case 1:
-                    listGuide();
-                    break;
-                case 2:
-
-                    break;
-                case 3:
-                    break;
-            }
-        } while (luachon != 0);
-
+    static int choice;
+    public static void menuClient() {
+        menuClientView();
+        choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn chức năng):", 0, 4);
+        switch (choice) {
+            case 1 -> listGuideMenu();
+            case 2 -> rentedOrder();
+            case 3 -> orderPendingApproval();
+            case 4 -> orderInProgressClient();
+            case 0 -> menu();
+        }
     }
-    public static int menuClientView(){
+    public static void menuClientView(){
         System.out.println("Trang cá nhân ");
         System.out.println("1. Danh sách hướng dẫn viên.");
-        System.out.println("2. Đơn hàng đã mua.");
+        System.out.println("2. Đơn hàng đã thuê.");
         System.out.println("3. Đơn hàng đang chờ duyệt.");
+        System.out.println("4. Đơn hàng đang hoạt động");
         System.out.println("0. Thoát chương trình.");
-        return luachon = getValue.getInt("Enter your choice(Mời chọn chức năng):");
+    }
+    public static void listGuideMenu(){
+        displayGuide();
+        listGuide();
+        choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn chức năng):", 0, 3);
+        switch (choice) {
+            case 1 -> pickATourGuide();
+            case 2 -> rateGuide();
+            case 0 -> menuClient();
+        }
     }
     public static void listGuide(){
-        do {
-            switch (listGuideMenu()) {
-                case 1:
-                    break;
-                case 2:
-                    break;
-
-            }
-        } while (luachon != 0);
-
-    }
-    public static int listGuideMenu(){
         System.out.println("Danh sách hướng dẫn viên.");
         System.out.println("1. Chọn hướng dẫn viên");
         System.out.println("2. Đánh giá hướng dẫn viên");
         System.out.println("0. Quay lại chính.");
-        return luachon = getValue.getInt("Enter your choice(Mời chọn chức năng):");
+    }
+    public static void pickATourGuide(){
+
+    }
+    public static void rateGuide(){
+
+    }
+    public static void rentedOrder(){
+
+    }
+    public static void orderPendingApproval(){
+
+    }
+    public static void orderInProgressClient(){
+        orderInProgress();
+        choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn chức năng):", 0, 1);
+        switch (choice) {
+//            case 1: in bill
+            case 2:
+                cancelTheOrderClient();
+            case 0:
+                menuClient();
+        }
+    }
+
+    public static void orderInProgress() {
+        System.out.println("Đơn hàng đang hoạt động");
+        System.out.println("1. Xem đơn hàng.");
+        System.out.println("2. Huỷ đơn hàng.");
+        System.out.println("0. Quay lại trang cá nhân.");
+    }
+
+    //    huỷ đơn
+    public static void cancelTheOrderClient() {
+        cancelTheOrder();
+        choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn chức năng):", 0, 1);
+        switch (choice) {
+//            case 1 -> bhuyr đơn hàng();
+            case 0 -> orderInProgressClient();
+        }
+    }
+    public static void cancelTheOrder() {
+        System.out.println("1. Huỷ đơn hàng.");
+        System.out.println("0. Quay lại trang đơn hàng đang hoạt động.");
     }
 }

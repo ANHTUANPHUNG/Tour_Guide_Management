@@ -14,11 +14,7 @@ public class main1 {
         InitClients.initClients();
         InitAdmin.initAdmin();
         InitGuide.intGuide();;
-        try{
-            menu();}
-        catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        menu();
 
     }
 }

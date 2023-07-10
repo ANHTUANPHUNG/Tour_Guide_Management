@@ -5,20 +5,21 @@ import utils.AppUltis;
 
 import java.time.LocalDate;
 
+import static View.TotalView.menu;
 import static service.GuideSV.displayGuide;
 import static utils.AppUltis.calculateMonthlySum;
 
 public class AdminView {
-    static int luachon;
+    static int choice;
 
     public static void menuAdmin() {
         menuAdminView();
-        luachon = AppUltis.getIntWithBound("Enter your choice(Mời chọn chức năng):", 0, 3);
-        switch (luachon) {
-            case 1 -> menuGuide();
+        choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn chức năng):", 0, 3);
+        switch (choice) {
+            case 1 -> menuGuideAdmin();
             case 2 -> pendingOrder();
             case 3 -> monthlyRevenue();
-            case 0 -> menuAdmin();
+            case 0 -> menu();
         }
     }
 
@@ -30,12 +31,12 @@ public class AdminView {
         System.out.println("0. Quay lại trang chủ.");
     }
 
-    public static void menuGuide() {
+    public static void menuGuideAdmin() {
         GuideSV guideSV = GuideSV.getInstance();
         displayGuide();
         menuGuideTour();
-        luachon = AppUltis.getIntWithBound("Enter your choice(Mời chọn chức năng):", 0, 3);
-        switch (luachon) {
+        choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn chức năng):", 0, 3);
+        switch (choice) {
             case 1 -> guideSV.create();
             case 2 -> guideSV.delete();
             case 3 -> guideSV.update();
@@ -55,16 +56,16 @@ public class AdminView {
 //         đang thiếu list đơn đang chờ
         System.out.println("Trang quản lí đơn hàng đang chờ duyệt");
         System.out.println("0. Quay lại trang quản lí.");
-        luachon = AppUltis.getIntWithBound("Enter your choice(Mời chọn chức năng):", 0, 0);
-        if (luachon == 0) {
+        choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn chức năng):", 0, 0);
+        if (choice == 0) {
             menuAdmin();
         }
     }
 
     public static void monthlyRevenue() {
         monthlyRevenueGuide();
-        luachon = AppUltis.getIntWithBound("Enter your choice(Mời chọn chức năng):", 0, 3);
-        switch (luachon) {
+        choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn chức năng):", 0, 3);
+        switch (choice) {
             case 1:
                 AppUltis.getDate();
                 break;

@@ -32,7 +32,7 @@ public class AppUltis {
         try {
             int number = getInt(str);
             if (number < begin || number > end) {
-                throw new NumberFormatException(String.format("Please input number between %d and %d", begin, end));
+                throw new NumberFormatException(String.format("Please input number between "+ begin+" and " +end+"(Vui lòng nhập số từ "+ begin +" đến " + end +")"));
             }
             return number;
         } catch (Exception e) {
