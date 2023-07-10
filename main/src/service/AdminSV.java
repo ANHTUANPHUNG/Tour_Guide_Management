@@ -38,17 +38,17 @@ public class AdminSV implements CRUD<Guide> {
     }
 
     @Override
-    public void create() throws IOException {
+    public void create()  {
 
     }
 
     @Override
-    public void update() throws IOException{
+    public void update() {
 
     }
 
     @Override
-    public void delete(int id) throws IOException {
+    public void delete()  {
 
     }
 

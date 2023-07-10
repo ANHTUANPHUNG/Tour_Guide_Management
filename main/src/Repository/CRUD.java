@@ -7,11 +7,11 @@ public interface CRUD<T> {
     T getById(int id);
 
 
-    void create() throws IOException;
+    void create() ;
 
-    void update() throws IOException;
+    void update() ;
 
-    void delete(int id) throws IOException;
+    void delete() ;
 
     void display();
 }

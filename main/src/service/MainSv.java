@@ -7,15 +7,7 @@ import java.util.Scanner;
 import static service.ClientSV.clientList;
 
 public class MainSv {
-    public static int nextId() {
-        int maxId = 0;
-        for (Client client : clientList) {
-            if (client.getId() > maxId) {
-                maxId = client.getId();
-            }
-        }
-        return maxId + 1;
-    }
+
     public static String getUniqueUserName() {
         String userName = getString("Nhập tài khoản");
         if (isUserNameTaken(userName)) {

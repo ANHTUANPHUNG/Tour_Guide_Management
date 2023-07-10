@@ -11,15 +11,7 @@ public class getValue {
         return input.nextLine();
     }
 
-    public static String getStringWithPattern(String str, String pattern) {
-        String result = getString(str);
-        if (!Pattern.compile(pattern).matcher(result).matches()) {
-            System.out.println("Invalid String(Số không hợp lệ)");
-            getStringWithPattern(str, pattern);
-        }
-        ;
-        return result;
-    }
+
 
     public static int luachon = -1;
 

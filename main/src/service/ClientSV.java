@@ -16,7 +16,8 @@ import java.util.List;
 import java.util.Scanner;
 
 import static service.MainSv.getUniqueUserName;
-import static service.MainSv.nextId;
+
+import static utils.AppUltis.getStringWithPattern;
 import static utils.getValue.*;
 
 public class ClientSV implements CRUD<Client> {
@@ -38,9 +39,18 @@ public class ClientSV implements CRUD<Client> {
     public Client getById(int id) {
         return null;
     }
+    public static int nextId() {
+        int maxId = 0;
+        for (Client client : clientList) {
+            if (client.getId() > maxId) {
+                maxId = client.getId();
+            }
+        }
+        return maxId + 1;
+    }
 
     @Override
-    public void create() throws IOException {
+    public void create()  {
         int id = nextId();
         String userName = getUniqueUserName();
         String password = getString("Nhập mật khẩu");
@@ -61,11 +71,11 @@ public class ClientSV implements CRUD<Client> {
 
 
     @Override
-    public void update() throws IOException {
+    public void update()  {
     }
 
     @Override
-    public void delete(int id) throws IOException {
+    public void delete(){
     }
 
     @Override
