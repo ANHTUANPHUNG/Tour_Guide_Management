@@ -5,11 +5,21 @@ import Models.Client;
 import Models.Guide;
 import Repository.CRUD;
 import utils.AppUltis;
+import utils.InitBill;
+import utils.InitGuide;
 import utils.SerializationUtil;
 
 import java.time.LocalDate;
+<<<<<<< HEAD
+=======
+import java.time.Period;
+>>>>>>> 3d342bd0a88d133efd8d0e6542c7e6569d377a76
 import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Locale;
+
+import static service.ClientSV.clientList;
+import static utils.AppUltis.getString;
 
 import static utils.getValue.getString;
 
@@ -77,7 +87,10 @@ public class BillSV implements CRUD<Bill> {
         SerializationUtil.serialize(billList, "D:\\code gym\\Tour_Guide_Management\\main\\src\\data\\Bill.txt");
         System.out.println("Tạo đơn thành công!");
     }
+<<<<<<< HEAD
 
+=======
+>>>>>>> 3d342bd0a88d133efd8d0e6542c7e6569d377a76
 
     @Override
     public void update(int id) {
@@ -91,6 +104,11 @@ public class BillSV implements CRUD<Bill> {
 
     @Override
     public void display() {
+
+    }
+
+    public static void main(String[] args) {
+        InitBill.initBill();;
 
     }
 }

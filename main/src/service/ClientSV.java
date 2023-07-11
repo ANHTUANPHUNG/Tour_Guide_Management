@@ -1,24 +1,16 @@
 package service;
 
-import Models.Admin;
 import Models.Client;
-import Models.Guide;
 import Repository.CRUD;
 import eNum.EGender;
 import utils.AppConstant;
 import utils.AppUltis;
 import utils.SerializationUtil;
-import utils.getValue;
 
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Scanner;
 
 import static service.MainSv.getUniqueUserName;
-
-import static utils.AppUltis.getStringWithPattern;
-import static utils.getValue.*;
+import static utils.AppUltis.*;
 
 public class ClientSV implements CRUD<Client> {
     public static List<Client> clientList = (List<Client>) SerializationUtil.deserialize("D:\\code gym\\Tour_Guide_Management\\main\\src\\data\\Client.txt");
@@ -59,7 +51,7 @@ public class ClientSV implements CRUD<Client> {
         String address = getString("Nhập địa chỉ");
         //phone => 012345
         String phone = getStringWithPattern("Nhập số điện thoại", AppConstant.REGEX_PHONE);
-        EGender gender = EGender.getGenderFromInt(getInt("Nhập giới tính"));
+        EGender gender = EGender.getGenderFromInt(AppUltis.getIntWithBound("Enter your choice(Nhập giới tính):", 1, 3));
         Client newClient = new Client(id, userName, password, name, dob, address, phone, gender);
         ///
         clientList.add(newClient);

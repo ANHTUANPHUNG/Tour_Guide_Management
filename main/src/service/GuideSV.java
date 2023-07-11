@@ -18,8 +18,8 @@ import java.util.stream.Collectors;
 import static service.ClientSV.clientList;
 
 import static utils.AppUltis.getInt;
+import static utils.AppUltis.getString;
 import static utils.AppUltis.getStringWithPattern;
-import static utils.getValue.getString;
 
 
 public class GuideSV implements CRUD<Guide> {
@@ -75,7 +75,7 @@ public class GuideSV implements CRUD<Guide> {
         String Name = getString("Nhập họ tên");
         String Age = getString("Nhập tuổi");
         String Address = getString("Nhập địa chỉ");
-        EGender Gender = EGender.getGenderFromInt(getInt("nhập giơi tính"));
+        EGender Gender = EGender.getGenderFromInt(AppUltis.getIntWithBound("Enter your choice(Nhập giới tính):", 1, 3));
         String Phone = getStringWithPattern("Nhập số điện thoại", AppConstant.REGEX_PHONE);
         List<String> Language = Collections.singletonList(getString("Nhập ngoại ngữa"));
         String Status = getString("Nhập trạng thái");

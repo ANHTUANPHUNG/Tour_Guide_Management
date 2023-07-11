@@ -1,23 +1,9 @@
 package View;
 
-import Models.Admin;
-import Models.Client;
-import Models.Guide;
-import service.AdminSV;
-import service.ClientSV;
-import service.GuideSV;
 import utils.AppUltis;
-import utils.getValue;
 
-import java.io.IOException;
-import java.util.List;
-
-import static View.AdminView.*;
-import static View.ClientView.menuClient;
-import static View.GuideView.menuTourGuide;
 import static service.LoginSv.login;
 import static service.RegisterSV.Register;
-import static utils.getValue.getString;
 
 public class TotalView {
 

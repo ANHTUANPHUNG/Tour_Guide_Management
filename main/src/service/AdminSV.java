@@ -15,7 +15,6 @@ import java.util.Objects;
 import java.util.stream.Collectors;
 
 import static utils.AppUltis.getInt;
-import static utils.getValue.getString;
 
 public class AdminSV implements CRUD<Guide> {
     public static List<Admin> adminList = (List<Admin>) SerializationUtil.deserialize("D:\\code gym\\Tour_Guide_Management\\main\\src\\data\\Admin.txt");
