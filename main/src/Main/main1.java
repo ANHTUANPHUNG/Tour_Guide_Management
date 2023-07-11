@@ -1,6 +1,7 @@
 package Main;
 
 import utils.InitAdmin;
+import utils.InitBill;
 import utils.InitClients;
 import utils.InitGuide;
 
@@ -13,7 +14,8 @@ public class main1 {
 //        Khi muốn fake dữ liệu CLient
         InitClients.initClients();
         InitAdmin.initAdmin();
-        InitGuide.intGuide();;
+        InitGuide.intGuide();
+        InitBill.initBill();
         menu();
 
     }

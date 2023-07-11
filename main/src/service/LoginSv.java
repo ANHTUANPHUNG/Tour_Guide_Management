@@ -12,7 +12,7 @@ import static View.GuideView.menuTourGuide;
 import static utils.getValue.getString;
 
 public class LoginSv {
-    public static void login() {
+    public static Object login() {
         String userName = getString("Nhập tài khoản");
         String passWord = getString("Nhập mật khẩu");
         AdminSV users = AdminSV.getInstance();
@@ -39,5 +39,6 @@ public class LoginSv {
                 break;
             }
         }
+        return userName;
     }
 }

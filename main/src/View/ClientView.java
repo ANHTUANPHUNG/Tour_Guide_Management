@@ -61,9 +61,7 @@ public class ClientView {
             listGuideMenu();
         }
         if(choice>0 && choice<nextIdGuide()-1){
-            GuideSV guideSV = new GuideSV();
-            Guide idGuide = guideSV.getById(choice);
-            String nameGuide =idGuide.getName();
+            BillSV.createa(choice);
 
         }
 
