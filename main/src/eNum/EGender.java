@@ -1,5 +1,7 @@
 package eNum;
 
+import Models.Bill;
+
 public enum EGender {
     male(1,"MALE"),
     female(2,"FEMALE"),
@@ -38,4 +40,5 @@ public enum EGender {
         }
         return null;
     }
+
 }

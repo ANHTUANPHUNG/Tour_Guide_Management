@@ -4,14 +4,14 @@ import java.io.IOException;
 
 public interface CRUD<T> {
 
-    T getById();
+    T getById(int id);
 
 
     void create() ;
 
-    void update() ;
+    void update(int id) ;
 
-    void delete() ;
+    void delete(int id) ;
 
     void display();
 }

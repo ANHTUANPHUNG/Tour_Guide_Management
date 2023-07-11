@@ -36,7 +36,7 @@ public class ClientSV implements CRUD<Client> {
     }
 
     @Override
-    public Client getById() {
+    public Client getById(int id) {
         return null;
     }
     public static int nextIdClient() {
@@ -60,7 +60,6 @@ public class ClientSV implements CRUD<Client> {
         //phone => 012345
         String phone = getStringWithPattern("Nhập số điện thoại", AppConstant.REGEX_PHONE);
         EGender gender = EGender.getGenderFromInt(getInt("Nhập giới tính"));
-
         Client newClient = new Client(id, userName, password, name, dob, address, phone, gender);
         ///
         clientList.add(newClient);
@@ -71,11 +70,11 @@ public class ClientSV implements CRUD<Client> {
 
 
     @Override
-    public void update()  {
+    public void update(int id)  {
     }
 
     @Override
-    public void delete(){
+    public void delete(int id){
     }
 
     @Override

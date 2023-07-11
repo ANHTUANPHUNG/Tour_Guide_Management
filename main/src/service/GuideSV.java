@@ -52,10 +52,10 @@ public class GuideSV implements CRUD<Guide> {
 
 
     @Override
-    public Guide getById() {
-        int choice =AppUltis.getIntWithBound("Enter your choice(Mời chọn ví trí nhân viên):", 1, nextIdGuide()-1);
+    public Guide getById(int id) {
+//        int choice =AppUltis.getIntWithBound("Enter your choice(Mời chọn ví trí nhân viên):", 1, nextIdGuide()-1);
         return guideList.stream()
-                .filter(guide -> guide.getIdGuide() == choice)
+                .filter(guide -> guide.getIdGuide() == id)
                 .findFirst()
                 .orElse(null);
     }
@@ -76,7 +76,7 @@ public class GuideSV implements CRUD<Guide> {
         String Age = getString("Nhập tuổi");
         String Address = getString("Nhập địa chỉ");
         EGender Gender = EGender.getGenderFromInt(getInt("nhập giơi tính"));
-        String Phone = getStringWithPattern("Nhập số điện thoại(Bắt đầu bằng số 0)", AppConstant.REGEX_PHONE);
+        String Phone = getStringWithPattern("Nhập số điện thoại", AppConstant.REGEX_PHONE);
         List<String> Language = Collections.singletonList(getString("Nhập ngoại ngữa"));
         String Status = getString("Nhập trạng thái");
         List<String> FeedBack = Collections.singletonList(getString("Nhập phản hồi"));
@@ -85,15 +85,15 @@ public class GuideSV implements CRUD<Guide> {
         long Price =Long.parseLong(getString("Nhập tiền"));
         Guide newGuide = new Guide(IdGuide, Name, Age, Address, Phone, Language, Gender, Status, FeedBack, Rate, Hashtag,Price);
         guideList.add(newGuide);
+        System.out.println("Thêm nhân viên thành công");
         SerializationUtil.serialize(guideList, "D:\\code gym\\Tour_Guide_Management\\main\\src\\data\\guide.txt");
     }
 
-    public void update(){
-        int choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn ví trí nhân viên):", 1, nextIdGuide()-1);
+    public void update(int id){
         for (Guide guide : guideList) {
-            if (guide.getIdGuide() == choice) {
-                EDescription description1 = EDescription.getDescriptionFromInt(getInt("Nhập vị trí bạn muốn thay đổi"));
-                switch (Objects.requireNonNull(description1).getId()) {
+            if (guide.getIdGuide() == id) {
+                int choice  = AppUltis.getIntWithBound("Enter your choice(Mời chọn ví trí bạn muốn sửa):", 1, 11);
+                switch (choice) {
                     case 1 -> {
                         String Name = getString("Nhập họ tên");
                         guide.setName(Name);
@@ -107,7 +107,7 @@ public class GuideSV implements CRUD<Guide> {
                         guide.setAddress(Address);
                     }
                     case 4 -> {
-                        EGender Gender = EGender.getGenderFromInt(getInt("nhập giơi tính"));
+                        EGender Gender = EGender.getGenderFromInt( AppUltis.getIntWithBound("Enter your choice(Mời chọn ví trí bạn muốn sửa):", 1, 3));
                         guide.seteGender(Gender);
                     }
                     case 5 -> {
@@ -144,8 +144,8 @@ public class GuideSV implements CRUD<Guide> {
     }
 
     @Override
-    public void delete(){
-        int id = getInt("Nhập vị trí nhân viên bạn muốn xóa bạn");
+    public void delete(int id){
+
         guideList = guideList.stream()
                 .filter(guide -> guide.getIdGuide() != id)
                 .collect(Collectors.toList());

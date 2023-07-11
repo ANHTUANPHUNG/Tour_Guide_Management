@@ -26,7 +26,7 @@ public class AppUltis {
         try {
             return Integer.parseInt(getString(str));
         } catch (Exception e) {
-            System.out.println("Input invalid");
+            System.out.println("Please input number(Mời nhập số)");
             return getInt(str);
         }
     }
@@ -38,7 +38,7 @@ public class AppUltis {
                 throw new NumberFormatException(String.format("Please input number between "+ begin+" and " +end+"(Vui lòng nhập số từ "+ begin +" đến " + end +")"));
             }
             return number;
-        } catch (Exception e) {
+        } catch (NumberFormatException e) {
             System.out.println(e.getMessage());
             return getIntWithBound(str, begin, end);
         }
@@ -79,7 +79,7 @@ public class AppUltis {
     public static String getStringWithPattern(String str, String pattern) {
         String result = getString(str);
         if (!Pattern.compile(pattern).matcher(result).matches()) {
-            System.out.println("Invalid String(Nhập không hợp lệ)");
+            System.out.println("Please input phone:03 or 05 or 07 or 08 or 09(Nhập không hợp lệ, bắt đầu bằng:03 hoặc 05 hoặc 07 hoặc 08 hoặc 09)");
             getStringWithPattern(str, pattern);
         }
         ;

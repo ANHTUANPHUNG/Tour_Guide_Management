@@ -1,10 +1,10 @@
 package eNum;
 
 public enum ERole {
-    admin(1,"ADMIN"),
-    guideTour(2,"GUIDETOUR"),
+    ADMIN(1,"ADMIN"),
+    GUIDETOUR(2,"GUIDETOUR"),
 
-    client(3,"CLIENT");
+    CLIENT(3,"CLIENT");
     private int id;
     private String name;
 

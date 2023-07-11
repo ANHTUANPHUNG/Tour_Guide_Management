@@ -9,6 +9,7 @@ import static View.TotalView.menu;
 import static service.BillSV.displayBill;
 import static service.GuideSV.displayGuide;
 
+import static service.GuideSV.nextIdGuide;
 import static utils.AppUltis.getYearMonthFromUser;
 
 public class AdminView {
@@ -40,10 +41,18 @@ public class AdminView {
         choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn chức năng):", 0, 3);
         switch (choice) {
             case 1 -> guideSV.create();
-            case 2 -> guideSV.delete();
-            case 3 -> guideSV.update();
+            case 2 -> {
+                choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn ví trí nhân viên):", 1, nextIdGuide() - 1);
+                guideSV.delete(choice);
+            }
+            case 3 -> {
+                choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn ví trí nhân viên):", 1, nextIdGuide() - 1);
+                guideSV.update(choice);
+
+            }
             case 0 -> menuAdmin();
         }
+        menuGuideAdmin();
     }
 
     public static void menuGuideTour() {
@@ -59,7 +68,7 @@ public class AdminView {
 //        System.out.println("0. Quay lại trang quản lí.");
 //        choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn chức năng):", 0, 0);
 //        if (choice == 0) {
-            menuAdmin();
+        menuAdmin();
 //        }
     }
 
@@ -72,6 +81,9 @@ public class AdminView {
                 break;
             case 2:
                 getYearMonthFromUser();
+                // tìm tất cả các bill mà thỏa điều kiện ngày 1 đến 30
+                // YearMonth.atDay(1)
+                // YearMonth.atDay(30)
             case 0:
                 menuAdmin();
         }

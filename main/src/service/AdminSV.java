@@ -33,7 +33,7 @@ public class AdminSV implements CRUD<Guide> {
 
 
     @Override
-    public Guide getById() {
+    public Guide getById(int id) {
         return null;
     }
 
@@ -43,12 +43,12 @@ public class AdminSV implements CRUD<Guide> {
     }
 
     @Override
-    public void update() {
+    public void update(int id) {
 
     }
 
     @Override
-    public void delete()  {
+    public void delete(int id)  {
 
     }
 
