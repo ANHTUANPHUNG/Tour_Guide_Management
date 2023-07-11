@@ -1,7 +1,6 @@
 package utils;
 
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 public class getValue {
     static Scanner input = new Scanner(System.in);

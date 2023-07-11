@@ -1,10 +1,8 @@
 package View;
 
 import utils.AppUltis;
-import utils.getValue;
 
 import static View.TotalView.menu;
-import static View.TotalView.menuTotal;
 
 public class GuideView {
     static int choice;

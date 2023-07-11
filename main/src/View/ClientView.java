@@ -1,15 +1,9 @@
 package View;
 
-import Models.Bill;
-import Models.Guide;
 import service.BillSV;
-import service.GuideSV;
 import utils.AppUltis;
-import utils.getValue;
 
 import static View.TotalView.menu;
-import static View.TotalView.menuTotal;
-import static service.BillSV.billList;
 import static service.GuideSV.*;
 
 public class ClientView {
@@ -61,10 +55,7 @@ public class ClientView {
             listGuideMenu();
         }
         if(choice>0 && choice<nextIdGuide()-1){
-            GuideSV guideSV = new GuideSV();
-            Guide idGuide = guideSV.getById(choice);
-            String nameGuide =idGuide.getName();
-
+            BillSV.createa(choice);
         }
 
     }

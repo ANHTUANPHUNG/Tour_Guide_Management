@@ -9,10 +9,10 @@ import java.util.List;
 import static View.AdminView.menuAdmin;
 import static View.ClientView.menuClient;
 import static View.GuideView.menuTourGuide;
-import static utils.getValue.getString;
+import static utils.AppUltis.getString;
 
 public class LoginSv {
-    public static void login() {
+    public static String login() {
         String userName = getString("Nhập tài khoản");
         String passWord = getString("Nhập mật khẩu");
         AdminSV users = AdminSV.getInstance();
@@ -39,5 +39,7 @@ public class LoginSv {
                 break;
             }
         }
+        return userName;
     }
+
 }

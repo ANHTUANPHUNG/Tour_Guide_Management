@@ -5,9 +5,18 @@ import Models.Client;
 import Models.Guide;
 import Repository.CRUD;
 import utils.AppUltis;
+import utils.InitBill;
+import utils.InitGuide;
 import utils.SerializationUtil;
 
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
+import java.util.Locale;
+
+import static service.ClientSV.clientList;
+import static utils.AppUltis.getString;
 
 public class BillSV implements CRUD<Bill> {
     public static List<Bill> billList = (List<Bill>) SerializationUtil.deserialize("D:\\code gym\\Tour_Guide_Management\\main\\src\\data\\Bill.txt");
@@ -44,8 +53,34 @@ public class BillSV implements CRUD<Bill> {
 
     @Override
     public void create() {
-        int IdBill = nextIdBill();
 
+    }
+    public static void createa(int id) {
+        GuideSV guideSV = new GuideSV();
+        Guide idGuide = guideSV.getById(id);
+        int IdBill = nextIdBill();
+        ClientSV clientSV = ClientSV.getInstance();
+        List<Client> clientSV1 = clientSV.getClientList();
+        String IdClient = null;
+        for (Client user : clientSV1) {
+            if (user.getUserName().equals(LoginSv.login())) {
+                IdClient = user.getName();
+            }
+        }
+        LocalDate InvoiceDate1 = LocalDate.now();
+        String IdGuide =idGuide.getName();
+        LocalDate StarDate = AppUltis.getDate();
+        LocalDate EndDate = AppUltis.getDate();
+        String Note = getString("Vui lòng nhập yêu cầu bạn muốn nhắn nhủ đến hướng dẫn viên");
+        String Status ="đẹp trai";
+        double Price = idGuide.getPrice();
+        long daysBetween = ChronoUnit.DAYS.between(StarDate, EndDate);
+        double Total = daysBetween * Price;
+        Bill newBill = new Bill(IdBill, IdClient, InvoiceDate1, IdGuide, StarDate, EndDate, Note, Status,Price,Total);
+        ///
+        billList.add(newBill);
+        SerializationUtil.serialize(billList, "D:\\code gym\\Tour_Guide_Management\\main\\src\\data\\Bill.txt");
+        System.out.println("Tạo đơn thành công!");
     }
 
     @Override
@@ -60,6 +95,11 @@ public class BillSV implements CRUD<Bill> {
 
     @Override
     public void display() {
+
+    }
+
+    public static void main(String[] args) {
+        InitBill.initBill();;
 
     }
 }
