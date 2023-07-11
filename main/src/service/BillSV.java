@@ -4,21 +4,16 @@ import Models.Bill;
 import Models.Client;
 import Models.Guide;
 import Repository.CRUD;
-import utils.AppUltis;
-import utils.InitBill;
-import utils.InitGuide;
-import utils.SerializationUtil;
+import utils.*;
 
 import java.time.LocalDate;
-<<<<<<< HEAD
-=======
-import java.time.Period;
->>>>>>> 3d342bd0a88d133efd8d0e6542c7e6569d377a76
+
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Locale;
 
 import static service.ClientSV.clientList;
+import static service.LoginSv.checkUserName1;
 import static utils.AppUltis.getString;
 
 import static utils.getValue.getString;
@@ -68,7 +63,7 @@ public class BillSV implements CRUD<Bill> {
         List<Client> clientSV1 = clientSV.getClientList();
         String IdClient = null;
         for (Client user : clientSV1) {
-            if (user.getUserName().equals(LoginSv.login())) {
+            if (user.getUserName().equals(checkUserName1())) {
                 IdClient = user.getName();
             }
         }
@@ -76,7 +71,7 @@ public class BillSV implements CRUD<Bill> {
         String IdGuide =idGuide.getName();
         LocalDate StarDate = AppUltis.getDate();
         LocalDate EndDate = AppUltis.getDate();
-        String Note = getString("Vui lòng nhập yêu cầu bạn muốn nhắn nhủ đến hướng dẫn viên");
+        String Note = getValue.getString("Vui lòng nhập yêu cầu bạn muốn nhắn nhủ đến hướng dẫn viên");
         String Status ="đẹp trai";
         double Price = idGuide.getPrice();
         long daysBetween = ChronoUnit.DAYS.between(StarDate, EndDate);
@@ -87,10 +82,7 @@ public class BillSV implements CRUD<Bill> {
         SerializationUtil.serialize(billList, "D:\\code gym\\Tour_Guide_Management\\main\\src\\data\\Bill.txt");
         System.out.println("Tạo đơn thành công!");
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> 3d342bd0a88d133efd8d0e6542c7e6569d377a76
 
     @Override
     public void update(int id) {

@@ -12,11 +12,8 @@ import static View.GuideView.menuTourGuide;
 import static utils.AppUltis.getString;
 
 public class LoginSv {
-<<<<<<< HEAD
-    public static Object login() {
-=======
+
     public static String login() {
->>>>>>> 3d342bd0a88d133efd8d0e6542c7e6569d377a76
         String userName = getString("Nhập tài khoản");
         String passWord = getString("Nhập mật khẩu");
         AdminSV users = AdminSV.getInstance();
@@ -43,7 +40,11 @@ public class LoginSv {
                 break;
             }
         }
-        return userName;
+        return null;
+    }
+    public static Object checkUserName1(){
+        String loggedInUserName = login();
+        return null;
     }
 
 }
