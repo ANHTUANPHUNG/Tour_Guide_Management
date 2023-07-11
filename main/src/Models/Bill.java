@@ -1,9 +1,10 @@
 package Models;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
 
-public class Bill {
+public class Bill implements Serializable {
     private int id;
     private String idClient;
     private Date invoiceDate;
@@ -13,11 +14,12 @@ public class Bill {
     private double price;
     private String note;
     private double total;
+    private String status;
 
     public Bill() {
     }
 
-    public Bill(int id, String idClient, Date invoiceDate, String idGuide, LocalDate starDate, LocalDate endDate, double price, String note, double total) {
+    public Bill(int id, String idClient, Date invoiceDate, String idGuide, LocalDate starDate, LocalDate endDate, double price, String note, double total, String status) {
         this.id = id;
         this.idClient = idClient;
         this.invoiceDate = invoiceDate;
@@ -27,6 +29,7 @@ public class Bill {
         this.price = price;
         this.note = note;
         this.total = total;
+        this.status = status;
     }
 
     public int getId() {
@@ -99,5 +102,13 @@ public class Bill {
 
     public void setTotal(double total) {
         this.total = total;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

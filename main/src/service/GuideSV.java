@@ -6,6 +6,7 @@ import Repository.CRUD;
 import eNum.EDescription;
 import eNum.EGender;
 import utils.AppConstant;
+import utils.AppUltis;
 import utils.SerializationUtil;
 
 import java.io.IOException;
@@ -39,21 +40,22 @@ public class GuideSV implements CRUD<Guide> {
 
     public static void displayGuide() {
         System.out.println("                                                              Thông tin hướng dẫn viên:");
-        System.out.println("===================================================================================================================================================================");
-        System.out.printf("|%-4s| %-15s| %-5s| %-10s| %-8s| %-10s| %-20s| %-10s| %-25s| %-10s| %-25s |\n", "ID", "Name", "Age", "Address", "Gender", "Phone", "Language", "Status", "FeedBack", "Rate", "Hashtag");
+        System.out.println("===========================================================================================================================================================================");
+        System.out.printf("|%-4s| %-15s| %-5s| %-10s| %-8s| %-10s| %-20s| %-10s| %-25s| %-5s| %-25s| %-10s|\n", "ID", "Name", "Age", "Address", "Gender", "Phone", "Language", "Status", "FeedBack", "Rate", "Hashtag","Price");
         for (Guide guide : guideList) {
-            System.out.printf("|%-4s| %-15s| %-5s| %-10s| %-8s| %-10s| %-20s| %-10s| %-25s| %-10s| %-25s |\n",
+            System.out.printf("|%-4s| %-15s| %-5s| %-10s| %-8s| %-10s| %-20s| %-10s| %-25s| %-5s| %-25s| %-10s|\n",
                     guide.getIdGuide(), guide.getName(), guide.getAge(), guide.getAddress(), guide.geteGender(),
-                    guide.getPhone(), guide.getSkill(), guide.getStatus(), guide.getFeedBack(), guide.getRate(), guide.getHastag());
+                    guide.getPhone(), guide.getSkill(), guide.getStatus(), guide.getFeedBack(), guide.getRate(), guide.getHastag(),guide.getPrice());
         }
-        System.out.println("====================================================================================================================================================================\n\n");
+        System.out.println("===========================================================================================================================================================================\n\n");
     }
 
 
     @Override
-    public Guide getById(int id) {
+    public Guide getById() {
+        int choice =AppUltis.getIntWithBound("Enter your choice(Mời chọn ví trí nhân viên):", 1, nextId()-1);
         return guideList.stream()
-                .filter(guide -> guide.getIdGuide() == id)
+                .filter(guide -> guide.getIdGuide() == choice)
                 .findFirst()
                 .orElse(null);
     }
@@ -80,15 +82,16 @@ public class GuideSV implements CRUD<Guide> {
         List<String> FeedBack = Collections.singletonList(getString("Nhập phản hồi"));
         double Rate = Double.parseDouble(getString("Nhập sao"));
         List<String> Hashtag = Collections.singletonList(getString("Nhập Hashtag"));
-        Guide newGuide = new Guide(IdGuide, Name, Age, Address, Phone, Language, Gender, Status, FeedBack, Rate, Hashtag);
+        long Price =Long.parseLong(getString("Nhập tiền"));
+        Guide newGuide = new Guide(IdGuide, Name, Age, Address, Phone, Language, Gender, Status, FeedBack, Rate, Hashtag,Price);
         guideList.add(newGuide);
         SerializationUtil.serialize(guideList, "D:\\code gym\\Tour_Guide_Management\\main\\src\\data\\guide.txt");
     }
 
     public void update(){
-        int id = getInt("Nhập vị trí nhân viên bạn muốn thay đổi bạn");
+        int choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn ví trí nhân viên):", 1, nextId()-1);
         for (Guide guide : guideList) {
-            if (guide.getIdGuide() == id) {
+            if (guide.getIdGuide() == choice) {
                 EDescription description1 = EDescription.getDescriptionFromInt(getInt("Nhập vị trí bạn muốn thay đổi"));
                 switch (Objects.requireNonNull(description1).getId()) {
                     case 1 -> {
@@ -131,6 +134,10 @@ public class GuideSV implements CRUD<Guide> {
                         List<String> Hashtag = Collections.singletonList(getString("Nhập Hashtag"));
                         guide.setHastag(Hashtag);
                     }
+                    case 11 -> {
+                        long Price =Long.parseLong(getString("Nhập tiền"));
+                        guide.setPrice(Price);
+                    }
                 }
             }
         }
@@ -150,4 +157,6 @@ public class GuideSV implements CRUD<Guide> {
     public void display() {
 
     }
+
+
 }

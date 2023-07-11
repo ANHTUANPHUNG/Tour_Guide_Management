@@ -36,7 +36,7 @@ public class ClientSV implements CRUD<Client> {
     }
 
     @Override
-    public Client getById(int id) {
+    public Client getById() {
         return null;
     }
     public static int nextId() {

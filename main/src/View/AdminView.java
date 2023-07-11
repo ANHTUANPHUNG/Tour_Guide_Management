@@ -7,7 +7,8 @@ import java.time.LocalDate;
 
 import static View.TotalView.menu;
 import static service.GuideSV.displayGuide;
-import static utils.AppUltis.calculateMonthlySum;
+
+import static utils.AppUltis.getYearMonthFromUser;
 
 public class AdminView {
     static int choice;
@@ -70,14 +71,7 @@ public class AdminView {
                 AppUltis.getDate();
                 break;
             case 2:
-                LocalDate currentDate = LocalDate.now();
-                int month = currentDate.getMonthValue();
-                int year = currentDate.getYear();
-
-                // Gọi hàm tính tổng hàng 1 trong tháng và in ra kết quả
-                int sum = calculateMonthlySum(month, year, 1);
-                System.out.println("Tổng hàng 1 trong tháng " + month + " năm " + year + ": " + sum);
-
+                getYearMonthFromUser();
             case 0:
                 menuAdmin();
         }

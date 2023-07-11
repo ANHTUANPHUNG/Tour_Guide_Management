@@ -23,12 +23,14 @@ public class Guide implements Serializable {
     private List<String> feedBack;
     private double rate;
     private List<String> hastag;
+    private long price;
 
 
     public Guide() {
     }
 
-    public Guide(int idGuide,String userName, String passWord, String name, String age, String address, String phone, List<String> skill, EGender eGender, String status, List<String> feedBack, double rate, List<String> hastag) {
+
+    public Guide(int idGuide, String userName, String passWord, String name, String age, String address, String phone, List<String> skill, EGender eGender, String status, List<String> feedBack, double rate, List<String> hastag, long price) {
         this.idGuide = idGuide;
         this.userName = userName;
         this.passWord = passWord;
@@ -42,9 +44,10 @@ public class Guide implements Serializable {
         this.feedBack = feedBack;
         this.rate = rate;
         this.hastag = hastag;
+        this.price = price;
     }
 
-    public Guide(int idGuide, String name, String age, String address, String phone, List<String> skill, EGender eGender, String status, List<String> feedBack, double rate, List<String> hastag) {
+    public Guide(int idGuide, String name, String age, String address, String phone, List<String> skill, EGender eGender, String status, List<String> feedBack, double rate, List<String> hastag, long price) {
         this.idGuide = idGuide;
         this.name = name;
         this.age = age;
@@ -56,7 +59,9 @@ public class Guide implements Serializable {
         this.feedBack = feedBack;
         this.rate = rate;
         this.hastag = hastag;
+        this.price = price;
     }
+
 
     public Guide(String userName, String passWord) {
         this.userName = userName;
@@ -180,6 +185,14 @@ public class Guide implements Serializable {
 
     private void save() {
         SerializationUtil.serialize(guideList, "D:\\code gym\\Tour_Guide_Management\\main\\src\\data\\guide.txt");
+    }
+
+    public long getPrice() {
+        return price;
+    }
+
+    public void setPrice(long price) {
+        this.price = price;
     }
 
     @Override

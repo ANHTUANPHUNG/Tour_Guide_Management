@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public interface CRUD<T> {
 
-    T getById(int id);
+    T getById();
 
 
     void create() ;

@@ -15,6 +15,8 @@ import java.util.List;
 import static View.AdminView.*;
 import static View.ClientView.menuClient;
 import static View.GuideView.menuTourGuide;
+import static service.LoginSv.login;
+import static service.RegisterSV.Register;
 import static utils.getValue.getString;
 
 public class TotalView {
@@ -43,39 +45,8 @@ public class TotalView {
         System.out.println("\t2. Đăng kí");
         System.out.println("\t0. Thoát chương trình");
     }
-
     //    trang đăng kí
-    public static void login() {
-        String userName = getString("Nhập tài khoản");
-        String passWord = getString("Nhập mật khẩu");
-        AdminSV users = AdminSV.getInstance();
-        List<Admin> list1 = users.getUserList();
-        for (Admin user : list1) {
-            if (user.getUserName().equals(userName) && user.getPassWord().equals(passWord)) {
-                menuAdmin();
-                break;
-            }
-        }
-        GuideSV guideSV = GuideSV.getInstance();
-        List<Guide> guides = guideSV.getGuideList();
-        for (Guide user : guides) {
-            if (user.getUserName().equals(userName) && user.getPassWord().equals(passWord)) {
-                menuTourGuide();
-                break;
-            }
-        }
-        ClientSV clientSV = ClientSV.getInstance();
-        List<Client> clientSV1 = clientSV.getClientList();
-        for (Client user : clientSV1) {
-            if (user.getUserName().equals(userName) && user.getPassword().equals(passWord)) {
-                menuClient();
-                break;
-            }
-        }
-    }
 
-    public static void Register() {
-        ClientSV clientSV = ClientSV.getInstance();
-        clientSV.create();
-    }
+
+
 }

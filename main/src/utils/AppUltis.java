@@ -2,7 +2,10 @@ package utils;
 
 import java.sql.Time;
 import java.time.LocalDate;
+import java.time.Month;
 import java.time.MonthDay;
+import java.time.YearMonth;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.Scanner;
 import java.util.regex.Pattern;
@@ -51,25 +54,11 @@ public class AppUltis {
             return getDate();
         }
     }
-    public static LocalDate getMonth(){
-        System.out.println("Vui lòng nhập ngày với định dạng --MM-DD: ");
-        String input = sc.nextLine();
-        try {
-            return LocalDate.parse(input);
-        } catch (Exception e) {
-            System.out.println("Định dạng tháng không hợp lệ. Vui lòng thử lại.");
-            return getMonth();
-        }
+    public static YearMonth getYearMonthFromUser() {
+        int month =AppUltis.getIntWithBound("Enter the month(Mời chọn tháng):", 1, 12);
+        int year= AppUltis.getIntWithBound("Enter the year(Mời chọn năm):", 2010, 2023);
+        return YearMonth.of(year, month);
     }
-    public static int calculateMonthlySum(int month, int year, int row) {
-        getDate();
-        int sum = 0;
-        for (int i = 1; i <= 31; i++) {
-            sum += i;
-        }
-        return sum;
-    }
-
 
     public static Time getTime(String str) {
         try {
@@ -90,7 +79,7 @@ public class AppUltis {
     public static String getStringWithPattern(String str, String pattern) {
         String result = getString(str);
         if (!Pattern.compile(pattern).matcher(result).matches()) {
-            System.out.println("Invalid String(Số không hợp lệ)");
+            System.out.println("Invalid String(Nhập không hợp lệ)");
             getStringWithPattern(str, pattern);
         }
         ;
@@ -102,7 +91,6 @@ public class AppUltis {
 
     public static void main(String[] args) {
         Time date = getTime("Lua chon Date");
-        //118800000
         System.out.println(date.getTime());
     }
 }
