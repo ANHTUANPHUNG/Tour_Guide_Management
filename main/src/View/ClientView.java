@@ -1,5 +1,6 @@
 package View;
 
+import Models.Bill;
 import Models.Guide;
 import service.BillSV;
 import service.GuideSV;
@@ -61,8 +62,9 @@ public class ClientView {
         }
         if(choice>0 && choice<nextIdGuide()-1){
             GuideSV guideSV = new GuideSV();
-            Guide g = guideSV.getById(choice);
-            g.getName();
+            Guide idGuide = guideSV.getById(choice);
+            String nameGuide =idGuide.getName();
+
         }
 
     }
