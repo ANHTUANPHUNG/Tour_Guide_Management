@@ -39,7 +39,7 @@ public class ClientSV implements CRUD<Client> {
     public Client getById() {
         return null;
     }
-    public static int nextId() {
+    public static int nextIdClient() {
         int maxId = 0;
         for (Client client : clientList) {
             if (client.getId() > maxId) {
@@ -51,7 +51,7 @@ public class ClientSV implements CRUD<Client> {
 
     @Override
     public void create()  {
-        int id = nextId();
+        int id = nextIdClient();
         String userName = getUniqueUserName();
         String password = getString("Nhập mật khẩu");
         String name = getString("Nhập họ tên");

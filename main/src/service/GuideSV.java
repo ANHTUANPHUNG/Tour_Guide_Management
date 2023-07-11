@@ -53,13 +53,13 @@ public class GuideSV implements CRUD<Guide> {
 
     @Override
     public Guide getById() {
-        int choice =AppUltis.getIntWithBound("Enter your choice(Mời chọn ví trí nhân viên):", 1, nextId()-1);
+        int choice =AppUltis.getIntWithBound("Enter your choice(Mời chọn ví trí nhân viên):", 1, nextIdGuide()-1);
         return guideList.stream()
                 .filter(guide -> guide.getIdGuide() == choice)
                 .findFirst()
                 .orElse(null);
     }
-    public static int nextId() {
+    public static int nextIdGuide() {
         int maxId = 0;
         for (Guide guide : guideList) {
             if (guide.getIdGuide() > maxId) {
@@ -71,7 +71,7 @@ public class GuideSV implements CRUD<Guide> {
 
     @Override
     public void create() {
-        int IdGuide = nextId();
+        int IdGuide = nextIdGuide();
         String Name = getString("Nhập họ tên");
         String Age = getString("Nhập tuổi");
         String Address = getString("Nhập địa chỉ");
@@ -89,7 +89,7 @@ public class GuideSV implements CRUD<Guide> {
     }
 
     public void update(){
-        int choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn ví trí nhân viên):", 1, nextId()-1);
+        int choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn ví trí nhân viên):", 1, nextIdGuide()-1);
         for (Guide guide : guideList) {
             if (guide.getIdGuide() == choice) {
                 EDescription description1 = EDescription.getDescriptionFromInt(getInt("Nhập vị trí bạn muốn thay đổi"));

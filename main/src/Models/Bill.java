@@ -5,9 +5,9 @@ import java.time.LocalDate;
 import java.util.Date;
 
 public class Bill implements Serializable {
-    private int id;
+    private int idBill;
     private String idClient;
-    private Date invoiceDate;
+    private LocalDate invoiceDate;
     private String idGuide;
     private LocalDate starDate;
     private LocalDate  endDate;
@@ -19,8 +19,8 @@ public class Bill implements Serializable {
     public Bill() {
     }
 
-    public Bill(int id, String idClient, Date invoiceDate, String idGuide, LocalDate starDate, LocalDate endDate, double price, String note, double total, String status) {
-        this.id = id;
+    public Bill(int idBill, String idClient, LocalDate invoiceDate, String idGuide, LocalDate starDate, LocalDate endDate, String note, String status, double price, double total) {
+        this.idBill = idBill;
         this.idClient = idClient;
         this.invoiceDate = invoiceDate;
         this.idGuide = idGuide;
@@ -32,12 +32,12 @@ public class Bill implements Serializable {
         this.status = status;
     }
 
-    public int getId() {
-        return id;
+    public int getIdBill() {
+        return idBill;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setIdBill(int id) {
+        this.idBill = id;
     }
 
     public String getIdClient() {
@@ -48,11 +48,11 @@ public class Bill implements Serializable {
         this.idClient = idClient;
     }
 
-    public Date getInvoiceDate() {
+    public LocalDate getInvoiceDate() {
         return invoiceDate;
     }
 
-    public void setInvoiceDate(Date invoiceDate) {
+    public void setInvoiceDate(LocalDate invoiceDate) {
         this.invoiceDate = invoiceDate;
     }
 

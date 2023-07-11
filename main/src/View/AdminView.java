@@ -6,6 +6,7 @@ import utils.AppUltis;
 import java.time.LocalDate;
 
 import static View.TotalView.menu;
+import static service.BillSV.displayBill;
 import static service.GuideSV.displayGuide;
 
 import static utils.AppUltis.getYearMonthFromUser;
@@ -27,7 +28,7 @@ public class AdminView {
     public static void menuAdminView() {
         System.out.println("Trang quản lí");
         System.out.println("1. Quản lí hướng dẫn viên.");
-        System.out.println("2. Quản lí đơn hàng đang chờ duyệt.");
+        System.out.println("2. Quản lí đơn hàng đang .");
         System.out.println("3. Quản lí doanh thu.");
         System.out.println("0. Quay lại trang chủ.");
     }
@@ -54,13 +55,12 @@ public class AdminView {
     }
 
     public static void pendingOrder() {
-//         đang thiếu list đơn đang chờ
-        System.out.println("Trang quản lí đơn hàng đang chờ duyệt");
-        System.out.println("0. Quay lại trang quản lí.");
-        choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn chức năng):", 0, 0);
-        if (choice == 0) {
+        displayBill();
+//        System.out.println("0. Quay lại trang quản lí.");
+//        choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn chức năng):", 0, 0);
+//        if (choice == 0) {
             menuAdmin();
-        }
+//        }
     }
 
     public static void monthlyRevenue() {
@@ -87,7 +87,7 @@ public class AdminView {
     }
 
     public static void main(String[] args) {
-        monthlyRevenue();
+        menuAdmin();
     }
 }
 
