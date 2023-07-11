@@ -87,10 +87,7 @@ public class BillSV implements CRUD<Bill> {
         SerializationUtil.serialize(billList, "D:\\code gym\\Tour_Guide_Management\\main\\src\\data\\Bill.txt");
         System.out.println("Tạo đơn thành công!");
     }
-<<<<<<< HEAD
 
-=======
->>>>>>> 3d342bd0a88d133efd8d0e6542c7e6569d377a76
 
     @Override
     public void update(int id) {

@@ -56,10 +56,7 @@ public class ClientView {
         }
         if(choice>0 && choice<nextIdGuide()-1){
             BillSV.createa(choice);
-<<<<<<< HEAD
 
-=======
->>>>>>> 3d342bd0a88d133efd8d0e6542c7e6569d377a76
         }
 
     }
