@@ -12,7 +12,11 @@ import static View.GuideView.menuTourGuide;
 import static utils.AppUltis.getString;
 
 public class LoginSv {
-    private static StringBuilder result = new StringBuilder();
+    private static StringBuilder result;
+
+    static {
+        result = new StringBuilder();
+    }
 
     public static StringBuilder login() {
         String userName = getString("Nhập tài khoản");
@@ -21,6 +25,7 @@ public class LoginSv {
         List<Admin> list1 = users.getUserList();
         for (Admin user : list1) {
             if (user.getUserName().equals(userName) && user.getPassWord().equals(passWord)) {
+                result.append(userName);
                 menuAdmin();
                 break;
             }
@@ -29,6 +34,7 @@ public class LoginSv {
         List<Guide> guides = guideSV.getGuideList();
         for (Guide user : guides) {
             if (user.getUserName().equals(userName) && user.getPassWord().equals(passWord)) {
+                result.append(userName);
                 menuTourGuide();
                 break;
             }
@@ -37,12 +43,13 @@ public class LoginSv {
         List<Client> clientSV1 = clientSV.getClientList();
         for (Client user : clientSV1) {
             if (user.getUserName().equals(userName) && user.getPassword().equals(passWord)) {
+                result.append(userName);
                 menuClient();
                 break;
             }
         }
 
-        result.append(userName);
+
         return result;
     }
     public static String checkUserName1(){

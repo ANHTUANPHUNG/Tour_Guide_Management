@@ -1,6 +1,7 @@
 package Models;
 
 import eNum.EGender;
+import eNum.EStatusGuide;
 import utils.SerializationUtil;
 
 import java.io.Serializable;
@@ -19,18 +20,17 @@ public class Guide implements Serializable {
     private String phone;
     private List<String> skill;
     private EGender eGender;
-    private String status;
+    private EStatusGuide eStatusGuide;
     private List<String> feedBack;
     private double rate;
     private List<String> hastag;
-    private long price;
+    private double price;
 
 
     public Guide() {
     }
 
-
-    public Guide(int idGuide, String userName, String passWord, String name, String age, String address, String phone, List<String> skill, EGender eGender, String status, List<String> feedBack, double rate, List<String> hastag, long price) {
+    public Guide(int idGuide, String userName, String passWord, String name, String age, String address, String phone, List<String> skill, EGender eGender, EStatusGuide eStatusGuide, List<String> feedBack, double rate, List<String> hastag, double price) {
         this.idGuide = idGuide;
         this.userName = userName;
         this.passWord = passWord;
@@ -40,14 +40,14 @@ public class Guide implements Serializable {
         this.phone = phone;
         this.skill = skill;
         this.eGender = eGender;
-        this.status = status;
+        this.eStatusGuide = eStatusGuide;
         this.feedBack = feedBack;
         this.rate = rate;
         this.hastag = hastag;
         this.price = price;
     }
 
-    public Guide(int idGuide, String name, String age, String address, String phone, List<String> skill, EGender eGender, String status, List<String> feedBack, double rate, List<String> hastag, long price) {
+    public Guide(int idGuide, String name, String age, String address, String phone, List<String> skill, EGender eGender, EStatusGuide eStatusGuide, List<String> feedBack, double rate, List<String> hastag, double price) {
         this.idGuide = idGuide;
         this.name = name;
         this.age = age;
@@ -55,13 +55,12 @@ public class Guide implements Serializable {
         this.phone = phone;
         this.skill = skill;
         this.eGender = eGender;
-        this.status = status;
+        this.eStatusGuide = eStatusGuide;
         this.feedBack = feedBack;
         this.rate = rate;
         this.hastag = hastag;
         this.price = price;
     }
-
 
     public Guide(String userName, String passWord) {
         this.userName = userName;
@@ -74,7 +73,7 @@ public class Guide implements Serializable {
 
     public void setIdGuide(int idGuide) {
         this.idGuide = idGuide;
-        save();
+        saveGuide();
     }
 
     public String getUserName() {
@@ -83,6 +82,7 @@ public class Guide implements Serializable {
 
     public void setUserName(String userName) {
         this.userName = userName;
+        saveGuide();
     }
 
     public String getPassWord() {
@@ -91,6 +91,7 @@ public class Guide implements Serializable {
 
     public void setPassWord(String passWord) {
         this.passWord = passWord;
+        saveGuide();
     }
 
     public String getName() {
@@ -99,7 +100,7 @@ public class Guide implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-        save();
+        saveGuide();
     }
 
     public String getAge() {
@@ -108,7 +109,7 @@ public class Guide implements Serializable {
 
     public void setAge(String age) {
         this.age = age;
-        save();
+        saveGuide();
     }
 
     public String getAddress() {
@@ -117,7 +118,7 @@ public class Guide implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
-        save();
+        saveGuide();
     }
 
     public String getPhone() {
@@ -126,7 +127,7 @@ public class Guide implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
-        save();
+        saveGuide();
     }
 
     public List<String> getSkill() {
@@ -135,7 +136,7 @@ public class Guide implements Serializable {
 
     public void setSkill(List<String> skill) {
         this.skill = skill;
-        save();
+        saveGuide();
     }
 
     public EGender geteGender() {
@@ -144,16 +145,16 @@ public class Guide implements Serializable {
 
     public void seteGender(EGender eGender) {
         this.eGender = eGender;
-        save();
+        saveGuide();
     }
 
-    public String getStatus() {
-        return status;
+    public EStatusGuide geteStatusGuide() {
+        return eStatusGuide;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
-        save();
+    public void seteStatusGuide(EStatusGuide eStatusGuide) {
+        this.eStatusGuide = eStatusGuide;
+        saveGuide();
     }
 
     public List<String> getFeedBack() {
@@ -162,7 +163,7 @@ public class Guide implements Serializable {
 
     public void setFeedBack(List<String> feedBack) {
         this.feedBack = feedBack;
-        save();
+        saveGuide();
     }
 
     public double getRate() {
@@ -171,7 +172,7 @@ public class Guide implements Serializable {
 
     public void setRate(double rate) {
         this.rate = rate;
-        save();
+        saveGuide();
     }
 
     public List<String> getHastag() {
@@ -180,35 +181,20 @@ public class Guide implements Serializable {
 
     public void setHastag(List<String> hastag) {
         this.hastag = hastag;
-        save();
+        saveGuide();
     }
 
-    private void save() {
-        SerializationUtil.serialize(guideList, "D:\\code gym\\Tour_Guide_Management\\main\\src\\data\\guide.txt");
-    }
-
-    public long getPrice() {
+    public double getPrice() {
         return price;
+
     }
 
-    public void setPrice(long price) {
+    public void setPrice(double price) {
         this.price = price;
+        saveGuide();
     }
 
-    @Override
-    public String toString() {
-        return "Guide{" +
-                "idGuide=" + idGuide +
-                ", name='" + name + '\'' +
-                ", age='" + age + '\'' +
-                ", address='" + address + '\'' +
-                ", phone=" + phone +
-                ", skill=" + skill +
-                ", eGender=" + eGender +
-                ", status='" + status + '\'' +
-                ", feedBack=" + feedBack +
-                ", rate=" + rate +
-                ", hastag=" + hastag +
-                '}';
+    private void saveGuide() {
+        SerializationUtil.serialize(guideList, "D:\\code gym\\Tour_Guide_Management\\main\\src\\data\\guide.txt");
     }
 }

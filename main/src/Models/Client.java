@@ -1,12 +1,15 @@
 package Models;
 
 
-
 import eNum.EGender;
 import eNum.ELevel;
+import utils.SerializationUtil;
 
 import java.io.Serializable;
 import java.util.Date;
+
+import static service.ClientSV.clientList;
+import static service.FeedBackSV.feedBackList;
 
 public class Client implements Serializable {
     private int id;
@@ -44,6 +47,7 @@ public class Client implements Serializable {
 
     public void setId(int id) {
         this.id = id;
+        saveClient();
     }
 
     public String getUserName() {
@@ -52,6 +56,7 @@ public class Client implements Serializable {
 
     public void setUserName(String userName) {
         this.userName = userName;
+        saveClient();
     }
 
     public String getPassword() {
@@ -60,6 +65,7 @@ public class Client implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+        saveClient();
     }
 
     public String getName() {
@@ -68,6 +74,7 @@ public class Client implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+        saveClient();
     }
 
     public String getDob() {
@@ -76,6 +83,7 @@ public class Client implements Serializable {
 
     public void setDob(String dob) {
         this.dob = dob;
+        saveClient();
     }
 
     public String getAddress() {
@@ -84,6 +92,7 @@ public class Client implements Serializable {
 
     public void setAddress(String address) {
         this.address = address;
+        saveClient();
     }
 
     public String getPhone() {
@@ -92,6 +101,7 @@ public class Client implements Serializable {
 
     public void setPhone(String phone) {
         this.phone = phone;
+        saveClient();
     }
 
     public EGender getGender() {
@@ -100,6 +110,11 @@ public class Client implements Serializable {
 
     public void setGender(EGender gender) {
         this.gender = gender;
+        saveClient();
+    }
+
+    private void saveClient() {
+        SerializationUtil.serialize(clientList, "D:\\code gym\\Tour_Guide_Management\\main\\src\\data\\Client.txt");
     }
 
 }

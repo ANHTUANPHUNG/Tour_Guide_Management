@@ -1,5 +1,8 @@
 package View;
 
+import Models.FeedBack;
+import Models.Guide;
+import service.FeedBackSV;
 import service.GuideSV;
 import utils.AppUltis;
 
@@ -7,6 +10,8 @@ import java.time.LocalDate;
 
 import static View.TotalView.menu;
 import static service.BillSV.displayBill;
+import static service.FeedBackSV.createFeedBackSV;
+import static service.FeedBackSV.displayFeedBack;
 import static service.GuideSV.displayGuide;
 
 import static service.GuideSV.nextIdGuide;
@@ -38,7 +43,7 @@ public class AdminView {
         GuideSV guideSV = GuideSV.getInstance();
         displayGuide();
         menuGuideTour();
-        choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn chức năng):", 0, 3);
+        choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn chức năng):", 0, 4);
         switch (choice) {
             case 1 -> guideSV.create();
             case 2 -> {
@@ -50,6 +55,14 @@ public class AdminView {
                 guideSV.update(choice);
 
             }
+            case 4 -> {
+                displayFeedBack();
+                System.out.println("0. Quay lại.");
+                choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn chức năng):", 0, 0);
+                if (choice == 0) {
+                    menuGuideAdmin();
+                }
+            }
             case 0 -> menuAdmin();
         }
         menuGuideAdmin();
@@ -60,17 +73,15 @@ public class AdminView {
         System.out.println("1. Thêm hướng dẫn viên.");
         System.out.println("2. Xóa hướng dẫn viên.");
         System.out.println("3. Thay đổi thông tin hướng dẫn viên.");
+        System.out.println("4. Xem đánh giá khách hàng.");
         System.out.println("0. Quay lại trang quản lí.");
     }
 
     public static void pendingOrder() {
         displayBill();
-//        System.out.println("0. Quay lại trang quản lí.");
-//        choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn chức năng):", 0, 0);
-//        if (choice == 0) {
         menuAdmin();
-//        }
     }
+
 
     public static void monthlyRevenue() {
         monthlyRevenueGuide();

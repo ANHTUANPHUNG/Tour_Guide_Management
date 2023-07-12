@@ -1,35 +1,41 @@
 package Models;
 
+import eNum.EStatusBill;
+import utils.SerializationUtil;
+
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.Date;
 
+import static service.BillSV.billList;
+import static service.ClientSV.clientList;
+
 public class Bill implements Serializable {
     private int idBill;
-    private String idClient;
+    private String NameClient;
     private LocalDate invoiceDate;
-    private String idGuide;
+    private String NameGuide;
     private LocalDate starDate;
-    private LocalDate  endDate;
+    private LocalDate endDate;
     private double price;
     private String note;
     private double total;
-    private String status;
+    private EStatusBill eStatusBill;
 
     public Bill() {
     }
 
-    public Bill(int idBill, String idClient, LocalDate invoiceDate, String idGuide, LocalDate starDate, LocalDate endDate, String note, String status, double price, double total) {
+    public Bill(int idBill, String NameClient, LocalDate invoiceDate, String NameGuide, LocalDate starDate, LocalDate endDate, String note, EStatusBill eStatusBill, double price, double total) {
         this.idBill = idBill;
-        this.idClient = idClient;
+        this.NameClient = NameClient;
         this.invoiceDate = invoiceDate;
-        this.idGuide = idGuide;
+        this.NameGuide = NameGuide;
         this.starDate = starDate;
         this.endDate = endDate;
         this.price = price;
         this.note = note;
         this.total = total;
-        this.status = status;
+        this.eStatusBill = eStatusBill;
     }
 
     public int getIdBill() {
@@ -38,14 +44,16 @@ public class Bill implements Serializable {
 
     public void setIdBill(int id) {
         this.idBill = id;
+        saveBill();
     }
 
-    public String getIdClient() {
-        return idClient;
+    public String getNameClient() {
+        return NameClient;
     }
 
-    public void setIdClient(String idClient) {
-        this.idClient = idClient;
+    public void setNameClient(String NameClient) {
+        this.NameClient = NameClient;
+        saveBill();
     }
 
     public LocalDate getInvoiceDate() {
@@ -54,14 +62,16 @@ public class Bill implements Serializable {
 
     public void setInvoiceDate(LocalDate invoiceDate) {
         this.invoiceDate = invoiceDate;
+        saveBill();
     }
 
-    public String getIdGuide() {
-        return idGuide;
+    public String getNameGuide() {
+        return NameGuide;
     }
 
-    public void setIdGuide(String idGuide) {
-        this.idGuide = idGuide;
+    public void setNameGuide(String NameGuide) {
+        this.NameGuide = NameGuide;
+        saveBill();
     }
 
     public LocalDate getStarDate() {
@@ -70,6 +80,7 @@ public class Bill implements Serializable {
 
     public void setStarDate(LocalDate starDate) {
         this.starDate = starDate;
+        saveBill();
     }
 
     public LocalDate getEndDate() {
@@ -78,6 +89,7 @@ public class Bill implements Serializable {
 
     public void setEndDate(LocalDate endDate) {
         this.endDate = endDate;
+        saveBill();
     }
 
     public double getPrice() {
@@ -86,6 +98,7 @@ public class Bill implements Serializable {
 
     public void setPrice(double price) {
         this.price = price;
+        saveBill();
     }
 
     public String getNote() {
@@ -94,6 +107,7 @@ public class Bill implements Serializable {
 
     public void setNote(String note) {
         this.note = note;
+        saveBill();
     }
 
     public double getTotal() {
@@ -102,13 +116,19 @@ public class Bill implements Serializable {
 
     public void setTotal(double total) {
         this.total = total;
+        saveBill();
     }
 
-    public String getStatus() {
-        return status;
+    public EStatusBill getStatus() {
+        return eStatusBill;
     }
 
-    public void setStatus(String status) {
-        this.status = status;
+    public void setStatus(EStatusBill eStatusBill) {
+        this.eStatusBill = eStatusBill;
+        saveBill();
+    }
+
+    private void saveBill() {
+        SerializationUtil.serialize(billList, "D:\\code gym\\Tour_Guide_Management\\main\\src\\data\\Bill.txt");
     }
 }

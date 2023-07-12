@@ -5,6 +5,7 @@ import Models.Guide;
 import Repository.CRUD;
 import eNum.EDescription;
 import eNum.EGender;
+import eNum.EStatusGuide;
 import utils.AppConstant;
 import utils.AppUltis;
 import utils.SerializationUtil;
@@ -17,6 +18,8 @@ import java.util.stream.Collectors;
 
 import static service.ClientSV.clientList;
 
+import static service.FeedBackSV.totalRate;
+import static utils.AppUltis.CurrencyFormat.covertPriceToString;
 import static utils.AppUltis.getInt;
 import static utils.AppUltis.getString;
 import static utils.AppUltis.getStringWithPattern;
@@ -40,14 +43,14 @@ public class GuideSV implements CRUD<Guide> {
 
     public static void displayGuide() {
         System.out.println("                                                              Thông tin hướng dẫn viên:");
-        System.out.println("===========================================================================================================================================================================");
-        System.out.printf("|%-4s| %-15s| %-5s| %-10s| %-8s| %-10s| %-20s| %-10s| %-25s| %-5s| %-25s| %-10s|\n", "ID", "Name", "Age", "Address", "Gender", "Phone", "Language", "Status", "FeedBack", "Rate", "Hashtag","Price");
+        System.out.println("============================================================================================================================================================================");
+        System.out.printf("|%-4s| %-15s| %-5s| %-10s| %-8s| %-10s| %-20s| %-10s| %-25s| %-5s| %-25s| %-12s|\n", "ID", "Name", "Age", "Address", "Gender", "Phone", "Language", "Status", "FeedBack", "Rate", "Hashtag","Price");
         for (Guide guide : guideList) {
-            System.out.printf("|%-4s| %-15s| %-5s| %-10s| %-8s| %-10s| %-20s| %-10s| %-25s| %-5s| %-25s| %-10s|\n",
+            System.out.printf("|%-4s| %-15s| %-5s| %-10s| %-8s| %-10s| %-20s| %-10s| %-25s| %-5s| %-25s| %-12s|\n",
                     guide.getIdGuide(), guide.getName(), guide.getAge(), guide.getAddress(), guide.geteGender(),
-                    guide.getPhone(), guide.getSkill(), guide.getStatus(), guide.getFeedBack(), guide.getRate(), guide.getHastag(),guide.getPrice());
+                    guide.getPhone(), guide.getSkill(), guide.geteStatusGuide(), guide.getFeedBack(), guide.getRate(), guide.getHastag(),covertPriceToString(guide.getPrice()));
         }
-        System.out.println("===========================================================================================================================================================================\n\n");
+        System.out.println("============================================================================================================================================================================\n\n");
     }
 
 
@@ -78,11 +81,12 @@ public class GuideSV implements CRUD<Guide> {
         EGender Gender = EGender.getGenderFromInt(AppUltis.getIntWithBound("Enter your choice(Nhập giới tính):", 1, 3));
         String Phone = getStringWithPattern("Nhập số điện thoại", AppConstant.REGEX_PHONE);
         List<String> Language = Collections.singletonList(getString("Nhập ngoại ngữa"));
-        String Status = getString("Nhập trạng thái");
+        EStatusGuide Status = EStatusGuide.getStatusGuideFromInt(AppUltis.getIntWithBound("Enter your choice(Mời chọn trạng thái):", 1, 2));
         List<String> FeedBack = Collections.singletonList(getString("Nhập phản hồi"));
-        double Rate = Double.parseDouble(getString("Nhập sao"));
+        double Rate = totalRate(IdGuide);
         List<String> Hashtag = Collections.singletonList(getString("Nhập Hashtag"));
-        long Price =Long.parseLong(getString("Nhập tiền"));
+        double Price =Double.parseDouble(getString("Nhập tiền"));
+        covertPriceToString(Price);
         Guide newGuide = new Guide(IdGuide, Name, Age, Address, Phone, Language, Gender, Status, FeedBack, Rate, Hashtag,Price);
         guideList.add(newGuide);
         System.out.println("Thêm nhân viên thành công");
@@ -119,8 +123,8 @@ public class GuideSV implements CRUD<Guide> {
                         guide.setSkill(Language);
                     }
                     case 7 -> {
-                        String Status = getString("Nhập trạng thái");
-                        guide.setStatus(Status);
+                        EStatusGuide Status = EStatusGuide.getStatusGuideFromInt(AppUltis.getIntWithBound("Enter your choice(Mời chọn trạng thái):", 1, 2));
+                        guide.seteStatusGuide(Status);
                     }
                     case 8 -> {
                         List<String> FeedBack = Collections.singletonList(getString("Nhập phản hồi"));
@@ -135,7 +139,8 @@ public class GuideSV implements CRUD<Guide> {
                         guide.setHastag(Hashtag);
                     }
                     case 11 -> {
-                        long Price =Long.parseLong(getString("Nhập tiền"));
+                        double Price = Double.parseDouble(getString("Nhập tiền"));
+                        covertPriceToString(Price);
                         guide.setPrice(Price);
                     }
                 }

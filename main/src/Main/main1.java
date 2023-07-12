@@ -1,9 +1,6 @@
 package Main;
 
-import utils.InitAdmin;
-import utils.InitBill;
-import utils.InitClients;
-import utils.InitGuide;
+import utils.*;
 
 import java.io.IOException;
 
@@ -13,6 +10,7 @@ public class main1 {
     public static void main(String[] args){
 //        Khi muốn fake dữ liệu CLient
         InitClients.initClients();
+        InitFeedback.initFeedBacks();
         InitAdmin.initAdmin();
         InitGuide.intGuide();
         InitBill.initBill();
