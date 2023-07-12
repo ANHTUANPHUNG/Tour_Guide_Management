@@ -12,9 +12,9 @@ import static View.GuideView.menuTourGuide;
 import static utils.AppUltis.getString;
 
 public class LoginSv {
+    private static StringBuilder result = new StringBuilder();
 
-    public static Object login() {
-
+    public static StringBuilder login() {
         String userName = getString("Nhập tài khoản");
         String passWord = getString("Nhập mật khẩu");
         AdminSV users = AdminSV.getInstance();
@@ -41,7 +41,12 @@ public class LoginSv {
                 break;
             }
         }
-        return userName;
+
+        result.append(userName);
+        return result;
+    }
+    public static String checkUserName1(){
+        return result.toString();
     }
 
 }

@@ -56,9 +56,8 @@ public class ClientView {
         }
         if(choice>0 && choice<nextIdGuide()-1){
             BillSV.createa(choice);
-
+            menuClientView();
         }
-
     }
     public static void rateGuide(){
 
