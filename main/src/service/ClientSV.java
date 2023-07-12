@@ -13,7 +13,7 @@ import static service.MainSv.getUniqueUserName;
 import static utils.AppUltis.*;
 
 public class ClientSV implements CRUD<Client> {
-    public static List<Client> clientList = (List<Client>) SerializationUtil.deserialize("D:\\code gym\\Tour_Guide_Management\\main\\src\\data\\Client.txt");
+    public static List<Client> clientList = (List<Client>) SerializationUtil.deserialize("Client.txt");
     private static ClientSV instance;
 
     public static ClientSV getInstance() {
@@ -55,12 +55,9 @@ public class ClientSV implements CRUD<Client> {
         Client newClient = new Client(id, userName, password, name, dob, address, phone, gender);
         ///
         clientList.add(newClient);
-        SerializationUtil.serialize(clientList, "D:\\code gym\\Tour_Guide_Management\\main\\src\\data\\Client.txt");
+        SerializationUtil.serialize(clientList, "Client.txt");
         System.out.println("Người dùng đã được tạo thành công!");
     }
-
-
-
     @Override
     public void update(int id)  {
     }

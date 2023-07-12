@@ -9,18 +9,15 @@ import java.util.List;
 import static View.AdminView.menuAdmin;
 import static View.ClientView.menuClient;
 import static View.GuideView.menuTourGuide;
-import static utils.AppUltis.getString;
 
 public class LoginSv {
-    private static StringBuilder result;
+    private static final StringBuilder result;
 
     static {
         result = new StringBuilder();
     }
 
-    public static StringBuilder login() {
-        String userName = getString("Nhập tài khoản");
-        String passWord = getString("Nhập mật khẩu");
+    public static void loginSV(String userName, String passWord) {
         AdminSV users = AdminSV.getInstance();
         List<Admin> list1 = users.getUserList();
         for (Admin user : list1) {
@@ -48,9 +45,6 @@ public class LoginSv {
                 break;
             }
         }
-
-
-        return result;
     }
     public static String checkUserName1(){
         return result.toString();

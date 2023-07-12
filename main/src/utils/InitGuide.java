@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import static service.FeedBackSV.createFeedBackSV;
 import static service.FeedBackSV.totalRate;
 import static service.GuideSV.displayGuide;
 
@@ -19,7 +20,7 @@ public class InitGuide {
     public static void intGuide() {
         List<Guide> initGuide1 = new ArrayList<>();
 
-        Guide guide1 = new Guide(1, "truongan", "123456", "Trường An", "25", "T.THuế", "0338943168", Arrays.asList("English", "Japanese"), EGender.male, EStatusGuide.AVAILABLE, Arrays.asList("enthusiastic", "humorous"), totalRate(1), Arrays.asList("#culinary", "#Mausoleum"),1500000);
+        Guide guide1 = new Guide(1, "truongan", "123456", "Trường An", "25", "T.THuế", "0338943168", Arrays.asList("English", "Japanese"), EGender.male, EStatusGuide.AVAILABLE, Arrays.asList("enthusiastic", "humorous"), createFeedBackSV(), Arrays.asList("#culinary", "#Mausoleum"),1500000);
         Guide guide2 = new Guide(2, "aiphuong", "123456", "Ái Phương", "27", "Đà Nẵng", "0703239292", Arrays.asList("Korean", "Chinese"), EGender.female, EStatusGuide.AVAILABLE, Arrays.asList("enthusiastic", "humorous"), totalRate(2), Arrays.asList("#Mausoleum", "#nature"),1200000);
         Guide guide3 = new Guide(3, "anhdung", "123456", "Anh Dũng", "22", "T.THuế", "0985700741", Arrays.asList("English", "Japanese"), EGender.male, EStatusGuide.AVAILABLE, Arrays.asList("enthusiastic", "humorous"), totalRate(3), Arrays.asList("#Mausoleum", "#culinary"),1000000);
         Guide guide4 = new Guide(4, "giabach", "123456", "Gia Bách", "24", "Quảng Ninh", "0867053286", Arrays.asList("Russian", "Japanese"), EGender.male, EStatusGuide.AVAILABLE, Arrays.asList("enthusiastic", "humorous"), totalRate(4), Arrays.asList("#culinary", "#Mausoleum"),1300000);
@@ -39,7 +40,7 @@ public class InitGuide {
         initGuide1.add(guide8);
         initGuide1.add(guide9);
         initGuide1.add(guide10);
-        SerializationUtil.serialize(initGuide1, "D:\\code gym\\Tour_Guide_Management\\main\\src\\data\\guide.txt");
+        SerializationUtil.serialize(initGuide1, "guide.txt");
 
     }
     public static void main(String[] args) {

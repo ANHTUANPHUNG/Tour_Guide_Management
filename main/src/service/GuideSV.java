@@ -27,7 +27,7 @@ import static utils.AppUltis.getStringWithPattern;
 
 public class GuideSV implements CRUD<Guide> {
 
-    public static List<Guide> guideList = (List<Guide>) SerializationUtil.deserialize("D:\\code gym\\Tour_Guide_Management\\main\\src\\data\\guide.txt");
+    public static List<Guide> guideList = (List<Guide>) SerializationUtil.deserialize("guide.txt");
     private static GuideSV instance;
 
     public static GuideSV getInstance() {
@@ -83,20 +83,20 @@ public class GuideSV implements CRUD<Guide> {
         List<String> Language = Collections.singletonList(getString("Nhập ngoại ngữa"));
         EStatusGuide Status = EStatusGuide.getStatusGuideFromInt(AppUltis.getIntWithBound("Enter your choice(Mời chọn trạng thái):", 1, 2));
         List<String> FeedBack = Collections.singletonList(getString("Nhập phản hồi"));
-        double Rate = totalRate(IdGuide);
+        double Rate = 0;
         List<String> Hashtag = Collections.singletonList(getString("Nhập Hashtag"));
         double Price =Double.parseDouble(getString("Nhập tiền"));
         covertPriceToString(Price);
         Guide newGuide = new Guide(IdGuide, Name, Age, Address, Phone, Language, Gender, Status, FeedBack, Rate, Hashtag,Price);
         guideList.add(newGuide);
         System.out.println("Thêm nhân viên thành công");
-        SerializationUtil.serialize(guideList, "D:\\code gym\\Tour_Guide_Management\\main\\src\\data\\guide.txt");
+        SerializationUtil.serialize(guideList, "guide.txt");
     }
 
     public void update(int id){
         for (Guide guide : guideList) {
             if (guide.getIdGuide() == id) {
-                int choice  = AppUltis.getIntWithBound("Enter your choice(Mời chọn ví trí bạn muốn sửa):", 1, 11);
+                int choice  = AppUltis.getIntWithBound("Enter your choice(Mời chọn ví trí bạn muốn sửa):", 1, 10);
                 switch (choice) {
                     case 1 -> {
                         String Name = getString("Nhập họ tên");
@@ -131,14 +131,10 @@ public class GuideSV implements CRUD<Guide> {
                         guide.setFeedBack(FeedBack);
                     }
                     case 9 -> {
-                        double Rate = Double.parseDouble(getString("Nhập sao"));
-                        guide.setRate(Rate);
-                    }
-                    case 10 -> {
                         List<String> Hashtag = Collections.singletonList(getString("Nhập Hashtag"));
                         guide.setHastag(Hashtag);
                     }
-                    case 11 -> {
+                    case 10 -> {
                         double Price = Double.parseDouble(getString("Nhập tiền"));
                         covertPriceToString(Price);
                         guide.setPrice(Price);
@@ -154,7 +150,7 @@ public class GuideSV implements CRUD<Guide> {
         guideList = guideList.stream()
                 .filter(guide -> guide.getIdGuide() != id)
                 .collect(Collectors.toList());
-        SerializationUtil.serialize(guideList, "D:\\code gym\\Tour_Guide_Management\\main\\src\\data\\guide.txt");
+        SerializationUtil.serialize(guideList, "guide.txt");
         System.out.println("Hướng dẫn viên với ID " + id + " đã được xóa thành công.");
     }
 

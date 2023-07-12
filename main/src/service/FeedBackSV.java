@@ -11,11 +11,12 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static service.BillSV.getTheCurrentlyLoginID;
+import static service.GuideSV.guideList;
 import static utils.AppUltis.CurrencyFormat.covertPriceToString;
 import static utils.AppUltis.getString;
 
 public class FeedBackSV implements CRUD<FeedBack> {
-    public static List<FeedBack> feedBackList = (List<FeedBack>) SerializationUtil.deserialize("D:\\code gym\\Tour_Guide_Management\\main\\src\\data\\FeedBack.txt");
+    public static List<FeedBack> feedBackList = (List<FeedBack>) SerializationUtil.deserialize("FeedBack.txt");
 
     public static void displayFeedBack() {
         System.out.println("                                                              Thông tin hóa đơn:");
@@ -34,19 +35,20 @@ public class FeedBackSV implements CRUD<FeedBack> {
                 .findFirst()
                 .orElse(null);    }
     public static int nextIdFeedBack() {
-        int maxId = 0;
-        for (FeedBack feedBack : feedBackList) {
-            if (feedBack.getId() > maxId) {
-                maxId = feedBack.getId();
+            int maxId = 0;
+            for (FeedBack feedBack : feedBackList) {
+                if (feedBack.getId() > maxId) {
+                    maxId = feedBack.getId();
+                }
             }
+            return maxId + 1;
         }
-        return maxId + 1;
-    }
     @Override
     public void create() {
 
 
     }
+
     public static void createFeedBackSV(Guide guide) {
         int id = nextIdFeedBack();
         String IdClient = getTheCurrentlyLoginID();
@@ -54,12 +56,14 @@ public class FeedBackSV implements CRUD<FeedBack> {
         String nameGuide =guide.getName();
         LocalDate InvoiceDate1 = LocalDate.now();
         String FeedBack = getString("Mời nhập đánh giá của bạn");
-        double Rate = AppUltis.getIntWithBound("Enter your choice(Nhập số để đánh giá):", 1, 5);
+        int Rate = AppUltis.getIntWithBound("Enter your choice(Nhập số nguyên để đánh giá):", 1, 5);
         FeedBack feedBack = new FeedBack(id, IdClient,InvoiceDate1,IdGuild, nameGuide,  FeedBack, Rate);
+        guide.setRate(totalRate(guide.getIdGuide()));
         feedBackList.add(feedBack);
-        System.out.println("Đánh giá thành công");
-        SerializationUtil.serialize(feedBackList, "D:\\code gym\\Tour_Guide_Management\\main\\src\\data\\FeedBack.txt");
+        System.err.println("Đánh giá thành công");
+        SerializationUtil.serialize(feedBackList, "FeedBack.txt");
     }
+
     public static double totalRate(int id){
         int count =0;
         int rate =0;
@@ -91,4 +95,5 @@ public class FeedBackSV implements CRUD<FeedBack> {
     public void display() {
 
     }
+
 }

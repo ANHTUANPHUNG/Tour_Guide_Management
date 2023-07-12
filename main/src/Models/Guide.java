@@ -195,6 +195,6 @@ public class Guide implements Serializable {
     }
 
     private void saveGuide() {
-        SerializationUtil.serialize(guideList, "D:\\code gym\\Tour_Guide_Management\\main\\src\\data\\guide.txt");
+        SerializationUtil.serialize(guideList, "guide.txt");
     }
 }

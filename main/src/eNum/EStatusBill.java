@@ -7,7 +7,9 @@ public enum EStatusBill {
 
     FINISH(3,"Finish"),
 
-    DELETE(4,"Delete");
+    DELETE(4,"Delete"),
+    INPROGRESS(5, "InProgress");
+
 
     private int id;
     private String name;

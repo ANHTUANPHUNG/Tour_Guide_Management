@@ -16,12 +16,12 @@ public class FeedBack implements Serializable {
     private int idGuide;
     private String nameGuide;
     private String feedback;
-    private double rate;
+    private int rate;
 
     public FeedBack() {
     }
 
-    public FeedBack(int id, String idClient, LocalDate invoiceDate, int idGuide, String nameGuide, String feedback, double rate) {
+    public FeedBack(int id, String idClient, LocalDate invoiceDate, int idGuide, String nameGuide, String feedback, int rate) {
         this.id = id;
         this.idClient = idClient;
         this.invoiceDate = invoiceDate;
@@ -82,11 +82,11 @@ public class FeedBack implements Serializable {
 
     }
 
-    public double getRate() {
+    public int getRate() {
         return rate;
     }
 
-    public void setRate(double rate) {
+    public void setRate(int rate) {
         this.rate = rate;
         saveFeedBack();
 
@@ -102,7 +102,7 @@ public class FeedBack implements Serializable {
     }
 
     private void saveFeedBack() {
-        SerializationUtil.serialize(feedBackList, "D:\\code gym\\Tour_Guide_Management\\main\\src\\data\\FeedBack.txt");
+        SerializationUtil.serialize(feedBackList, "FeedBack.txt");
     }
 
 }

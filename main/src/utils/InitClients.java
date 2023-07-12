@@ -18,6 +18,6 @@ public class InitClients {
         clientLists.add(client2);
         clientLists.add(client3);
         clientLists.add(client4);
-        SerializationUtil.serialize(clientLists, "D:\\code gym\\Tour_Guide_Management\\main\\src\\data\\Client.txt");
+        SerializationUtil.serialize(clientLists, "Client.txt");
     }
 }

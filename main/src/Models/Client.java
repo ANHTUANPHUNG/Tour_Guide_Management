@@ -114,7 +114,7 @@ public class Client implements Serializable {
     }
 
     private void saveClient() {
-        SerializationUtil.serialize(clientList, "D:\\code gym\\Tour_Guide_Management\\main\\src\\data\\Client.txt");
+        SerializationUtil.serialize(clientList, "Client.txt");
     }
 
 }

@@ -44,6 +44,6 @@ public class Admin implements Serializable {
     }
 
     private void saveAdmin() {
-        SerializationUtil.serialize(adminList, "D:\\code gym\\Tour_Guide_Management\\main\\src\\data\\Admin.txt");
+        SerializationUtil.serialize(adminList, "Admin.txt");
     }
 }

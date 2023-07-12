@@ -2,7 +2,7 @@ package View;
 
 import utils.AppUltis;
 
-import static service.LoginSv.login;
+import static View.LoginView.Login;
 import static service.RegisterSV.Register;
 
 public class TotalView {
@@ -15,7 +15,7 @@ public class TotalView {
         choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn chức năng):", 0, 2);
         switch (choice) {
             case 1:
-                login();
+                Login();
             case 2:
                 Register();
             case 0:

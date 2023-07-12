@@ -129,6 +129,6 @@ public class Bill implements Serializable {
     }
 
     private void saveBill() {
-        SerializationUtil.serialize(billList, "D:\\code gym\\Tour_Guide_Management\\main\\src\\data\\Bill.txt");
+        SerializationUtil.serialize(billList, "Bill.txt");
     }
 }
