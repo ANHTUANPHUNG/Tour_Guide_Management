@@ -10,6 +10,7 @@ import utils.*;
 import java.time.LocalDate;
 
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -25,7 +26,7 @@ import static utils.getValue.getString;
 public class BillSV implements CRUD<Bill> {
     public static List<Bill> billList ;
     static {
-       billList = (List<Bill>) SerializationUtil.deserialize("Bill.txt");
+       billList =(List<Bill>) SerializationUtil.deserialize("Bill.txt");
     }
 
     public static void displayBill() {
@@ -132,8 +133,11 @@ public class BillSV implements CRUD<Bill> {
         SerializationUtil.serialize(billList, "Bill.txt");
         System.out.println("Tạo đơn thành công!");
     }
-    public static void Total(){
-
+    public static double Total(String id){
+        return billList.stream()
+                .filter(bill -> bill.getNameGuide().equals(id))
+                .mapToLong(bill -> ChronoUnit.DAYS.between(bill.getStarDate(), bill.getEndDate()) + 1)
+                .sum();
     }
     public static void setTour(LocalDate StarDate, LocalDate EndDate){
         boolean hasPendingApproval = false;

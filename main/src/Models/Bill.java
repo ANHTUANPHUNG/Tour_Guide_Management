@@ -1,6 +1,7 @@
 package Models;
 
 import eNum.EStatusBill;
+import service.BillSV;
 import utils.SerializationUtil;
 
 import java.io.Serializable;
@@ -119,7 +120,7 @@ public class Bill implements Serializable {
     }
 
     public double getTotal() {
-        return total;
+        return BillSV.Total(this.NameGuide);
     }
 
     public void setTotal(double total) {
