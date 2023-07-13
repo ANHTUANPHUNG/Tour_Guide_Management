@@ -7,6 +7,7 @@ import Repository.CRUD;
 import eNum.EStatusBill;
 import utils.*;
 
+import java.text.DecimalFormat;
 import java.time.LocalDate;
 
 import java.time.temporal.ChronoUnit;
@@ -61,6 +62,21 @@ public class BillSV implements CRUD<Bill> {
         System.out.printf("|%-4s| %-15s| %-12s| %-15s| %-12s| %-12s| %-15s| %-15s| %-15s| %-15s|\n", "ID", "Client", "Invoice Date", "Guide", "Star Date", "End Date", "Note", "Status", "Price", "Total");
         for (Bill bill : billList) {
             if (bill.getNameGuide().equals(id)) {
+                System.out.printf("|%-4s| %-15s| %-12s| %-15s| %-12s| %-12s| %-15s| %-15s| %-15s| %-15s|\n",
+                        bill.getIdBill(), bill.getNameClient(), bill.getInvoiceDate(), bill.getNameGuide(),
+                        bill.getStarDate(), bill.getEndDate(), bill.getNote(), bill.getStatus(),
+                        covertPriceToString(bill.getPrice()), covertPriceToString(bill.getTotal()));
+            }
+        }
+        System.out.println("===========================================================================================================================================================");
+    }
+    public static void displayCheckBill(LocalDate startDate, LocalDate endDate) {
+        System.out.println("                                                              Thông tin hóa đơn:");
+        System.out.println("===========================================================================================================================================================");
+        System.out.printf("|%-4s| %-15s| %-12s| %-15s| %-12s| %-12s| %-15s| %-15s| %-15s| %-15s|\n", "ID", "Client", "Invoice Date", "Guide", "Star Date", "End Date", "Note", "Status", "Price", "Total");
+            for (Bill bill : billList) {
+                if (bill.getStarDate().isAfter(startDate.minusDays(1))
+                        && bill.getEndDate().isBefore(endDate.plusDays(1))) {
                 System.out.printf("|%-4s| %-15s| %-12s| %-15s| %-12s| %-12s| %-15s| %-15s| %-15s| %-15s|\n",
                         bill.getIdBill(), bill.getNameClient(), bill.getInvoiceDate(), bill.getNameGuide(),
                         bill.getStarDate(), bill.getEndDate(), bill.getNote(), bill.getStatus(),
@@ -133,12 +149,18 @@ public class BillSV implements CRUD<Bill> {
         SerializationUtil.serialize(billList, "Bill.txt");
         System.out.println("Tạo đơn thành công!");
     }
-    public static double Total(String id){
-        return billList.stream()
-                .filter(bill -> bill.getNameGuide().equals(id))
-                .mapToLong(bill -> ChronoUnit.DAYS.between(bill.getStarDate(), bill.getEndDate()) + 1)
-                .sum();
-    }
+        public static double Total(String id){
+            double total = 0;
+            for (Bill bill : billList) {
+                if (bill.getNameGuide().equals(id)) {
+                    long daysBetween = ChronoUnit.DAYS.between(bill.getStarDate(), bill.getEndDate());
+                    double price = bill.getPrice();
+                    total += (daysBetween + 1) * price;
+                }
+            }
+            covertPriceToString(total);
+            return total;
+        }
     public static void setTour(LocalDate StarDate, LocalDate EndDate){
         boolean hasPendingApproval = false;
         for (Bill bill : billList) {

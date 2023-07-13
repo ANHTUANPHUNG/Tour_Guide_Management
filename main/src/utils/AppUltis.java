@@ -13,12 +13,14 @@ import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 import java.util.regex.Pattern;
 
-import static service.BillSV.billList;
+import static service.BillSV.*;
+import static utils.AppUltis.CurrencyFormat.covertPriceToString;
 
 public class AppUltis {
     private static Scanner sc;
@@ -73,9 +75,11 @@ public class AppUltis {
         double totalAmount = 0.0;
         for (Bill bill : billss) {
             totalAmount += bill.getTotal();
-            System.out.println(bill);
+
         }
-        System.out.println("Total Amount: " + totalAmount);
+        displayCheckBill(start,end);
+        String total= covertPriceToString(totalAmount);
+        System.out.println(total);
     }
     public static LocalDate getDateBook(String str) {
         try {
@@ -130,7 +134,7 @@ public class AppUltis {
         ;
         return result;
     }
-    public class CurrencyFormat {
+    public static class CurrencyFormat {
         public static String covertPriceToString(double price) {
             Locale localeVN = new Locale("vi", "VN");
             NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(localeVN);

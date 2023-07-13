@@ -59,9 +59,9 @@ public class GuideSV implements CRUD<Guide> {
     public static void displayGuide() {
         System.out.println("                                                              Thông tin hướng dẫn viên:");
         System.out.println("============================================================================================================================================================================");
-        System.out.printf("|%-4s| %-15s| %-5s| %-10s| %-8s| %-10s| %-20s| %-10s| %-25s| %-5s| %-25s| %-12s|\n", "ID", "Name", "Age", "Address", "Gender", "Phone", "Language", "Status", "FeedBack", "Rate", "Hashtag", "Price");
+        System.out.printf("|%-4s| %-15s| %-12s| %-10s| %-8s| %-10s| %-20s| %-10s| %-25s| %-5s| %-25s| %-12s|\n", "ID", "Name", "Age", "Address", "Gender", "Phone", "Language", "Status", "FeedBack", "Rate", "Hashtag", "Price");
         for (Guide guide : guideList) {
-            System.out.printf("|%-4s| %-15s| %-5s| %-10s| %-8s| %-10s| %-20s| %-10s| %-25s| %-5s| %-25s| %-12s|\n",
+            System.out.printf("|%-4s| %-15s| %-12s| %-10s| %-8s| %-10s| %-20s| %-10s| %-25s| %-5s| %-25s| %-12s|\n",
                     guide.getIdGuide(), guide.getName(), guide.getAge(), guide.getAddress(), guide.geteGender(),
                     guide.getPhone(), guide.getSkill(), guide.geteStatusGuide(), guide.getFeedBack(), guide.getRate(), guide.getHastag(), covertPriceToString(guide.getPrice()));
         }
