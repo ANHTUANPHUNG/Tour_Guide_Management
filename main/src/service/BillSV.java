@@ -126,12 +126,14 @@ public class BillSV implements CRUD<Bill> {
         double Price = guide.getPrice();
         long daysBetween = ChronoUnit.DAYS.between(startDate, endDate);
         double Total = (daysBetween+1) * Price;
-
         covertPriceToString(Total);
         Bill newBill = new Bill(IdBill, NameClient, InvoiceDate1, NameGuide, startDate, endDate, Note, Status, Price, Total);
         billList.add(newBill);
         SerializationUtil.serialize(billList, "Bill.txt");
         System.out.println("Tạo đơn thành công!");
+    }
+    public static void Total(){
+
     }
     public static void setTour(LocalDate StarDate, LocalDate EndDate){
         boolean hasPendingApproval = false;
