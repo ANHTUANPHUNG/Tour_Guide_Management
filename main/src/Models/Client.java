@@ -6,6 +6,7 @@ import eNum.ELevel;
 import utils.SerializationUtil;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 
 import static service.ClientSV.clientList;
@@ -16,7 +17,7 @@ public class Client implements Serializable {
     private String userName;
     private String password;
     private String name;
-    private String dob;
+    private LocalDate dob;
     private String address;
     private String phone;
     private EGender gender;
@@ -30,7 +31,7 @@ public class Client implements Serializable {
         this.password = password;
     }
 
-    public Client(int id, String userName, String password, String name, String dob, String address, String phone, EGender gender) {
+    public Client(int id, String userName, String password, String name, LocalDate dob, String address, String phone, EGender gender) {
         this.id = id;
         this.userName = userName;
         this.password = password;
@@ -77,11 +78,11 @@ public class Client implements Serializable {
         saveClient();
     }
 
-    public String getDob() {
+    public LocalDate getDob() {
         return dob;
     }
 
-    public void setDob(String dob) {
+    public void setDob(LocalDate dob) {
         this.dob = dob;
         saveClient();
     }

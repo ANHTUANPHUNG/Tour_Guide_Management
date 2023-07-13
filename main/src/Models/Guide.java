@@ -2,9 +2,11 @@ package Models;
 
 import eNum.EGender;
 import eNum.EStatusGuide;
+import service.FeedBackSV;
 import utils.SerializationUtil;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 
 import static service.GuideSV.guideList;
@@ -15,7 +17,7 @@ public class Guide implements Serializable {
     private String userName;
     private String passWord;
     private String name;
-    private String age;
+    private LocalDate age;
     private String address;
     private String phone;
     private List<String> skill;
@@ -30,7 +32,7 @@ public class Guide implements Serializable {
     public Guide() {
     }
 
-    public Guide(int idGuide, String userName, String passWord, String name, String age, String address, String phone, List<String> skill, EGender eGender, EStatusGuide eStatusGuide, List<String> feedBack, double rate, List<String> hastag, double price) {
+    public Guide(int idGuide, String userName, String passWord, String name, LocalDate age, String address, String phone, List<String> skill, EGender eGender, EStatusGuide eStatusGuide, List<String> feedBack, double rate, List<String> hastag, double price) {
         this.idGuide = idGuide;
         this.userName = userName;
         this.passWord = passWord;
@@ -47,7 +49,7 @@ public class Guide implements Serializable {
         this.price = price;
     }
 
-    public Guide(int idGuide, String name, String age, String address, String phone, List<String> skill, EGender eGender, EStatusGuide eStatusGuide, List<String> feedBack, double rate, List<String> hastag, double price) {
+    public Guide(int idGuide, String name, LocalDate age, String address, String phone, List<String> skill, EGender eGender, EStatusGuide eStatusGuide, List<String> feedBack, double rate, List<String> hastag, double price) {
         this.idGuide = idGuide;
         this.name = name;
         this.age = age;
@@ -103,11 +105,11 @@ public class Guide implements Serializable {
         saveGuide();
     }
 
-    public String getAge() {
+    public LocalDate getAge() {
         return age;
     }
 
-    public void setAge(String age) {
+    public void setAge(LocalDate age) {
         this.age = age;
         saveGuide();
     }
@@ -167,7 +169,8 @@ public class Guide implements Serializable {
     }
 
     public double getRate() {
-        return rate;
+
+        return FeedBackSV.totalRate(this.idGuide);
     }
 
     public void setRate(double rate) {

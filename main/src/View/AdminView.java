@@ -15,11 +15,10 @@ import static service.FeedBackSV.displayFeedBack;
 import static service.GuideSV.displayGuide;
 
 import static service.GuideSV.nextIdGuide;
-import static utils.AppUltis.getYearMonthFromUser;
+import static utils.AppUltis.*;
 
 public class AdminView {
     static int choice;
-
     public static void menuAdmin() {
         menuAdminView();
         choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn chức năng):", 0, 3);
@@ -30,15 +29,13 @@ public class AdminView {
             case 0 -> menu();
         }
     }
-
     public static void menuAdminView() {
         System.out.println("Trang quản lí");
         System.out.println("1. Quản lí hướng dẫn viên.");
         System.out.println("2. Quản lí đơn hàng đang .");
         System.out.println("3. Quản lí doanh thu.");
-        System.out.println("0. Quay lại trang chủ.");
+        System.out.println("0. Quay lại.");
     }
-
     public static void menuGuideAdmin() {
         GuideSV guideSV = GuideSV.getInstance();
         displayGuide();
@@ -74,39 +71,32 @@ public class AdminView {
         System.out.println("2. Xóa hướng dẫn viên.");
         System.out.println("3. Thay đổi thông tin hướng dẫn viên.");
         System.out.println("4. Xem đánh giá khách hàng.");
-        System.out.println("0. Quay lại trang quản lí.");
+        System.out.println("0. Quay lại.");
     }
 
     public static void pendingOrder() {
         displayBill();
         menuAdmin();
     }
-
-
     public static void monthlyRevenue() {
         monthlyRevenueGuide();
-        choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn chức năng):", 0, 3);
+        choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn chức năng):", 0, 1);
         switch (choice) {
-            case 1:
-                AppUltis.getDate();
-                break;
-            case 2:
-                getYearMonthFromUser();
-                // tìm tất cả các bill mà thỏa điều kiện ngày 1 đến 30
-                // YearMonth.atDay(1)
-                // YearMonth.atDay(30)
-            case 0:
-                menuAdmin();
+            case 1 ->{
+                System.out.println("Ngày bắt đầu");
+                LocalDate star= AppUltis.getDate();
+                System.out.println("Ngày kết thúc");
+                LocalDate end= AppUltis.getDate();
+                printBillFromTo(star,end);
+            }
+            case 0 -> menuAdmin();
         }
         monthlyRevenue();
     }
-
     public static void monthlyRevenueGuide() {
-        System.out.println("Trang doanh thu tháng");
+        System.out.println("Trang doanh thu.");
         System.out.println("1. Xem doanh thu ngày trong tháng.");
-        System.out.println("2. Xem doanh thu tháng.");
-        System.out.println("0. Quay lại trang quản lí.");
-
+        System.out.println("0. Quay lại .");
     }
 
     public static void main(String[] args) {

@@ -51,6 +51,14 @@ public class Bill implements Serializable {
         return NameClient;
     }
 
+    public EStatusBill geteStatusBill() {
+        return eStatusBill;
+    }
+
+    public void seteStatusBill(EStatusBill eStatusBill) {
+        this.eStatusBill = eStatusBill;
+    }
+
     public void setNameClient(String NameClient) {
         this.NameClient = NameClient;
         saveBill();

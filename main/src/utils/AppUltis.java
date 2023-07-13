@@ -1,5 +1,9 @@
 package utils;
 
+import Models.Bill;
+import service.BillSV;
+
+import java.awt.*;
 import java.sql.Time;
 import java.text.NumberFormat;
 import java.time.LocalDate;
@@ -7,10 +11,14 @@ import java.time.Month;
 import java.time.MonthDay;
 import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 import java.util.regex.Pattern;
+
+import static service.BillSV.billList;
 
 public class AppUltis {
     private static Scanner sc;
@@ -52,48 +60,75 @@ public class AppUltis {
         try {
             return LocalDate.parse(input);
         } catch (Exception e) {
-            System.out.println("Định dạng ngày không hợp lệ. Vui lòng thử lại.");
+            System.err.println("Định dạng ngày không hợp lệ. Vui lòng thử lại.");
             return getDate();
         }
     }
-    public static YearMonth getYearMonthFromUser() {
-        int month =AppUltis.getIntWithBound("Enter the month(Mời chọn tháng):", 1, 12);
-        int year= AppUltis.getIntWithBound("Enter the year(Mời chọn năm):", 2010, 2023);
-        return YearMonth.of(year, month);
-    }
+    public static void printBillFromTo(LocalDate start, LocalDate end) {
+        List<Bill> billss = billList.stream()
+                .filter(bill -> bill.getStarDate().isAfter(start.minusDays(1))
+                        && bill.getEndDate().isBefore(end.plusDays(1)))
+                .toList();
 
-    public static Time getTime(String str) {
+        double totalAmount = 0.0;
+        for (Bill bill : billss) {
+            totalAmount += bill.getTotal();
+            System.out.println(bill);
+        }
+        System.out.println("Total Amount: " + totalAmount);
+    }
+    public static LocalDate getDateBook(String str) {
         try {
-            System.out.println("Please enter date with format HH:MM:SS");
-            String time = getString(str);
-            int hour = Integer.parseInt(time.split(":")[0]);
-            if (hour > 24 || hour < 0) throw new RuntimeException("Hours Invalid");
-            return Time.valueOf(time);
-        } catch (RuntimeException e) {
-            System.out.println(e.getMessage());
-            return getTime(str);
+            LocalDate dateTime = LocalDate.parse(getString(str + " (yyyy-MM-dd ):"));
+            LocalDate now = LocalDate.now();
+            long duration = ChronoUnit.HOURS.between(dateTime.atStartOfDay(), now.atStartOfDay());
+            if (duration < 0 || duration > 744) {
+                throw new RuntimeException("Invalid Date Range. Please enter a date within the last 30 day.");
+            }
+            return dateTime;
+        } catch (DateTimeParseException e) {
+            System.out.println("Định dạng ngày không hợp lệ. Vui lòng thử lại");
+            return getDateBook(str);
         } catch (Exception e) {
-            System.out.println("Invalid Time");
-            return getTime(str);
+            System.out.println(e.getMessage());
+            return getDateBook(str);
+        }
+    }
+    public static LocalDate getUserDateOfBirth() {
+        Scanner scanner = new Scanner(System.in);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate dateOfBirth = null;
+        boolean isValid = false;
+
+        while (!isValid) {
+            try {
+                System.out.print("Enter your date of birth (yyyy-MM-dd): ");
+                String userInput = scanner.nextLine();
+                dateOfBirth = LocalDate.parse(userInput, formatter);
+                int minimumAge = 18;
+                LocalDate minimumDateOfBirth = LocalDate.now().minusYears(minimumAge);
+                if (dateOfBirth.isAfter(minimumDateOfBirth)) {
+                    throw new RuntimeException("Bạn chưa đủ 18 tuổi.");
+                }
+                isValid = true;
+            } catch (Exception e) {
+                System.out.println("Invalid date format. Please enter the date in the format 'yyyy-MM-dd'.");
+            }
         }
 
+        return dateOfBirth;
     }
+
+
+
     public static String getStringWithPattern(String str, String pattern) {
         String result = getString(str);
         if (!Pattern.compile(pattern).matcher(result).matches()) {
-            System.out.println("Please input phone:03 or 05 or 07 or 08 or 09(Nhập không hợp lệ, bắt đầu bằng:03 hoặc 05 hoặc 07 hoặc 08 hoặc 09)");
+            System.err.println("Please input phone:03 or 05 or 07 or 08 or 09(Nhập không hợp lệ, bắt đầu bằng:03 hoặc 05 hoặc 07 hoặc 08 hoặc 09)");
             getStringWithPattern(str, pattern);
         }
         ;
         return result;
-    }
-    public static long getDaysBetween(LocalDate date1, LocalDate date2) {
-        return date2.until(date1, ChronoUnit.DAYS);
-    }
-
-    public static void main(String[] args) {
-        Time date = getTime("Lua chon Date");
-        System.out.println(date.getTime());
     }
     public class CurrencyFormat {
         public static String covertPriceToString(double price) {

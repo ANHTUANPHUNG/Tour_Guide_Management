@@ -31,6 +31,14 @@ public class FeedBack implements Serializable {
         this.rate = rate;
     }
 
+    public FeedBack(int id, String idClient, LocalDate invoiceDate, int idGuide, String feedback, int rate) {
+        this.id = id;
+        this.idClient = idClient;
+        this.invoiceDate = invoiceDate;
+        this.idGuide = idGuide;
+        this.feedback = feedback;
+        this.rate = rate;
+    }
 
     public int getId() {
         return id;

@@ -8,7 +8,8 @@ public enum EStatusBill {
     FINISH(3,"Finish"),
 
     DELETE(4,"Delete"),
-    INPROGRESS(5, "InProgress");
+    Refuse(5,"Refuse"),
+    INPROGRESS(6, "InProgress");
 
 
     private int id;

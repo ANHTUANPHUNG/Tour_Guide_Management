@@ -1,19 +1,35 @@
 package service;
 
+import Models.Bill;
 import Models.Client;
+import Models.Guide;
 import Repository.CRUD;
 import eNum.EGender;
+import eNum.EStatusBill;
 import utils.AppConstant;
 import utils.AppUltis;
 import utils.SerializationUtil;
 
+import java.time.LocalDate;
 import java.util.List;
 
-import static service.MainSv.getUniqueUserName;
+import static View.ClientView.menuClient;
+import static View.ClientView.setTourClient;
+import static service.BillSV.*;
+import static service.BillSV.billList;
+import static service.FeedBackSV.createFeedBackSV;
+import static service.GuideSV.displayGuide;
+import static service.GuideSV.nextIdGuide;
 import static utils.AppUltis.*;
 
 public class ClientSV implements CRUD<Client> {
-    public static List<Client> clientList = (List<Client>) SerializationUtil.deserialize("Client.txt");
+    static int choice;
+    public static List<Client> clientList;
+
+    static {
+        clientList = (List<Client>) SerializationUtil.deserialize("Client.txt");
+    }
+
     private static ClientSV instance;
 
     public static ClientSV getInstance() {
@@ -31,6 +47,7 @@ public class ClientSV implements CRUD<Client> {
     public Client getById(int id) {
         return null;
     }
+//lấy vị trí tiếp theo
     public static int nextIdClient() {
         int maxId = 0;
         for (Client client : clientList) {
@@ -41,36 +58,24 @@ public class ClientSV implements CRUD<Client> {
         return maxId + 1;
     }
 
+
+
+
     @Override
-    public void create()  {
-        int id = nextIdClient();
-        String userName = getUniqueUserName();
-        String password = getString("Nhập mật khẩu");
-        String name = getString("Nhập họ tên");
-        String dob = getString("Nhập ngày sinh");
-        String address = getString("Nhập địa chỉ");
-        //phone => 012345
-        String phone = getStringWithPattern("Nhập số điện thoại", AppConstant.REGEX_PHONE);
-        EGender gender = EGender.getGenderFromInt(AppUltis.getIntWithBound("Enter your choice(Nhập giới tính):", 1, 3));
-        Client newClient = new Client(id, userName, password, name, dob, address, phone, gender);
-        ///
-        clientList.add(newClient);
-        SerializationUtil.serialize(clientList, "Client.txt");
-        System.out.println("Người dùng đã được tạo thành công!");
-    }
-    @Override
-    public void update(int id)  {
+    public void create() {
+
     }
 
     @Override
-    public void delete(int id){
+    public void update(int id) {
+    }
+
+    @Override
+    public void delete(int id) {
     }
 
     @Override
     public void display() {
     }
 
-//    public static void main(String[] args) {
-//        getValue.getStringWithPattern("Nhập số ddienj t", AppConstant.REGEX_PHONE);
-//    }
 }

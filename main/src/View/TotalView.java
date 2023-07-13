@@ -3,7 +3,7 @@ package View;
 import utils.AppUltis;
 
 import static View.LoginView.Login;
-import static service.RegisterSV.Register;
+import static View.RegisterView.Register;
 
 public class TotalView {
 
@@ -14,12 +14,14 @@ public class TotalView {
         menuTotal();
         choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn chức năng):", 0, 2);
         switch (choice) {
-            case 1:
-                Login();
-            case 2:
+            case 1 -> Login();
+            case 2 -> {
                 Register();
-            case 0:
                 menu();
+            }
+            case 0 -> {
+                System.exit(1);
+            }
         }
     }
 
@@ -31,8 +33,4 @@ public class TotalView {
         System.out.println("\t2. Đăng kí");
         System.out.println("\t0. Thoát chương trình");
     }
-    //    trang đăng kí
-
-
-
 }

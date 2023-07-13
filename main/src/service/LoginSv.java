@@ -9,6 +9,7 @@ import java.util.List;
 import static View.AdminView.menuAdmin;
 import static View.ClientView.menuClient;
 import static View.GuideView.menuTourGuide;
+import static service.GuideSV.guideList;
 
 public class LoginSv {
     private static final StringBuilder result;
@@ -31,7 +32,8 @@ public class LoginSv {
         List<Guide> guides = guideSV.getGuideList();
         for (Guide user : guides) {
             if (user.getUserName().equals(userName) && user.getPassWord().equals(passWord)) {
-                result.append(userName);
+                String guides1= user.getName();
+                result.append(guides1);
                 menuTourGuide();
                 break;
             }

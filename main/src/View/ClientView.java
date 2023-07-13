@@ -1,38 +1,28 @@
 package View;
-
 import Models.Bill;
-import Models.Client;
 import Models.Guide;
 import eNum.EStatusBill;
 import service.BillSV;
-import service.ClientSV;
-import service.FeedBackSV;
 import service.GuideSV;
 import utils.AppUltis;
-
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Objects;
-
 import static View.TotalView.menu;
 import static service.BillSV.*;
-import static service.ClientSV.clientList;
 import static service.FeedBackSV.createFeedBackSV;
 import static service.GuideSV.*;
-import static service.LoginSv.checkUserName1;
-
 public class ClientView {
-    public static void main(String[] args) {
-        menuClient();
-    }
-
     static int choice;
-
     public static void menuClient() {
         menuClientView();
         choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn):", 0, 2);
         switch (choice) {
-            case 1 -> listGuideMenu();
+            case 1 -> {
+                System.out.println("Ngày bắt đầu");
+                LocalDate StarDate = AppUltis.getDate();
+                System.out.println("Ngày kết thúc");
+                LocalDate EndDate = AppUltis.getDate();
+                setTourClient(StarDate, EndDate);
+            }
             case 2 -> rentedOrder();
             case 0 -> menu();
         }
@@ -40,17 +30,17 @@ public class ClientView {
 
     public static void menuClientView() {
         System.out.println("Trang cá nhân ");
-        System.out.println("1. Danh sách hướng dẫn viên.");
+        System.out.println("1. Chọn ngày đi Tour.");
         System.out.println("2. Đơn hàng của bạn.");
         System.out.println("0. Quay lại.");
     }
-
-    public static void listGuideMenu() {
-        displayGuide();
+    // ngày để chọn guide
+    public static void setTourClient(LocalDate startDate, LocalDate endDate) {
+        setTour(startDate, endDate);
         listGuide();
-        choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn ):", 0, 3);
+        choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn ):", 0, 2);
         switch (choice) {
-            case 1 -> pickATourGuide();
+            case 1 -> pickATourGuide(startDate, endDate);
             case 2 -> rateGuide();
             case 0 -> menuClient();
         }
@@ -62,18 +52,17 @@ public class ClientView {
         System.out.println("2. Đánh giá hướng dẫn viên");
         System.out.println("0. Quay lại .");
     }
-
-    public static void pickATourGuide() {
+    public static void pickATourGuide(LocalDate startDate, LocalDate endDate) {
         displayGuide();
         System.out.println("0. Quay lại");
         choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn ):", 0, nextIdGuide() - 1);
         if (choice == 0) {
-            listGuideMenu();
+            setTourClient(startDate, endDate);
         }
         if (choice > 0 && choice < nextIdGuide()) {
             GuideSV guideSV = new GuideSV();
             Guide guide = guideSV.getById(choice);
-            BillSV.createBillSV(guide);
+            BillSV.createBillSV(guide, startDate, endDate);
             menuClient();
         }
     }
@@ -81,7 +70,6 @@ public class ClientView {
     public static void rateGuide() {
         displayGuide();
         choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn ):", 0, nextIdGuide() - 1);
-
         GuideSV guideSV = new GuideSV();
         Guide guide = guideSV.getById(choice);
         createFeedBackSV(guide);
@@ -96,7 +84,7 @@ public class ClientView {
         }
         boolean hasPendingApproval = false;
         for (Bill bill : billList) {
-            if (bill.getNameClient().equals(idCLIENT) && !bill.getStatus().equals(EStatusBill.DELETE)) {
+            if (bill.getNameClient().equals(idCLIENT)) {
                 hasPendingApproval = true;
                 break;
             }
@@ -129,7 +117,7 @@ public class ClientView {
         }
         boolean hasPendingApproval = false;
         for (Bill bill : billList) {
-            if (bill.getNameClient().equals(idCLIENT) && bill.getStatus().equals(EStatusBill.WAITING)) {
+            if (bill.getNameClient().equals(idCLIENT) && bill.getStatus().equals(EStatusBill.WAITING) && bill.getStatus().equals(EStatusBill.Refuse)) {
                 hasPendingApproval = true;
                 break;
             }
@@ -244,10 +232,12 @@ public class ClientView {
                 menuClient();
         }
     }
+
     public static void orderInProgressClient() {
         System.out.println("Đơn hàng đang hoạt động");
         System.out.println("1. Huỷ đơn hàng.");
         System.out.println("1. Gia hạn đơn hàng.");
         System.out.println("0. Quay lại.");
     }
+
 }
