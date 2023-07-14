@@ -95,7 +95,7 @@ public class GuideSV implements CRUD<Guide> {
         String Name = getString("Nhập họ tên");
         LocalDate Age = AppUltis.getUserDateOfBirth();
         String Address = getString("Nhập địa chỉ");
-        EGender Gender = EGender.getGenderFromInt(AppUltis.getIntWithBound("Enter your choice(Nhập giới tính):", 1, 3));
+        EGender Gender = EGender.getGenderFromInt(AppUltis.getIntWithBound("Enter your choice''(Nhập giới tính):", 1, 3));
         String Phone = getStringWithPattern("Nhập số điện thoại", AppConstant.REGEX_PHONE);
         List<String> Language = Collections.singletonList(getString("Nhập ngoại ngữa"));
         EStatusGuide Status = EStatusGuide.getStatusGuideFromInt(AppUltis.getIntWithBound("Enter your choice(Mời chọn trạng thái):", 1, 2));
@@ -129,7 +129,7 @@ public class GuideSV implements CRUD<Guide> {
                         guide.setAddress(Address);
                     }
                     case 4 -> {
-                        EGender Gender = EGender.getGenderFromInt(AppUltis.getIntWithBound("Enter your choice(Mời chọn ví trí bạn muốn sửa):", 1, 3));
+                        EGender Gender = EGender.getGenderFromInt(AppUltis.getIntWithBound("Enter your choice(Mời chọn'1:male,2:female,3:other' ):", 1, 3));
                         guide.seteGender(Gender);
                     }
                     case 5 -> {

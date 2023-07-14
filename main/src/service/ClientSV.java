@@ -6,11 +6,13 @@ import Models.Guide;
 import Repository.CRUD;
 import eNum.EGender;
 import eNum.EStatusBill;
+import eNum.EStatusGuide;
 import utils.AppConstant;
 import utils.AppUltis;
 import utils.SerializationUtil;
 
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.List;
 
 import static View.ClientView.menuClient;
@@ -21,6 +23,7 @@ import static service.FeedBackSV.createFeedBackSV;
 import static service.GuideSV.displayGuide;
 import static service.GuideSV.nextIdGuide;
 import static utils.AppUltis.*;
+import static utils.AppUltis.CurrencyFormat.covertPriceToString;
 
 public class ClientSV implements CRUD<Client> {
     static int choice;
@@ -29,6 +32,18 @@ public class ClientSV implements CRUD<Client> {
     static {
         clientList = (List<Client>) SerializationUtil.deserialize("Client.txt");
     }
+    public static void displayClient() {
+        System.out.println("                                                              Thông tin hướng dẫn viên:");
+        System.out.println("============================================================================================================================================================================");
+        System.out.printf("|%-4s| %-15s| %-12s| %-10s| %-8s| %-10s| %-20s| %-10s| %-25s| %-5s| %-25s| %-12s|\n", "ID", "Name", "Age", "Address", "Gender", "Phone", "Language", "Status", "FeedBack", "Rate", "Hashtag", "Price");
+        for (Client client : clientList) {
+            System.out.printf("|%-4s| %-15s| %-12s| %-10s| %-8s| %-10s| %-20s| %-10s| %-25s| %-5s| %-25s| %-12s|\n",
+                    client.getIdGuide(), client.getName(), client.getAge(), client.getAddress(), client.geteGender(),
+                    client.getPhone(), client.getSkill(), client.geteStatusGuide(), client.getFeedBack(), client.getRate(), client.getHastag(), covertPriceToString(client.getPrice()));
+        }
+        System.out.println("============================================================================================================================================================================\n\n");
+    }
+
 
     private static ClientSV instance;
 
@@ -63,7 +78,25 @@ public class ClientSV implements CRUD<Client> {
 
     @Override
     public void create() {
-
+        for( Client client :clientList){
+            int IdClient = nextIdClient();
+            String Name = client.getName();
+            LocalDate Age = client.getDob();
+            String Address = client.getAddress();
+            EGender Gender = client.getGender();
+            String Phone = client.getPhone();
+            List<String> Language = Collections.singletonList(getString("Nhập ngoại ngữa"));
+            EStatusGuide Status = EStatusGuide.getStatusGuideFromInt(AppUltis.getIntWithBound("Enter your choice(Mời chọn trạng thái):", 1, 2));
+            List<String> FeedBack = Collections.singletonList(getString("Nhập phản hồi"));
+            double Rate = 0;
+            List<String> Hashtag = Collections.singletonList(getString("Nhập Hashtag"));
+            double Price = Double.parseDouble(getString("Nhập tiền"));
+            covertPriceToString(Price);
+            Guide newGuide = new Guide(IdGuide, Name, Age, Address, Phone, Language, Gender, Status, FeedBack, Rate, Hashtag, Price);
+            guideList.add(newGuide);
+            System.out.println("Thêm nhân viên thành công");
+            SerializationUtil.serialize(guideList, "guide.txt");
+        }
     }
 
     @Override

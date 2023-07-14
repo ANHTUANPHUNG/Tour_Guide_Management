@@ -103,7 +103,7 @@ public class AppUltis {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate dateOfBirth = null;
         boolean isValid = false;
-
+        int invalidCount = 0;
         while (!isValid) {
             try {
                 System.out.print("Enter your date of birth (yyyy-MM-dd): ");
@@ -113,11 +113,18 @@ public class AppUltis {
                 LocalDate minimumDateOfBirth = LocalDate.now().minusYears(minimumAge);
                 if (dateOfBirth.isAfter(minimumDateOfBirth)) {
                     throw new RuntimeException("Bạn chưa đủ 18 tuổi.");
+
                 }
                 isValid = true;
             } catch (Exception e) {
-                System.out.println("Invalid date format. Please enter the date in the format 'yyyy-MM-dd'.");
+                invalidCount++;
+                System.out.println("Định dạng ngày không hợp lệ. Vui lòng thử lại.");
+                if (invalidCount >= 3) {
+                    System.out.println("Bạn đã nhập sai quá 3 lần. Chương trình sẽ thoát.");
+                    System.exit(0);
+                }
             }
+
         }
 
         return dateOfBirth;

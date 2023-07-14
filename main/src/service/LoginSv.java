@@ -42,7 +42,8 @@ public class LoginSv {
         List<Client> clientSV1 = clientSV.getClientList();
         for (Client user : clientSV1) {
             if (user.getUserName().equals(userName) && user.getPassword().equals(passWord)) {
-                result.append(userName);
+                String client = user.getName();
+                result.append(client);
                 menuClient();
                 break;
             }
