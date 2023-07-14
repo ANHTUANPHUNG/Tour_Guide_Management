@@ -20,6 +20,7 @@ import static View.ClientView.setTourClient;
 import static service.ClientSV.clientList;
 import static service.GuideSV.guideList;
 import static service.LoginSv.checkUserName1;
+import static service.LoginSv.checkUserName2;
 import static utils.AppUltis.CurrencyFormat.covertPriceToString;
 import static utils.AppUltis.getString;
 
@@ -52,7 +53,7 @@ public class BillSV implements CRUD<Bill> {
         System.out.println("=============================================================================================================================================================");
         System.out.printf("|%-4s| %-7s| %-12s| %-15s| %-12s| %-12s| %-30s| %-15s| %-15s| %-15s|\n", "ID", "Client", "Invoice Date", "Guide", "Star Date", "End Date", "Note", "Status", "Price", "Total");
         for (Bill bill : billList) {
-            if (bill.getNameClient().equals(id)) {
+            if (bill.getZclient().equals(id)) {
                 System.out.printf("|%-4s| %-7s| %-12s| %-15s| %-12s| %-12s| %-30s| %-15s| %-15s| %-15s|\n",
                         bill.getIdBill(), bill.getNameClient(), bill.getInvoiceDate(), bill.getNameGuide(),
                         bill.getStarDate(), bill.getEndDate(), bill.getNote(), bill.getStatus(),
@@ -63,17 +64,17 @@ public class BillSV implements CRUD<Bill> {
     }
     public static void displayBillGuide(String id) {
         System.out.println("                                                              Thông tin hóa đơn:");
-        System.out.println("===========================================================================================================================================================");
-        System.out.printf("|%-4s| %-15s| %-12s| %-15s| %-12s| %-12s| %-15s| %-15s| %-15s| %-15s|\n", "ID", "Client", "Invoice Date", "Guide", "Star Date", "End Date", "Note", "Status", "Price", "Total");
+        System.out.println("================================================================================================================================================================");
+        System.out.printf("|%-4s| %-15s| %-12s| %-15s| %-17s| %-17s| %-15s| %-15s| %-15s| %-15s|\n", "STT", "khác", "Ngày đặt", "NV", "Ngày bắt dđầu", "Ngày kết thúc", "Ghi chú", "Trạng thái", "Giá", "Thành tiền");
         for (Bill bill : billList) {
             if (bill.getNameGuide().equals(id)) {
-                System.out.printf("|%-4s| %-15s| %-12s| %-15s| %-12s| %-12s| %-15s| %-15s| %-15s| %-15s|\n",
+                System.out.printf("|%-4s| %-15s| %-12s| %-15s| %-17s| %-17s| %-15s| %-15s| %-15s| %-15s|\n",
                         bill.getIdBill(), bill.getNameClient(), bill.getInvoiceDate(), bill.getNameGuide(),
                         bill.getStarDate(), bill.getEndDate(), bill.getNote(), bill.getStatus(),
                         covertPriceToString(bill.getPrice()), covertPriceToString(bill.getTotal()));
             }
         }
-        System.out.println("===========================================================================================================================================================");
+        System.out.println("================================================================================================================================================================");
     }
     public static void displayCheckBill(LocalDate startDate, LocalDate endDate) {
         System.out.println("                                                              Thông tin hóa đơn:");
@@ -118,7 +119,7 @@ public class BillSV implements CRUD<Bill> {
             if (bill.getStarDate().isAfter(startDate.minusDays(1))
                     && bill.getEndDate().isBefore(endDate.plusDays(1))) {
                 System.out.printf("|%-4s| %-15s| %-12s| %-15s| %-12s| %-12s| %-30s| %-15s| %-15s| %-15s|\n",
-                        bill.getIdBill(), bill.getNameClient(), bill.getInvoiceDate(), bill.getNameGuide(),
+                        bill.getIdBill(), bill.getZclient(), bill.getInvoiceDate(), bill.getNameGuide(),
                         bill.getStarDate(), bill.getEndDate(), bill.getNote(), bill.getStatus(),
                         covertPriceToString(bill.getPrice()), covertPriceToString(bill.getTotal()));
             }
@@ -155,28 +156,29 @@ public class BillSV implements CRUD<Bill> {
 
     public static void createBillSV(Guide guide, LocalDate startDate, LocalDate endDate) {
         int IdBill = nextIdBill();
-        String NameClient = getTheCurrentlyLoginID();
+        String zclient= checkUserName1();
+        String NameClient = checkUserName2();
         LocalDate InvoiceDate1 = LocalDate.now();
         String UserName = guide.getUserName();
         String NameGuide = guide.getName();
         String Note = getValue.getString("Vui lòng nhập yêu cầu bạn muốn nhắn nhủ đến hướng dẫn viên");
         EStatusBill Status = EStatusBill.getStatusBillFromInt(1);
         double Price = guide.getPrice();
-        Bill newBill = new Bill(IdBill, NameClient, InvoiceDate1, UserName, NameGuide, startDate, endDate, Note, Status, Price);
+        Bill newBill = new Bill(IdBill, NameClient,zclient, InvoiceDate1, UserName, NameGuide, startDate, endDate, Note, Status, Price);
         billList.add(newBill);
         SerializationUtil.serialize(billList, "Bill.txt");
         System.out.println("Tạo đơn thành công!");
     }
 
     public static void setTour(LocalDate StarDate, LocalDate EndDate){
-        boolean hasPendingApproval = false;
+        boolean hasPendingApproval = true;
         for (Bill bill : billList) {
             if (bill.getStarDate().isEqual(StarDate) && bill.getEndDate().isEqual(EndDate) ) {
-                hasPendingApproval = true;
+                hasPendingApproval = false;
                 break;
             }
         }
-        if (!hasPendingApproval) {
+        if (hasPendingApproval) {
             displayGuideCheck(StarDate,StarDate);
         } else {
             System.err.println("Không có hướng dẫn viên trong khoảng ngày đã chọn");
@@ -202,20 +204,20 @@ public class BillSV implements CRUD<Bill> {
             }
         }
     }
-    public static void extended(String id){
-        for (Bill bill : billList) {
-            if (bill.getNameClient().equals(id)) {
-                System.out.println("Thay đổi ngày kết thúc");
-                LocalDate EndDate = AppUltis.getDate();
-                long daysBetween = ChronoUnit.DAYS.between(bill.getStarDate(), EndDate);
-                double Total = (daysBetween+1) * bill.getPrice();
-                covertPriceToString(Total);
-                bill.setEndDate(EndDate);
-                bill.setTotal(Total);
-                System.out.println("Sửa đơn thành công");
-            }
-        }
-    }
+//    public static void extended(String id){
+//        for (Bill bill : billList) {
+//            if (bill.getNameClient().equals(id)) {
+//                System.out.println("Thay đổi ngày kết thúc");
+//                LocalDate EndDate = AppUltis.getDate();
+//                long daysBetween = ChronoUnit.DAYS.between(bill.getStarDate(), EndDate);
+//                double Total = (daysBetween+1) * bill.getPrice();
+//                covertPriceToString(Total);
+//                bill.setEndDate(EndDate);
+//                bill.setTotal(Total);
+//                System.out.println("Sửa đơn thành công");
+//            }
+//        }
+//    }
 
     @Override
     public void delete(int id) {

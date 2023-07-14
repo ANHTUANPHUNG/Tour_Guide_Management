@@ -1,14 +1,14 @@
 package eNum;
 
 public enum EStatusBill {
-    WAITING(1,"Waiting"),
+    WAITING(1, "Waiting"),
 
-    CONFIRMED(2,"Confirmed"),
+    CONFIRMED(2, "Confirmed"),
 
-    FINISH(3,"Finish"),
+    FINISH(3, "Finish"),
 
-    DELETE(4,"Delete"),
-    Refuse(5,"Refuse"),
+    DELETE(4, "Delete"),
+    Refuse(5, "Refuse"),
     INPROGRESS(6, "InProgress");
 
 
@@ -35,6 +35,7 @@ public enum EStatusBill {
     public void setName(String name) {
         this.name = name;
     }
+
     public static EStatusBill getStatusBillFromInt(int id) {
         for (EStatusBill e : EStatusBill.values()) {
             if (e.getId() == id) {
@@ -43,4 +44,9 @@ public enum EStatusBill {
         }
         return null;
     }
+
+    public static boolean isBillComplete(EStatusBill status) {
+        return status == EStatusBill.INPROGRESS || status == EStatusBill.CONFIRMED || status == EStatusBill.WAITING;
+    }
+
 }

@@ -26,6 +26,7 @@ import static service.BillSV.billList;
 import static service.ClientSV.clientList;
 
 import static service.FeedBackSV.*;
+import static service.LoginSv.checkUserName1;
 import static utils.AppUltis.CurrencyFormat.covertPriceToString;
 import static utils.AppUltis.getInt;
 import static utils.AppUltis.getString;
@@ -116,7 +117,7 @@ public class GuideSV implements CRUD<Guide> {
     public void update(int id) {
         for (Guide guide : guideList) {
             if (guide.getIdGuide() == id) {
-                int choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn ví trí 1->10'Không sửa được rate'):", 1, 10);
+                int choice = AppUltis.getIntWithBound("Mời chọn ví trí 1->10'Không sửa được rate':", 1, 10);
                 switch (choice) {
                     case 1 -> {
                         String Name = getString("Nhập họ tên");
@@ -134,7 +135,7 @@ public class GuideSV implements CRUD<Guide> {
                         guide.setAddress(Address);
                     }
                     case 4 -> {
-                        EGender Gender = EGender.getGenderFromInt(AppUltis.getIntWithBound("Enter your choice(Mời chọn'1:male,2:female,3:other' ):", 1, 3));
+                        EGender Gender = EGender.getGenderFromInt(AppUltis.getIntWithBound("Mời chọn'1:male,2:female,3:other' :", 1, 3));
                         System.out.println("Sửa thành công");
                         guide.seteGender(Gender);
                     }
@@ -149,7 +150,7 @@ public class GuideSV implements CRUD<Guide> {
                         guide.setSkill(Language);
                     }
                     case 7 -> {
-                        EStatusGuide Status = EStatusGuide.getStatusGuideFromInt(AppUltis.getIntWithBound("Enter your choice(Mời chọn trạng thái):", 1, 2));
+                        EStatusGuide Status = EStatusGuide.getStatusGuideFromInt(AppUltis.getIntWithBound("Mời chọn trạng thái:", 1, 2));
                         System.out.println("Sửa thành công");
                         guide.seteStatusGuide(Status);
                     }
@@ -208,7 +209,7 @@ public class GuideSV implements CRUD<Guide> {
             }
         }
         acceptTheOrder();
-        choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn chức năng):", 0, 2);
+        choice = AppUltis.getIntWithBound("EMời chọn chức năng:", 0, 2);
         switch (choice) {
             case 1 -> {
                 billList.stream()
@@ -254,7 +255,7 @@ public class GuideSV implements CRUD<Guide> {
             menuTourGuide();
         }
         System.out.println("0. Quay lại.");
-        choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn chức năng):", 0,0 );
+        choice = AppUltis.getIntWithBound("Mời chọn chức năng:", 0,0 );
         if(choice==0){
             menuTourGuide();
         }
@@ -280,7 +281,7 @@ public class GuideSV implements CRUD<Guide> {
             menuTourGuide();
         }
         orderInProgress();
-        choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn chức năng):", 0, 1);
+        choice = AppUltis.getIntWithBound("Mời chọn chức năng:", 0, 1);
         switch (choice) {
             case 1 -> {
                 billList.stream()
@@ -298,7 +299,7 @@ public class GuideSV implements CRUD<Guide> {
         System.out.println("0 Quay lại.");
     }
     public static void FeedBackClient() {
-        final String NameGuide = getTheCurrentlyLoginID();
+        final String NameGuide = checkUserName1();
         if (feedBackList.isEmpty()) {
             System.err.println("Chưa có đánh giá");
             return;
@@ -317,7 +318,7 @@ public class GuideSV implements CRUD<Guide> {
             menuTourGuide();
         }
         System.out.println("0. Quay lại.");
-        choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn chức năng):", 0,0 );
+        choice = AppUltis.getIntWithBound("Mời chọn chức năng:", 0,0 );
         if(choice==0){
             menuTourGuide();
         }

@@ -12,6 +12,8 @@ import java.util.List;
 
 import static service.BillSV.getTheCurrentlyLoginID;
 import static service.GuideSV.guideList;
+import static service.LoginSv.checkUserName1;
+import static service.LoginSv.checkUserName2;
 import static utils.AppUltis.CurrencyFormat.covertPriceToString;
 import static utils.AppUltis.getString;
 
@@ -22,32 +24,34 @@ public class FeedBackSV implements CRUD<FeedBack> {
         feedBackList = (List<FeedBack>) SerializationUtil.deserialize("FeedBack.txt");
     }
 
-
+    public static void main(String[] args) {
+        displayFeedBackGuide("Trường An");
+    }
 
     public static void displayFeedBack() {
-        System.out.println("                                                 Thông tin đánh giá của khách:");
-        System.out.println("==============================================================================================================================");
-        System.out.printf("|%-4s| %-20s| %-12s| %-20s| %-53s| %-5s|\n",
-                "ID", "Name Client", "Name Guide", "InvoiceDate", "Feedback", "Rate");
+        System.out.println("                                                 Đánh giá của khách:");
+        System.out.println("======================================================================================================================================================");
+        System.out.printf("|%-4s| %-25s| %-15s| %-15s| %-20s| %-53s| %-5s|\n",
+                "STT", "Tài khoản khách", "Tên khách", "Tên NV", "Ngày", "Đánh giá", "Sao");
         for (FeedBack feedBack : feedBackList) {
-            System.out.printf("|%-4s| %-20s| %-12s| %-20s| %-53s| %-5s|\n",
-                    feedBack.getId(), feedBack.getIdClient(), feedBack.getNameGuide(), feedBack.getInvoiceDate(),
+            System.out.printf("|%-4s| %-25s| %-15s| %-15s| %-20s| %-53s| %-5s|\n",
+                    feedBack.getId(), feedBack.getIdClient(),feedBack.getNameClient(), feedBack.getNameGuide(), feedBack.getInvoiceDate(),
                     feedBack.getFeedback(), feedBack.getRate());
         }
-        System.out.println("==============================================================================================================================\n\n");}
+        System.out.println("=======================================================================================================================================================\n\n");}
 
     public static void displayFeedBackGuide(String name) {
-        System.out.println("                                                              Thông tin hóa đơn:");
-        System.out.println("==============================================================================================================================");
-        System.out.printf("|%-4s| %-20s| %-12s| %-20s| %-53s| %-5s|\n", "ID", "Name Client", "Name Guide", "InvoiceDate", "Feedback", "Rate");
+        System.out.println("                                                              Đánh giá khách hàng:");
+        System.out.println("=============================================================================================================================");
+        System.out.printf("|%-4s| %-15s| %-15s|  %-20s| %-53s| %-5s|\n", "STT", "Tên khách", "Tên NV", "Ngày", "Đánh giá", "Sao");
         for (FeedBack feedBack : feedBackList) {
             if (feedBack.getNameGuide().equals(name)) {
-                System.out.printf("|%-4s| %-20s| %-12s| %-20s| %-53s| %-5s| \n",
-                        feedBack.getId(), feedBack.getIdClient(), feedBack.getNameGuide()
+                System.out.printf("|%-4s| %-15s|  %-15s| %-20s| %-53s| %-5s| \n",
+                        feedBack.getId(), feedBack.getNameClient(), feedBack.getNameGuide()
                         , feedBack.getInvoiceDate(), feedBack.getFeedback(), feedBack.getRate());
             }
         }
-        System.out.println("==============================================================================================================================\n\n");
+        System.out.println("=============================================================================================================================\n\n");
     }
 
     @Override
@@ -74,7 +78,8 @@ public class FeedBackSV implements CRUD<FeedBack> {
 
     public static void createFeedBackSV(Guide guide) {
         int id = nextIdFeedBack();
-        String IdClient = getTheCurrentlyLoginID();
+        String IdClient = checkUserName1();
+        String NameClient= checkUserName2();
         int IdGuild = guide.getIdGuide();
         String nameGuide = guide.getName();
         LocalDate InvoiceDate1 = LocalDate.now();

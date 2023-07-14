@@ -6,10 +6,7 @@ import service.BillSV;
 import java.awt.*;
 import java.sql.Time;
 import java.text.NumberFormat;
-import java.time.LocalDate;
-import java.time.Month;
-import java.time.MonthDay;
-import java.time.YearMonth;
+import java.time.*;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
@@ -138,15 +135,17 @@ public class AppUltis {
 
     public static LocalDate getDateBook(String str) {
         try {
-            LocalDate dateTime = LocalDate.parse(getString(str + " (yyyy-MM-dd ):"));
             LocalDate now = LocalDate.now();
-            long duration = ChronoUnit.HOURS.between(dateTime.atStartOfDay(), now.atStartOfDay());
-            if (duration < 0 || duration > 744) {
-                throw new RuntimeException("Invalid Date Range. Please enter a date within the last 30 day.");
+            LocalDate tomorrow = now.plusDays(1);
+            LocalDate maxDate = now.plusDays(30);
+            LocalDate dateTime = LocalDate.parse(getString(str + " (yyyy-MM-dd):"));
+            if (dateTime.isBefore(tomorrow) || dateTime.isAfter(maxDate)) {
+                throw new RuntimeException("\n" +
+                        "The selected date must be within the next 30 days starting from tomorrow (Ngày đã chọn phải nằm trong khoảng 30 ngày tiếp theo bắt đầu từ ngày mai).");
             }
             return dateTime;
         } catch (DateTimeParseException e) {
-            System.out.println("Định dạng ngày không hợp lệ. Vui lòng thử lại");
+            System.out.println("Invalid date format. Please try again(Định dạng ngày không hợp lệ. Vui lòng thử lại)");
             return getDateBook(str);
         } catch (Exception e) {
             System.out.println(e.getMessage());

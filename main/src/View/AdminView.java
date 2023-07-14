@@ -24,7 +24,7 @@ public class AdminView {
 
     public static void menuAdmin() {
         menuAdminView();
-        choice = AppUltis.getIntWithBound("    Enter your choice(Mời chọn chức năng):", 0, 3);
+        choice = AppUltis.getIntWithBound("    Mời chọn chức năng:", 0, 3);
         switch (choice) {
             case 1 -> menuGuideAdmin();
             case 2 -> pendingOrder();
@@ -47,11 +47,11 @@ public class AdminView {
         GuideSV guideSV = GuideSV.getInstance();
         displayGuide();
         menuGuideTour();
-        choice = AppUltis.getIntWithBound("    Enter your choice(Mời chọn chức năng):", 0, 5);
+        choice = AppUltis.getIntWithBound("    Mời chọn ", 0, 5);
         switch (choice) {
             case 1 -> {
                 displayClient();
-                choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn ví trí):", 0, nextIdGuide() - 1);
+                choice = AppUltis.getIntWithBound("Mời chọn ví trí:", 0, nextIdGuide() - 1);
                 if (choice == 0) {
                     menuGuideAdmin();
                 } else {
@@ -59,18 +59,20 @@ public class AdminView {
                 }
             }
             case 2 -> {
-                choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn ví trí nhân viên):", 1, nextIdGuide() - 1);
+                displayGuide();
+                choice = AppUltis.getIntWithBound("Mời chọn ví trí nhân viên:", 1, nextIdGuide() - 1);
                 guideSV.delete(choice);
             }
             case 3 -> {
-                choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn ví trí nhân viên):", 1, nextIdGuide() - 1);
+                displayGuide();
+                choice = AppUltis.getIntWithBound("Mời chọn ví trí nhân viên:", 1, nextIdGuide() - 1);
                 guideSV.update(choice);
 
             }
             case 4 -> {
                 displayFeedBack();
                 System.out.println("0. Quay lại.");
-                choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn chức năng):", 0, 0);
+                choice = AppUltis.getIntWithBound("Mời chọn :", 0, 0);
                 if (choice == 0) {
                     menuGuideAdmin();
                 }
@@ -82,7 +84,7 @@ public class AdminView {
                 LocalDate end = AppUltis.getDate();
                 salaryGuideOfAdmin(start,end);
                 System.out.println("0. Quay lại.");
-                choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn chức năng):", 0, 0);
+                choice = AppUltis.getIntWithBound("Mời chọn :", 0, 0);
                 if (choice == 0) {
                     menuGuideAdmin();
                 }
@@ -107,7 +109,7 @@ public class AdminView {
     public static void pendingOrder() {
         displayBill();
         System.out.println("0. Quay lại.");
-        choice = AppUltis.getIntWithBound("    Enter your choice(Mời chọn chức năng):", 0, 0);
+        choice = AppUltis.getIntWithBound("    Mời chọn chức năng:", 0, 0);
         if(choice ==0){
             menuAdmin();
         }
@@ -115,7 +117,7 @@ public class AdminView {
 
     public static void monthlyRevenue() {
         monthlyRevenueGuide();
-        choice = AppUltis.getIntWithBound("    Enter your choice(Mời chọn chức năng):", 0, 1);
+        choice = AppUltis.getIntWithBound("    Mời chọn chức năng:", 0, 1);
         switch (choice) {
             case 1 -> {
                 System.out.println("Ngày bắt đầu");

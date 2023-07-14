@@ -15,6 +15,7 @@ import static service.GuideSV.guideList;
 public class LoginSv {
 //    private static final StringBuilder result;
     public static String result;
+    public static String result1;
 
 //    static {
 //        result = new StringBuilder();
@@ -36,6 +37,7 @@ public class LoginSv {
             if (user.getUserName().equals(userName) && user.getPassWord().equals(passWord)) {
                 if (isGuideActive(user.getIdGuide())) {
                     result = user.getName();
+                    result1 = user.getUserName();
                     menuTourGuide();
                 }
                 return;
@@ -46,7 +48,7 @@ public class LoginSv {
         for (Client user : clientSV1) {
             if (user.getUserName().equals(userName) && user.getPassword().equals(passWord)) {
                 result = user.getName();
-
+                result1=userName;
                 menuClient();
                 break;
             }
@@ -66,6 +68,9 @@ public class LoginSv {
     }
     public static String checkUserName1(){
         return result;
+    }
+    public static String checkUserName2(){
+        return result1;
     }
 
 }

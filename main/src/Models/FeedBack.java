@@ -12,6 +12,7 @@ import static service.GuideSV.guideList;
 public class FeedBack implements Serializable {
     private int id;
     private String idClient;
+    private String nameClient;
     private LocalDate invoiceDate;
     private int idGuide;
     private String nameGuide;
@@ -21,9 +22,20 @@ public class FeedBack implements Serializable {
     public FeedBack() {
     }
 
-    public FeedBack(int id, String idClient, LocalDate invoiceDate, int idGuide, String nameGuide, String feedback, int rate) {
+    public FeedBack(int id, String nameClient, LocalDate invoiceDate, int idGuide, String nameGuide, String feedback, int rate) {
+        this.id = id;
+        this.nameClient = nameClient;
+        this.invoiceDate = invoiceDate;
+        this.idGuide = idGuide;
+        this.nameGuide = nameGuide;
+        this.feedback = feedback;
+        this.rate = rate;
+    }
+
+    public FeedBack(int id, String idClient, String nameClient, LocalDate invoiceDate, int idGuide, String nameGuide, String feedback, int rate) {
         this.id = id;
         this.idClient = idClient;
+        this.nameClient = nameClient;
         this.invoiceDate = invoiceDate;
         this.idGuide = idGuide;
         this.nameGuide = nameGuide;
@@ -38,6 +50,14 @@ public class FeedBack implements Serializable {
         this.idGuide = idGuide;
         this.feedback = feedback;
         this.rate = rate;
+    }
+
+    public String getNameClient() {
+        return nameClient;
+    }
+
+    public void setNameClient(String nameClient) {
+        this.nameClient = nameClient;
     }
 
     public int getId() {

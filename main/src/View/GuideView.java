@@ -22,7 +22,7 @@ public class GuideView {
     // quản lí danh sách
     public static void menuTourGuide() {
         menuGuideView();
-        choice = AppUltis.getIntWithBound("        Enter your choice(Mời chọn chức năng):", 0, 5);
+        choice = AppUltis.getIntWithBound("        Mời chọn chức năng:", 0, 5);
         switch (choice) {
             case 1 -> orderRequestedGuide();
             case 2 -> orderCompletedGuide();
@@ -35,7 +35,7 @@ public class GuideView {
                 LocalDate end = AppUltis.getDate();
                 salaryGuide(start,end);
                 System.out.println("0. Quay lại.");
-                choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn chức năng):", 0, 0);
+                choice = AppUltis.getIntWithBound("Mời chọn chức năng:", 0, 0);
                 if (choice == 0) {
                     menuTourGuide();
                 }

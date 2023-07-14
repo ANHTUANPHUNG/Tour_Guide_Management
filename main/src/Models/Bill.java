@@ -8,12 +8,14 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
+import java.util.PrimitiveIterator;
 
 import static service.BillSV.billList;
 import static service.ClientSV.clientList;
 
 public class Bill implements Serializable {
     private int idBill;
+    private String zclient;
     private String nameClient;
     private LocalDate invoiceDate;
     private String userGuide;
@@ -43,9 +45,10 @@ public class Bill implements Serializable {
 //        this.salary = salary;
 //    }
 
-    public Bill(int idBill, String NameClient, LocalDate invoiceDate, String userGuide, String NameGuide, LocalDate starDate, LocalDate endDate, String note, EStatusBill eStatusBill, double price) {
+    public Bill(int idBill, String nameClient,String zclient, LocalDate invoiceDate, String userGuide, String NameGuide, LocalDate starDate, LocalDate endDate, String note, EStatusBill eStatusBill, double price) {
         this.idBill = idBill;
-        this.nameClient = NameClient;
+        this.zclient=zclient;
+        this.nameClient = nameClient;
         this.invoiceDate = invoiceDate;
         this.userGuide = userGuide;
         this.nameGuide = NameGuide;
@@ -55,6 +58,14 @@ public class Bill implements Serializable {
         this.note = note;
         this.total = price * (ChronoUnit.DAYS.between(starDate, endDate) + 1);
         this.eStatusBill = eStatusBill;
+    }
+
+    public String getZclient() {
+        return zclient;
+    }
+
+    public void setZclient(String zclient) {
+        this.zclient = zclient;
     }
 
     public double getSalary() {
