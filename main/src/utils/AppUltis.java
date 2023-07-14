@@ -13,13 +13,13 @@ import java.time.YearMonth;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.time.temporal.ChronoUnit;
-import java.util.Arrays;
+import java.util.*;
 import java.util.List;
-import java.util.Locale;
-import java.util.Scanner;
 import java.util.regex.Pattern;
+import java.util.Objects;
 
 import static service.BillSV.*;
+import static service.LoginSv.checkUserName1;
 import static utils.AppUltis.CurrencyFormat.covertPriceToString;
 
 public class AppUltis {
@@ -47,7 +47,7 @@ public class AppUltis {
         try {
             int number = getInt(str);
             if (number < begin || number > end) {
-                throw new NumberFormatException(String.format("Please input number between "+ begin+" and " +end+"(Vui lòng nhập số từ "+ begin +" đến " + end +")"));
+                throw new NumberFormatException(String.format("Please input number between " + begin + " and " + end + "(Vui lòng nhập số từ " + begin + " đến " + end + ")"));
             }
             return number;
         } catch (NumberFormatException e) {
@@ -66,6 +66,7 @@ public class AppUltis {
             return getDate();
         }
     }
+
     public static void printBillFromTo(LocalDate start, LocalDate end) {
         List<Bill> billss = billList.stream()
                 .filter(bill -> bill.getStarDate().isAfter(start.minusDays(1))
@@ -77,10 +78,64 @@ public class AppUltis {
             totalAmount += bill.getTotal();
 
         }
-        displayCheckBill(start,end);
-        String total= covertPriceToString(totalAmount);
+        displayCheckBill(start, end);
+        String total = covertPriceToString(totalAmount);
         System.out.println(total);
     }
+
+    public static void salaryGuideOfAdmin(LocalDate start, LocalDate end) {
+        Map<String, Double> salaryMap = new HashMap<>();
+
+        for (Bill bill : billList) {
+            if (bill.getStarDate().isAfter(start.minusDays(1)) && bill.getEndDate().isBefore(end.plusDays(1))) {
+                String guideName = bill.getNameGuide();
+                if (salaryMap.containsKey(guideName)) {
+                    double total = salaryMap.get(guideName);
+                    total += bill.getTotal();
+
+                    salaryMap.put(guideName, total);
+                } else {
+                    salaryMap.put(guideName, bill.getTotal());
+                }
+            }
+        }
+        for (Map.Entry<String, Double> entry : salaryMap.entrySet()) {
+            String guideName = entry.getKey();
+            double total = entry.getValue();
+            double salary = 5000000 + ((total * 10) / 100);
+            String sa = covertPriceToString(salary);
+            System.out.println("Nhân viên: " + guideName + "    ,      Tổng lương: " + sa);
+
+        }
+    }
+
+    public static void salaryGuide(LocalDate start, LocalDate end) {
+        Map<String, Double> salaryMap = new HashMap<>();
+
+        for (Bill bill : billList) {
+            if (bill.getNameGuide().equals(getTheCurrentlyLoginID())) {
+                if (bill.getStarDate().isAfter(start.minusDays(1)) && bill.getEndDate().isBefore(end.plusDays(1))) {
+                    if (salaryMap.containsKey(getTheCurrentlyLoginID())) {
+                        double total = salaryMap.get(getTheCurrentlyLoginID());
+                        total += bill.getTotal();
+
+                        salaryMap.put(getTheCurrentlyLoginID(), total);
+                    } else {
+                        salaryMap.put(getTheCurrentlyLoginID(), bill.getTotal());
+                    }
+                }
+            }
+        }
+        for (Map.Entry<String, Double> entry : salaryMap.entrySet()) {
+            String guideName = entry.getKey();
+            double total = entry.getValue();
+            double salary = 5000000 + ((total * 10) / 100);
+            String sa = covertPriceToString(salary);
+            System.out.println("Lương của bạn: " + guideName + "  ,      Tổng lương: " + sa);
+        }
+    }
+
+
     public static LocalDate getDateBook(String str) {
         try {
             LocalDate dateTime = LocalDate.parse(getString(str + " (yyyy-MM-dd ):"));
@@ -98,6 +153,7 @@ public class AppUltis {
             return getDateBook(str);
         }
     }
+
     public static LocalDate getUserDateOfBirth() {
         Scanner scanner = new Scanner(System.in);
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
@@ -131,7 +187,6 @@ public class AppUltis {
     }
 
 
-
     public static String getStringWithPattern(String str, String pattern) {
         String result = getString(str);
         if (!Pattern.compile(pattern).matcher(result).matches()) {
@@ -141,16 +196,19 @@ public class AppUltis {
         ;
         return result;
     }
+
     public static class CurrencyFormat {
         public static String covertPriceToString(double price) {
             Locale localeVN = new Locale("vi", "VN");
             NumberFormat currencyFormatter = NumberFormat.getCurrencyInstance(localeVN);
             return currencyFormatter.format(price);
         }
+
         public static double parseDouble(String price) {
             String priceNew = price.replaceAll("\\D+", "");
             return Double.parseDouble(priceNew);
         }
+
         public static int parseInteger(double price) {
             String price1 = String.valueOf(price);
             String priceNew = price1.replaceAll("\\D+\\d", "");

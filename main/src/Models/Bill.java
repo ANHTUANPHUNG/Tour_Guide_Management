@@ -6,6 +6,7 @@ import utils.SerializationUtil;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 import static service.BillSV.billList;
@@ -13,30 +14,63 @@ import static service.ClientSV.clientList;
 
 public class Bill implements Serializable {
     private int idBill;
-    private String NameClient;
+    private String nameClient;
     private LocalDate invoiceDate;
-    private String NameGuide;
+    private String userGuide;
+    private String nameGuide;
     private LocalDate starDate;
     private LocalDate endDate;
     private double price;
     private String note;
     private double total;
     private EStatusBill eStatusBill;
+    private double salary;
 
     public Bill() {
     }
 
-    public Bill(int idBill, String NameClient, LocalDate invoiceDate, String NameGuide, LocalDate starDate, LocalDate endDate, String note, EStatusBill eStatusBill, double price, double total) {
+//    public Bill(int idBill, String nameClient, LocalDate invoiceDate, String userGuide, String nameGuide, LocalDate starDate, LocalDate endDate, double price) {
+//        this.idBill = idBill;
+//        this.nameClient = nameClient;
+//        this.invoiceDate = invoiceDate;
+//        this.userGuide = userGuide;
+//        this.nameGuide = nameGuide;
+//        this.starDate = starDate;
+//        this.endDate = endDate;
+//        this.price = price;
+//        this.note = note;
+//        this.total = total;
+//        this.salary = salary;
+//    }
+
+    public Bill(int idBill, String NameClient, LocalDate invoiceDate, String userGuide, String NameGuide, LocalDate starDate, LocalDate endDate, String note, EStatusBill eStatusBill, double price) {
         this.idBill = idBill;
-        this.NameClient = NameClient;
+        this.nameClient = NameClient;
         this.invoiceDate = invoiceDate;
-        this.NameGuide = NameGuide;
+        this.userGuide = userGuide;
+        this.nameGuide = NameGuide;
         this.starDate = starDate;
         this.endDate = endDate;
         this.price = price;
         this.note = note;
-        this.total = total;
+        this.total = price * (ChronoUnit.DAYS.between(starDate, endDate) + 1);
         this.eStatusBill = eStatusBill;
+    }
+
+    public double getSalary() {
+        return salary;
+    }
+
+    public void setSalary(double salary) {
+        this.salary = salary;
+    }
+
+    public String getUserGuide() {
+        return userGuide;
+    }
+
+    public void setUserGuide(String userGuide) {
+        this.userGuide = userGuide;
     }
 
     public int getIdBill() {
@@ -49,7 +83,7 @@ public class Bill implements Serializable {
     }
 
     public String getNameClient() {
-        return NameClient;
+        return nameClient;
     }
 
     public EStatusBill geteStatusBill() {
@@ -60,8 +94,8 @@ public class Bill implements Serializable {
         this.eStatusBill = eStatusBill;
     }
 
-    public void setNameClient(String NameClient) {
-        this.NameClient = NameClient;
+    public void setNameClient(String nameClient) {
+        this.nameClient = nameClient;
         saveBill();
     }
 
@@ -75,11 +109,11 @@ public class Bill implements Serializable {
     }
 
     public String getNameGuide() {
-        return NameGuide;
+        return nameGuide;
     }
 
-    public void setNameGuide(String NameGuide) {
-        this.NameGuide = NameGuide;
+    public void setNameGuide(String nameGuide) {
+        this.nameGuide = nameGuide;
         saveBill();
     }
 
@@ -120,7 +154,7 @@ public class Bill implements Serializable {
     }
 
     public double getTotal() {
-        return BillSV.Total(this.NameGuide);
+        return total;
     }
 
     public void setTotal(double total) {

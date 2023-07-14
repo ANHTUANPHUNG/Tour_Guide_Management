@@ -25,12 +25,12 @@ public class InitClients {
         clientLists.add(client2);
         clientLists.add(client3);
         clientLists.add(client4);
+        clientLists.add(client5);
         clientLists.add(client6);
         clientLists.add(client7);
         clientLists.add(client8);
         clientLists.add(client9);
         clientLists.add(client10);
-        clientLists.add(client5);
         SerializationUtil.serialize(clientLists, "Client.txt");
     }
 }

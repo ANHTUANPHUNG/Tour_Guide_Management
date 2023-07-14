@@ -55,18 +55,20 @@ public class GuideSV implements CRUD<Guide> {
         return guideList;
     }
 
+
+
     // hàm in ra list guide
     public static void displayGuide() {
-        System.out.println("                                                              Thông tin hướng dẫn viên:");
-        System.out.println("============================================================================================================================================================================");
-        System.out.printf("|%-4s| %-15s| %-12s| %-10s| %-8s| %-10s| %-20s| %-10s| %-25s| %-5s| %-25s| %-12s|\n", "ID", "Name", "Age", "Address", "Gender", "Phone", "Language", "Status", "FeedBack", "Rate", "Hashtag", "Price");
+        System.out.println("                                                Thông tin hướng dẫn viên:");
+        System.out.println("====================================================================================================================================================================================");
+        System.out.printf("|%-4s| %-15s| %-12s| %-10s| %-8s| %-10s| %-20s| %-10s| %-25s| %-5s| %-25s| %-12s|\n",
+                "ID", "Name", "Age", "Address", "Gender", "Phone", "Language", "Status", "FeedBack", "Rate", "Hashtag", "Price");
         for (Guide guide : guideList) {
             System.out.printf("|%-4s| %-15s| %-12s| %-10s| %-8s| %-10s| %-20s| %-10s| %-25s| %-5s| %-25s| %-12s|\n",
                     guide.getIdGuide(), guide.getName(), guide.getAge(), guide.getAddress(), guide.geteGender(),
                     guide.getPhone(), guide.getSkill(), guide.geteStatusGuide(), guide.getFeedBack(), guide.getRate(), guide.getHastag(), covertPriceToString(guide.getPrice()));
         }
-        System.out.println("============================================================================================================================================================================\n\n");
-    }
+        System.out.println("====================================================================================================================================================================================\n\n");}
 
     //hàm in
     @Override
@@ -91,69 +93,79 @@ public class GuideSV implements CRUD<Guide> {
     //hàm tạo guide
     @Override
     public void create() {
-        int IdGuide = nextIdGuide();
-        String Name = getString("Nhập họ tên");
-        LocalDate Age = AppUltis.getUserDateOfBirth();
-        String Address = getString("Nhập địa chỉ");
-        EGender Gender = EGender.getGenderFromInt(AppUltis.getIntWithBound("Enter your choice''(Nhập giới tính):", 1, 3));
-        String Phone = getStringWithPattern("Nhập số điện thoại", AppConstant.REGEX_PHONE);
-        List<String> Language = Collections.singletonList(getString("Nhập ngoại ngữa"));
-        EStatusGuide Status = EStatusGuide.getStatusGuideFromInt(AppUltis.getIntWithBound("Enter your choice(Mời chọn trạng thái):", 1, 2));
-        List<String> FeedBack = Collections.singletonList(getString("Nhập phản hồi"));
-        double Rate = 0;
-        List<String> Hashtag = Collections.singletonList(getString("Nhập Hashtag"));
-        double Price = Double.parseDouble(getString("Nhập tiền"));
-        covertPriceToString(Price);
-        Guide newGuide = new Guide(IdGuide, Name, Age, Address, Phone, Language, Gender, Status, FeedBack, Rate, Hashtag, Price);
-        guideList.add(newGuide);
-        System.out.println("Thêm nhân viên thành công");
-        SerializationUtil.serialize(guideList, "guide.txt");
+//        int IdGuide = nextIdGuide();
+//        String Name = getString("Nhập họ tên");
+//        LocalDate Age = AppUltis.getUserDateOfBirth();
+//        String Address = getString("Nhập địa chỉ");
+//        EGender Gender = EGender.getGenderFromInt(AppUltis.getIntWithBound("Enter your choice''(Nhập giới tính):", 1, 3));
+//        String Phone = getStringWithPattern("Nhập số điện thoại", AppConstant.REGEX_PHONE);
+//        List<String> Language = Collections.singletonList(getString("Nhập ngoại ngữa"));
+//        EStatusGuide Status = EStatusGuide.getStatusGuideFromInt(AppUltis.getIntWithBound("Enter your choice(Mời chọn trạng thái):", 1, 2));
+//        List<String> FeedBack = Collections.singletonList(getString("Nhập phản hồi"));
+//        double Rate = 0;
+//        List<String> Hashtag = Collections.singletonList(getString("Nhập Hashtag"));
+//        double Price = Double.parseDouble(getString("Nhập tiền"));
+//        covertPriceToString(Price);
+//        Guide newGuide = new Guide(IdGuide, Name, Age, Address, Phone, Language, Gender, Status, FeedBack, Rate, Hashtag, Price);
+//        guideList.add(newGuide);
+//        System.out.println("Thêm nhân viên thành công");
+//        SerializationUtil.serialize(guideList, "guide.txt");
     }
 
     //    sửa thông tin guide
     public void update(int id) {
         for (Guide guide : guideList) {
             if (guide.getIdGuide() == id) {
-                int choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn ví trí bạn muốn sửa):", 1, 10);
+                int choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn ví trí 1->10'Không sửa được rate'):", 1, 10);
                 switch (choice) {
                     case 1 -> {
                         String Name = getString("Nhập họ tên");
+                        System.out.println("Sửa thành công");
                         guide.setName(Name);
                     }
                     case 2 -> {
-                        LocalDate Age = AppUltis.getUserDateOfBirth();
+                        LocalDate Age = AppUltis.getUserDateOfBirth();                        System.out.println("Sửa thành công");
+
                         guide.setAge(Age);
                     }
                     case 3 -> {
-                        String Address = getString("Nhập địa chỉ");
+                        String Address = getString("Nhập địa chỉ");                        System.out.println("Sửa thành công");
+
                         guide.setAddress(Address);
                     }
                     case 4 -> {
                         EGender Gender = EGender.getGenderFromInt(AppUltis.getIntWithBound("Enter your choice(Mời chọn'1:male,2:female,3:other' ):", 1, 3));
+                        System.out.println("Sửa thành công");
                         guide.seteGender(Gender);
                     }
                     case 5 -> {
                         String Phone = getStringWithPattern("Nhập số điện thoại", AppConstant.REGEX_PHONE);
+                        System.out.println("Sửa thành công");
                         guide.setPhone(Phone);
                     }
                     case 6 -> {
                         List<String> Language = Collections.singletonList(getString("Nhập ngoại ngữa"));
+                        System.out.println("Sửa thành công");
                         guide.setSkill(Language);
                     }
                     case 7 -> {
                         EStatusGuide Status = EStatusGuide.getStatusGuideFromInt(AppUltis.getIntWithBound("Enter your choice(Mời chọn trạng thái):", 1, 2));
+                        System.out.println("Sửa thành công");
                         guide.seteStatusGuide(Status);
                     }
                     case 8 -> {
                         List<String> FeedBack = Collections.singletonList(getString("Nhập phản hồi"));
+                        System.out.println("Sửa thành công");
                         guide.setFeedBack(FeedBack);
                     }
                     case 9 -> {
                         List<String> Hashtag = Collections.singletonList(getString("Nhập Hashtag"));
+                        System.out.println("Sửa thành công");
                         guide.setHastag(Hashtag);
                     }
                     case 10 -> {
                         double Price = Double.parseDouble(getString("Nhập tiền"));
+                        System.out.println("Sửa thành công");
                         covertPriceToString(Price);
                         guide.setPrice(Price);
                     }
@@ -168,7 +180,7 @@ public class GuideSV implements CRUD<Guide> {
                 .filter(guide -> guide.getIdGuide() != id)
                 .collect(Collectors.toList());
         SerializationUtil.serialize(guideList, "guide.txt");
-        System.out.println("Hướng dẫn viên với ID " + id + " đã được xóa thành công.");
+        System.err.println("Hướng dẫn viên với ID " + id + " đã được xóa thành công.");
     }
     @Override
     public void display() {
@@ -180,16 +192,20 @@ public class GuideSV implements CRUD<Guide> {
         if (billList.isEmpty()) {
             System.err.println("Chưa có đơn hàng");
             return;
-        }
-        boolean hasPendingApproval = false;
-        for (Bill bill : billList) {
-            if (bill.getNameGuide().equals(NameGuide) && bill.getStatus().equals(EStatusBill.WAITING)) {
-                hasPendingApproval = true;
-                break;
+        }else {
+            boolean hasPendingApproval = false;
+            for (Bill bill : billList) {
+                if (bill.getNameGuide().equals(NameGuide) && bill.getStatus().equals(EStatusBill.WAITING)) {
+                    hasPendingApproval = true;
+                    break;
+                }
             }
-        }
-        if (hasPendingApproval) {
-            displayBillGuide(NameGuide);
+            if (hasPendingApproval) {
+                displayBillGuide(NameGuide);
+            } else {
+                System.err.println("Không có đơn hàng đang được yêu cầu");
+                menuTourGuide();
+            }
         }
         acceptTheOrder();
         choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn chức năng):", 0, 2);
@@ -233,8 +249,15 @@ public class GuideSV implements CRUD<Guide> {
         }
         if (hasPendingApproval) {
             displayBillGuide(NameGuide);
+        } else {
+            System.err.println("Không có đơn hàng đang đã hoàn thành.");
+            menuTourGuide();
         }
-        menuTourGuide();
+        System.out.println("0. Quay lại.");
+        choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn chức năng):", 0,0 );
+        if(choice==0){
+            menuTourGuide();
+        }
     }
     //    đơn đang chạy
     public static void orderInProgressGuide() {
@@ -252,6 +275,9 @@ public class GuideSV implements CRUD<Guide> {
         }
         if (hasPendingApproval) {
             displayBillGuide(NameGuide);
+        } else {
+            System.err.println("Không có đơn hàng đang hoạt động.");
+            menuTourGuide();
         }
         orderInProgress();
         choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn chức năng):", 0, 1);
@@ -286,6 +312,14 @@ public class GuideSV implements CRUD<Guide> {
         }
         if (hasPendingApproval) {
             displayFeedBackGuide(NameGuide);
+        } else {
+            System.err.println("Không có đánh giá");
+            menuTourGuide();
+        }
+        System.out.println("0. Quay lại.");
+        choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn chức năng):", 0,0 );
+        if(choice==0){
+            menuTourGuide();
         }
     }
 

@@ -14,7 +14,7 @@ public class ClientView {
     static int choice;
     public static void menuClient() {
         menuClientView();
-        choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn):", 0, 2);
+        choice = AppUltis.getIntWithBound("     Enter your choice(Mời chọn):", 0, 2);
         switch (choice) {
             case 1 -> {
                 System.out.println("Ngày bắt đầu");
@@ -29,16 +29,18 @@ public class ClientView {
     }
 
     public static void menuClientView() {
-        System.out.println("Trang cá nhân ");
-        System.out.println("1. Chọn ngày đi Tour.");
-        System.out.println("2. Đơn hàng của bạn.");
-        System.out.println("0. Quay lại.");
+        System.out.println("╔════════════════════════════════════╗");
+        System.out.println("║             Trang cá nhân          ║");
+        System.out.println("║          1. Chọn ngày đi Tour.     ║");
+        System.out.println("║          2. Đơn hàng của bạn.      ║");
+        System.out.println("║          0. Quay lại.              ║");
+        System.out.println("╚════════════════════════════════════╝");
     }
     // ngày để chọn guide
     public static void setTourClient(LocalDate startDate, LocalDate endDate) {
         setTour(startDate, endDate);
         listGuide();
-        choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn ):", 0, 2);
+        choice = AppUltis.getIntWithBound("    Enter your choice(Mời chọn ):", 0, 2);
         switch (choice) {
             case 1 -> pickATourGuide(startDate, endDate);
             case 2 -> rateGuide();
@@ -47,10 +49,13 @@ public class ClientView {
     }
 
     public static void listGuide() {
-        System.out.println("Danh sách hướng dẫn viên.");
-        System.out.println("1. Chọn hướng dẫn viên");
-        System.out.println("2. Đánh giá hướng dẫn viên");
-        System.out.println("0. Quay lại .");
+        System.out.println("╔═══════════════════════════════════════════╗");
+        System.out.println("║          Danh sách hướng dẫn viên         ║");
+        System.out.println("║       1. Chọn hướng dẫn viên              ║");
+        System.out.println("║       2. Đánh giá hướng dẫn viên          ║");
+        System.out.println("║       0. Quay lại                         ║");
+        System.out.println("╚═══════════════════════════════════════════╝");
+
     }
     public static void pickATourGuide(LocalDate startDate, LocalDate endDate) {
         displayGuide();
@@ -69,7 +74,7 @@ public class ClientView {
 
     public static void rateGuide() {
         displayGuide();
-        choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn ):", 0, nextIdGuide() - 1);
+        choice = AppUltis.getIntWithBound("    Enter your choice(Mời chọn ):", 0, nextIdGuide() - 1);
         GuideSV guideSV = new GuideSV();
         Guide guide = guideSV.getById(choice);
         createFeedBackSV(guide);
@@ -93,7 +98,7 @@ public class ClientView {
             displayBill(idCLIENT);
         }
         rentedOrderClients();
-        choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn):", 0, 3);
+        choice = AppUltis.getIntWithBound("     Enter your choice(Mời chọn):", 0, 3);
         switch (choice) {
             case 1 -> orderPendingApproval();
             case 2 -> orderApproved();
@@ -103,10 +108,13 @@ public class ClientView {
     }
 
     public static void rentedOrderClients() {
-        System.out.println("1. Đơn hàng đang chờ duyệt.");
-        System.out.println("2. Đơn hàng đã duyệt.");
-        System.out.println("3. Đơn hàng đang hoạt động");
-        System.out.println("0. Quay lại.");
+        System.out.println("╔═══════════════════════════════════╗");
+        System.out.println("║           Đơn hàng                ║");
+        System.out.println("║     1. Đơn hàng đang chờ duyệt    ║");
+        System.out.println("║     2. Đơn hàng đã duyệt          ║");
+        System.out.println("║     3. Đơn hàng đang hoạt động    ║");
+        System.out.println("║     0. Quay lại                   ║");
+        System.out.println("╚═══════════════════════════════════╝");
     }
 
     public static void orderPendingApproval() {
@@ -126,7 +134,7 @@ public class ClientView {
             displayBill(idCLIENT);
         }
         orderPendingApprovalClient();
-        choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn):", 0, 2);
+        choice = AppUltis.getIntWithBound("    Enter your choice(Mời chọn):", 0, 2);
         switch (choice) {
             case 1:
                 billList.stream()
@@ -147,10 +155,13 @@ public class ClientView {
     }
 
     public static void orderPendingApprovalClient() {
-        System.out.println("Đơn hàng đang chờ duyệt");
-        System.out.println("1. Huỷ đơn hàng.");
-        System.out.println("2. Dời lịch đơn hàng.");
-        System.out.println("0. Quay lại.");
+        System.out.println("╔═════════════════════════════════════╗");
+        System.out.println("║             Đơn hàng                ║");
+        System.out.println("║       1. Đơn hàng đang chờ duyệt    ║");
+        System.out.println("║       2. Đơn hàng đã duyệt          ║");
+        System.out.println("║       3. Đơn hàng đang hoạt động    ║");
+        System.out.println("║       0. Quay lại                   ║");
+        System.out.println("╚═════════════════════════════════════╝");
     }
 
     public static void orderApproved() {
@@ -170,7 +181,7 @@ public class ClientView {
             displayBill(idCLIENT);
         }
         orderApprovedClient();
-        choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn ):", 0, 2);
+        choice = AppUltis.getIntWithBound("    Enter your choice(Mời chọn ):", 0, 2);
         switch (choice) {
             case 1:
                 billList.stream()
@@ -191,9 +202,11 @@ public class ClientView {
     }
 
     public static void orderApprovedClient() {
-        System.out.println("Đơn hàng đang đã duyệt");
-        System.out.println("1. Huỷ đơn hàng.");
-        System.out.println("0. Quay lại.");
+        System.out.println("╔═══════════════════════════════════════╗");
+        System.out.println("║            Đơn hàng đã duyệt          ║");
+        System.out.println("║        1. Huỷ đơn hàng                ║");
+        System.out.println("║        0. Quay lại                    ║");
+        System.out.println("╚═══════════════════════════════════════╝");
     }
 
     public static void orderInProgress() {
@@ -213,7 +226,7 @@ public class ClientView {
             displayBill(idCLIENT);
         }
         orderInProgressClient();
-        choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn ):", 0, 1);
+        choice = AppUltis.getIntWithBound("    Enter your choice(Mời chọn ):", 0, 1);
         switch (choice) {
             case 1:
                 billList.stream()
@@ -234,10 +247,12 @@ public class ClientView {
     }
 
     public static void orderInProgressClient() {
-        System.out.println("Đơn hàng đang hoạt động");
-        System.out.println("1. Huỷ đơn hàng.");
-        System.out.println("1. Gia hạn đơn hàng.");
-        System.out.println("0. Quay lại.");
+        System.out.println("╔═══════════════════════════════════════╗");
+        System.out.println("║       Đơn hàng đang hoạt động         ║");
+        System.out.println("║     1. Huỷ đơn hàng                   ║");
+        System.out.println("║     2. Gia hạn đơn hàng               ║");
+        System.out.println("║     0. Quay lại                       ║");
+        System.out.println("╚═══════════════════════════════════════╝");
     }
 
 }

@@ -22,30 +22,32 @@ public class FeedBackSV implements CRUD<FeedBack> {
         feedBackList = (List<FeedBack>) SerializationUtil.deserialize("FeedBack.txt");
     }
 
+
+
     public static void displayFeedBack() {
-        System.out.println("                                                              Thông tin đánh giá của khách:");
-        System.out.println("===========================================================================================================================================================");
-        System.out.printf("|%-4s| %-20s| %-12s| %-20s| %-35s| %-5s|\n", "ID", "Name Client", "Name Guide", "InvoiceDate", "Feedback", "Rate");
+        System.out.println("                                                 Thông tin đánh giá của khách:");
+        System.out.println("==============================================================================================================================");
+        System.out.printf("|%-4s| %-20s| %-12s| %-20s| %-53s| %-5s|\n",
+                "ID", "Name Client", "Name Guide", "InvoiceDate", "Feedback", "Rate");
         for (FeedBack feedBack : feedBackList) {
-            System.out.printf("|%-4s| %-20s| %-12s| %-20s| %-35s| %-5s| \n",
-                    feedBack.getId(), feedBack.getIdClient(), feedBack.getNameGuide(), feedBack.getInvoiceDate()
-                    , feedBack.getFeedback(), feedBack.getRate());
+            System.out.printf("|%-4s| %-20s| %-12s| %-20s| %-53s| %-5s|\n",
+                    feedBack.getId(), feedBack.getIdClient(), feedBack.getNameGuide(), feedBack.getInvoiceDate(),
+                    feedBack.getFeedback(), feedBack.getRate());
         }
-        System.out.println("===========================================================================================================================================================\n\n");
-    }
+        System.out.println("==============================================================================================================================\n\n");}
 
     public static void displayFeedBackGuide(String name) {
         System.out.println("                                                              Thông tin hóa đơn:");
-        System.out.println("===========================================================================================================================================================");
-        System.out.printf("|%-4s| %-20s| %-12s| %-20s| %-35s| %-5s|\n", "ID", "Name Client", "Name Guide", "InvoiceDate", "Feedback", "Rate");
+        System.out.println("==============================================================================================================================");
+        System.out.printf("|%-4s| %-20s| %-12s| %-20s| %-53s| %-5s|\n", "ID", "Name Client", "Name Guide", "InvoiceDate", "Feedback", "Rate");
         for (FeedBack feedBack : feedBackList) {
             if (feedBack.getNameGuide().equals(name)) {
-                System.out.printf("|%-4s| %-20s| %-12s| %-20s| %-35s| %-5s| \n",
+                System.out.printf("|%-4s| %-20s| %-12s| %-20s| %-53s| %-5s| \n",
                         feedBack.getId(), feedBack.getIdClient(), feedBack.getNameGuide()
                         , feedBack.getInvoiceDate(), feedBack.getFeedback(), feedBack.getRate());
             }
         }
-        System.out.println("===========================================================================================================================================================\n\n");
+        System.out.println("==============================================================================================================================\n\n");
     }
 
     @Override
