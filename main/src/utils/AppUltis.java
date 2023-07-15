@@ -124,7 +124,7 @@ public class AppUltis {
             }
         }
         if (salaryMap.isEmpty()) {
-            System.out.println("Bạn không hoạt động vào khoảng thời gian này.");
+            System.out.println("Bạn không hoạt động vào thời gian này.");
         } else {
             for (Map.Entry<String, Double> entry : salaryMap.entrySet()) {
                 String guideName = entry.getKey();
@@ -165,21 +165,21 @@ public class AppUltis {
         int invalidCount = 0;
         while (!isValid) {
             try {
-                System.out.print("Enter your date of birth (yyyy-MM-dd): ");
+                System.out.print("Enter your date of birth 'Nhập ngày sinh của bạn'(yyyy-MM-dd): ");
                 String userInput = scanner.nextLine();
                 dateOfBirth = LocalDate.parse(userInput, formatter);
                 int minimumAge = 18;
                 LocalDate minimumDateOfBirth = LocalDate.now().minusYears(minimumAge);
                 if (dateOfBirth.isAfter(minimumDateOfBirth)) {
-                    throw new RuntimeException("Bạn chưa đủ 18 tuổi.");
+                    throw new Exception("You are not yet 18 years old(Bạn chưa đủ 18 tuổi).");
 
                 }
                 isValid = true;
             } catch (Exception e) {
                 invalidCount++;
-                System.out.println("Định dạng ngày không hợp lệ. Vui lòng thử lại.");
+                System.out.println("Invalid date format. Please try again(Định dạng ngày không hợp lệ. Vui lòng thử lại).");
                 if (invalidCount >= 3) {
-                    System.out.println("Bạn đã nhập sai quá 3 lần. Chương trình sẽ thoát.");
+                    System.out.println("You have entered an invalid date 3 times. The program will exit(Bạn đã nhập sai quá 3 lần. Chương trình sẽ thoát).");
                     System.exit(0);
                 }
             }
