@@ -57,7 +57,6 @@ public class GuideSV implements CRUD<Guide> {
     }
 
 
-
     // hàm in ra list guide
     public static void displayGuide() {
         System.out.println("                                                Thông tin hướng dẫn viên:");
@@ -69,7 +68,8 @@ public class GuideSV implements CRUD<Guide> {
                     guide.getIdGuide(), guide.getName(), guide.getAge(), guide.getAddress(), guide.geteGender(),
                     guide.getPhone(), guide.getSkill(), guide.geteStatusGuide(), guide.getFeedBack(), guide.getRate(), guide.getHastag(), covertPriceToString(guide.getPrice()));
         }
-        System.out.println("====================================================================================================================================================================================\n\n");}
+        System.out.println("====================================================================================================================================================================================\n\n");
+    }
 
     //hàm in
     @Override
@@ -125,12 +125,14 @@ public class GuideSV implements CRUD<Guide> {
                         guide.setName(Name);
                     }
                     case 2 -> {
-                        LocalDate Age = AppUltis.getUserDateOfBirth();                        System.out.println("Sửa thành công");
+                        LocalDate Age = AppUltis.getUserDateOfBirth();
+                        System.out.println("Sửa thành công");
 
                         guide.setAge(Age);
                     }
                     case 3 -> {
-                        String Address = getString("Nhập địa chỉ");                        System.out.println("Sửa thành công");
+                        String Address = getString("Nhập địa chỉ");
+                        System.out.println("Sửa thành công");
 
                         guide.setAddress(Address);
                     }
@@ -174,7 +176,8 @@ public class GuideSV implements CRUD<Guide> {
             }
         }
     }
-//xóa guide
+
+    //xóa guide
     @Override
     public void delete(int id) {
         guideList = guideList.stream()
@@ -183,17 +186,55 @@ public class GuideSV implements CRUD<Guide> {
         SerializationUtil.serialize(guideList, "guide.txt");
         System.err.println("Hướng dẫn viên với ID " + id + " đã được xóa thành công.");
     }
+
     @Override
     public void display() {
 
     }
+
+    public static void orderConfirmedGuide() {
+        final String NameGuide = getTheCurrentlyLoginID();
+        if (billList.isEmpty()) {
+            System.err.println("Chưa có đơn hàng");
+            return;
+        } else {
+            boolean hasPendingApproval = false;
+            for (Bill bill : billList) {
+                if (bill.getNameGuide().equals(NameGuide) && bill.getStatus().equals(EStatusBill.CONFIRMED)) {
+                    hasPendingApproval = true;
+                    break;
+                }
+            }
+            if (hasPendingApproval) {
+                displayBillGuideg(NameGuide);
+            } else {
+                System.err.println("Không có đơn hàng đã xác nhận");
+                menuTourGuide();
+            }
+        }
+        System.out.println("1. Từ chối đơn hàng.");
+        System.out.println("0. Quay lại .");
+        choice = AppUltis.getIntWithBound("EMời chọn chức năng:", 0, 1);
+        switch (choice) {
+            case 1 -> {
+                billList.stream()
+                        .filter(e -> e.getNameGuide().equals(NameGuide))
+                        .filter(e -> e.getStatus().equals(EStatusBill.CONFIRMED))
+                        .forEach(e -> e.setStatus(EStatusBill.Refuse));
+                System.err.println("Từ chối thành công");
+                menuTourGuide();
+            }
+            case 0 -> menuTourGuide();
+        }
+    }
+
     // đơn dangd yêu câu
     public static void orderRequestedGuide() {
         final String NameGuide = getTheCurrentlyLoginID();
         if (billList.isEmpty()) {
             System.err.println("Chưa có đơn hàng");
             return;
-        }else {
+        } else {
             boolean hasPendingApproval = false;
             for (Bill bill : billList) {
                 if (bill.getNameGuide().equals(NameGuide) && bill.getStatus().equals(EStatusBill.WAITING)) {
@@ -202,14 +243,14 @@ public class GuideSV implements CRUD<Guide> {
                 }
             }
             if (hasPendingApproval) {
-                displayBillGuide(NameGuide);
+                displayBillGuidey(NameGuide);
             } else {
                 System.err.println("Không có đơn hàng đang được yêu cầu");
                 menuTourGuide();
             }
         }
         acceptTheOrder();
-        choice = AppUltis.getIntWithBound("EMời chọn chức năng:", 0, 2);
+        choice = AppUltis.getIntWithBound("Mời chọn chức năng:", 0, 2);
         switch (choice) {
             case 1 -> {
                 billList.stream()
@@ -217,6 +258,7 @@ public class GuideSV implements CRUD<Guide> {
                         .filter(e -> e.getStatus().equals(EStatusBill.WAITING))
                         .forEach(e -> e.setStatus(EStatusBill.CONFIRMED));
                 System.err.println("Duyệt đơn thành công");
+                menuTourGuide();
             }
             case 2 -> {
                 billList.stream()
@@ -224,16 +266,19 @@ public class GuideSV implements CRUD<Guide> {
                         .filter(e -> e.getStatus().equals(EStatusBill.WAITING))
                         .forEach(e -> e.setStatus(EStatusBill.Refuse));
                 System.err.println("Từ chối thành công");
+                menuTourGuide();
             }
             case 0 -> menuTourGuide();
         }
 
     }
+
     public static void acceptTheOrder() {
         System.out.println("1. Chấp thuận đơn hàng.");
         System.out.println("2. Từ chối đơn hàng.");
         System.out.println("0. Quay lại .");
     }
+
     //    đơn đã hoàn thành
     public static void orderCompletedGuide() {
         final String NameGuide = getTheCurrentlyLoginID();
@@ -249,17 +294,18 @@ public class GuideSV implements CRUD<Guide> {
             }
         }
         if (hasPendingApproval) {
-            displayBillGuide(NameGuide);
+            displayBillGuidex(NameGuide);
         } else {
             System.err.println("Không có đơn hàng đang đã hoàn thành.");
             menuTourGuide();
         }
         System.out.println("0. Quay lại.");
-        choice = AppUltis.getIntWithBound("Mời chọn chức năng:", 0,0 );
-        if(choice==0){
+        choice = AppUltis.getIntWithBound("Mời chọn chức năng:", 0, 0);
+        if (choice == 0) {
             menuTourGuide();
         }
     }
+
     //    đơn đang chạy
     public static void orderInProgressGuide() {
         final String NameGuide = getTheCurrentlyLoginID();
@@ -275,7 +321,7 @@ public class GuideSV implements CRUD<Guide> {
             }
         }
         if (hasPendingApproval) {
-            displayBillGuide(NameGuide);
+            displayBillGuidez(NameGuide);
         } else {
             System.err.println("Không có đơn hàng đang hoạt động.");
             menuTourGuide();
@@ -288,16 +334,19 @@ public class GuideSV implements CRUD<Guide> {
                         .filter(e -> e.getNameGuide().equals(NameGuide))
                         .filter(e -> e.getStatus().equals(EStatusBill.INPROGRESS))
                         .forEach(e -> e.setStatus(EStatusBill.DELETE));
-                System.err.println("Duyệt đơn thành công");
+                System.err.println("Từ chối thành công");
+                menuTourGuide();
             }
             case 0 -> menuTourGuide();
         }
     }
+
     public static void orderInProgress() {
         System.out.println("Đơn hàng đang chạy.");
         System.out.println("1. Hủy đơn.");
         System.out.println("0 Quay lại.");
     }
+
     public static void FeedBackClient() {
         final String NameGuide = checkUserName1();
         if (feedBackList.isEmpty()) {
@@ -318,8 +367,8 @@ public class GuideSV implements CRUD<Guide> {
             menuTourGuide();
         }
         System.out.println("0. Quay lại.");
-        choice = AppUltis.getIntWithBound("Mời chọn chức năng:", 0,0 );
-        if(choice==0){
+        choice = AppUltis.getIntWithBound("Mời chọn chức năng:", 0, 0);
+        if (choice == 0) {
             menuTourGuide();
         }
     }

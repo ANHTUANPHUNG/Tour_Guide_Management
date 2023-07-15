@@ -4,6 +4,8 @@ import Models.Admin;
 import Models.Client;
 import Models.Guide;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.List;
 
 import static View.AdminView.menuAdmin;
@@ -25,7 +27,7 @@ public class LoginSv {
         AdminSV users = AdminSV.getInstance();
         List<Admin> list1 = users.getUserList();
         for (Admin user : list1) {
-            if (user.getUserName().equals(userName) && user.getPassWord().equals(passWord)) {
+            if (user.getUserName().equals(userName)) {
                 result = userName;
                 menuAdmin();
                 break;
@@ -34,7 +36,7 @@ public class LoginSv {
         GuideSV guideSV = GuideSV.getInstance();
         List<Guide> guides = guideSV.getGuideList();
         for (Guide user : guides) {
-            if (user.getUserName().equals(userName) && user.getPassWord().equals(passWord)) {
+            if (user.getUserName().equals(userName)) {
                 if (isGuideActive(user.getIdGuide())) {
                     result = user.getName();
                     result1 = user.getUserName();
@@ -46,14 +48,14 @@ public class LoginSv {
         ClientSV clientSV = ClientSV.getInstance();
         List<Client> clientSV1 = clientSV.getClientList();
         for (Client user : clientSV1) {
-            if (user.getUserName().equals(userName) && user.getPassword().equals(passWord)) {
+            if (user.getUserName().equals(userName) ) {
                 result = user.getName();
-                result1=userName;
+                result1 = userName;
                 menuClient();
                 break;
             }
         }
-        System.err.println("Sai tên đăng nhập hoặc mật khẩu.");
+        System.err.println("Invalid username or password(Tên đăng nhập hoặc mật khẩu không hợp lệ).");
         menu();
     }
     private static boolean isGuideActive(int guideId) {
@@ -66,6 +68,7 @@ public class LoginSv {
         }
         return false;
     }
+
     public static String checkUserName1(){
         return result;
     }

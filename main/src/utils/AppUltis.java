@@ -123,12 +123,16 @@ public class AppUltis {
                 }
             }
         }
-        for (Map.Entry<String, Double> entry : salaryMap.entrySet()) {
-            String guideName = entry.getKey();
-            double total = entry.getValue();
-            double salary = 5000000 + ((total * 10) / 100);
-            String sa = covertPriceToString(salary);
-            System.out.println("Lương của bạn: " + guideName + "  ,      Tổng lương: " + sa);
+        if (salaryMap.isEmpty()) {
+            System.out.println("Bạn không hoạt động vào khoảng thời gian này.");
+        } else {
+            for (Map.Entry<String, Double> entry : salaryMap.entrySet()) {
+                String guideName = entry.getKey();
+                double total = entry.getValue();
+                double salary = 5000000 + ((total * 10) / 100);
+                String sa = covertPriceToString(salary);
+                System.out.println("Lương của bạn: " + guideName + ", Tổng lương: " + sa);
+            }
         }
     }
 

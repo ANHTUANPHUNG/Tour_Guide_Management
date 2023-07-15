@@ -61,6 +61,12 @@ public  class InitBill {
                 LocalDate.of(2023,6,18), "hòa đồng", EStatusBill.FINISH, 1100000);
         Bill bill21 = new Bill(21, "trungdung","Trung Dũng",  LocalDate.of(2023,2,1),"thienbao", "Thiên Bảo", LocalDate.of(2023,2,11),
                 LocalDate.of(2023,2,20), "Có con nít", EStatusBill.FINISH, 1800000);
+        Bill bill22 = new Bill(19, "minhan","Minh An",  LocalDate.of(2023,7,12),"thanhcong", "Thành Công", LocalDate.of(2023,7,16),
+                LocalDate.of(2023,7,18), "Có con nít", EStatusBill.WAITING, 2700000);
+        Bill bill23 = new Bill(20, "trungdung", "Trung Dũng", LocalDate.of(2023,7,13),"thuyanh", "Thùy Anh", LocalDate.of(2023,7,16),
+                LocalDate.of(2023,7,18), "hòa đồng", EStatusBill.CONFIRMED, 1100000);
+        Bill bill24 = new Bill(21, "thaochi","Thảo Chi",  LocalDate.of(2023,7,13),"thienbao", "Thiên Bảo", LocalDate.of(2023,7,14),
+                LocalDate.of(2023,7,20), "Có con nít", EStatusBill.INPROGRESS, 1800000);
         billLists.add(bill1);
         billLists.add(bill2);
         billLists.add(bill3);
@@ -82,6 +88,9 @@ public  class InitBill {
         billLists.add(bill19);
         billLists.add(bill20);
         billLists.add(bill21);
+        billLists.add(bill22);
+        billLists.add(bill23);
+        billLists.add(bill24);
 
         SerializationUtil.serialize(billLists, "Bill.txt");
 

@@ -1,10 +1,12 @@
 package View;
+
 import Models.Bill;
 import Models.Guide;
 import eNum.EStatusBill;
 import service.BillSV;
 import service.GuideSV;
 import utils.AppUltis;
+
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
@@ -13,29 +15,31 @@ import static eNum.EStatusBill.isBillComplete;
 import static service.BillSV.*;
 import static service.FeedBackSV.createFeedBackSV;
 import static service.GuideSV.*;
+import static service.LoginSv.checkUserName1;
 import static utils.AppUltis.CurrencyFormat.covertPriceToString;
 
 public class ClientView {
     static int choice;
+
     public static void menuClient() {
         final String idCLIENT = getTheCurrentlyLoginID();
         menuClientView();
         choice = AppUltis.getIntWithBound("     Enter your choice(Mời chọn):", 0, 3);
         switch (choice) {
             case 1 -> {
-                boolean check = true;
+                boolean check = false;
                 for (Bill bill : billList) {
-                    if (bill.getNameClient().equals(idCLIENT) && bill.getStatus().equals(EStatusBill.WAITING)
-                            ||bill.getNameClient().equals(idCLIENT) && bill.getStatus().equals(EStatusBill.CONFIRMED)
-                            ||bill.getNameClient().equals(idCLIENT) && bill.getStatus().equals(EStatusBill.INPROGRESS)) {
-                            check = false;
-                            break;
+                    if (bill.getZclient().equals(idCLIENT) && bill.getStatus().equals(EStatusBill.WAITING)
+                            || bill.getZclient().equals(idCLIENT) && bill.getStatus().equals(EStatusBill.CONFIRMED)
+                            || bill.getZclient().equals(idCLIENT) && bill.getStatus().equals(EStatusBill.INPROGRESS)) {
+                        check = true;
+                        break;
 
                     }
                 }
 
-                if (!check) {
-                    System.out.println("Cannot select date. You have either Waiting for confirmation, Confirmed, or In progress status " +
+                if (check) {
+                    System.err.println("Cannot select date. You have either Waiting for confirmation, Confirmed, or In progress status " +
                             "(Không thể chọn ngày. Bạn đang có Đang chờ xác nhận, Đã xác nhận hoặc Đang chạy).");
                     menuClient();
                 } else {
@@ -56,7 +60,7 @@ public class ClientView {
                 }
             }
             case 2 -> rentedOrder();
-            case 3->rateGuide();
+            case 3 -> rateGuide();
             case 0 -> menu();
         }
     }
@@ -70,9 +74,10 @@ public class ClientView {
         System.out.println("║          0. Quay lại.              ║");
         System.out.println("╚════════════════════════════════════╝");
     }
+
     // ngày để chọn guide
     public static void setTourClient(LocalDate startDate, LocalDate endDate) {
-        setTour(startDate, endDate);
+//        setTour(startDate, endDate);
         listGuide();
         choice = AppUltis.getIntWithBound("    Enter your choice(Mời chọn ):", 0, 1);
         switch (choice) {
@@ -89,6 +94,7 @@ public class ClientView {
         System.out.println("╚═══════════════════════════════════════════╝");
 
     }
+
     public static void pickATourGuide(LocalDate startDate, LocalDate endDate) {
         displayGuide();
         System.out.println("0. Quay lại");
@@ -107,28 +113,32 @@ public class ClientView {
     public static void rateGuide() {
         displayGuide();
         choice = AppUltis.getIntWithBound("    Enter your choice(Mời chọn ):", 0, nextIdGuide() - 1);
-        GuideSV guideSV = new GuideSV();
-        Guide guide = guideSV.getById(choice);
-        createFeedBackSV(guide);
-        menuClient();
+        if (choice == 0) {
+            menuClient();
+        } else {
+            GuideSV guideSV = new GuideSV();
+            Guide guide = guideSV.getById(choice);
+            createFeedBackSV(guide);
+            menuClient();
+        }
     }
 
     public static void rentedOrder() {
-        String idCLIENT = getTheCurrentlyLoginID();
+        String idCLIENT = checkUserName1();
         if (billList.isEmpty()) {
             System.err.println("Bạn chưa đặt hàng");
             return;
         }
         boolean hasPendingApproval = false;
         for (Bill bill : billList) {
-            if (bill.getNameClient().equals(idCLIENT)) {
+            if (bill.getZclient().equals(idCLIENT)) {
                 hasPendingApproval = true;
                 break;
             }
         }
-        if (!hasPendingApproval) {
+        if (hasPendingApproval) {
             displayBill(idCLIENT);
-        }else {
+        } else {
             System.out.println("Không có đơn hàng");
             menuClient();
         }
@@ -153,22 +163,23 @@ public class ClientView {
     }
 
     public static void orderPendingApproval() {
-        final String idCLIENT = getTheCurrentlyLoginID();
+        final String idCLIENT = checkUserName1();
         if (billList.isEmpty()) {
             System.err.println("Bạn chưa đặt hàng");
             return;
         }
         boolean hasPendingApproval = false;
         for (Bill bill : billList) {
-            if (bill.getNameClient().equals(idCLIENT) && bill.getStatus().equals(EStatusBill.WAITING) ||bill.getNameClient().equals(idCLIENT) && bill.getStatus().equals(EStatusBill.Refuse)) {
+            if (bill.getZclient().equals(idCLIENT) && bill.getStatus().equals(EStatusBill.WAITING) ||
+                    bill.getZclient().equals(idCLIENT) && bill.getStatus().equals(EStatusBill.Refuse)) {
                 hasPendingApproval = true;
                 break;
             }
         }
         if (hasPendingApproval) {
-            displayBill(idCLIENT);
+            displayBillz(idCLIENT);
 
-        }else {
+        } else {
             System.err.println("Không có yêu cầu đang chờ duyệt.");
             rentedOrder();
         }
@@ -178,7 +189,7 @@ public class ClientView {
             case 1:
                 boolean hasCancelledBill = false;
                 for (Bill bill : billList) {
-                    if (bill.getNameClient().equals(idCLIENT) && bill.getStatus().equals(EStatusBill.WAITING)) {
+                    if (bill.getZclient().equals(idCLIENT) && bill.getStatus().equals(EStatusBill.WAITING)) {
                         bill.setStatus(EStatusBill.DELETE);
                         hasCancelledBill = true;
                         break;
@@ -195,9 +206,10 @@ public class ClientView {
                 menuClient();
         }
     }
+
     public static void orderWaiting() {
         System.out.println("╔═══════════════════════════════════════╗");
-        System.out.println("║          Đơn hàng đang chờ duyệ       ║");
+        System.out.println("║          Đơn hàng đang chờ duyệt      ║");
         System.out.println("║        1. Huỷ đơn hàng                ║");
         System.out.println("║        0. Quay lại                    ║");
         System.out.println("╚═══════════════════════════════════════╝");
@@ -212,14 +224,15 @@ public class ClientView {
         }
         boolean hasPendingApproval = false;
         for (Bill bill : billList) {
-            if (bill.getNameClient().equals(idCLIENT) && bill.getStatus().equals(EStatusBill.CONFIRMED)) {
+            if (bill.getZclient().equals(idCLIENT) && bill.getStatus().equals(EStatusBill.CONFIRMED) ||
+                    bill.getZclient().equals(idCLIENT) && bill.getStatus().equals(EStatusBill.Refuse)) {
                 hasPendingApproval = true;
                 break;
             }
         }
         if (hasPendingApproval) {
-            displayBill(idCLIENT);
-        }else {
+            displayBillx(idCLIENT);
+        } else {
             System.err.println("Không có đơn đã duyệt.");
             rentedOrder();
         }
@@ -229,7 +242,7 @@ public class ClientView {
             case 1:
                 boolean hasCancelledBill = false;
                 for (Bill bill : billList) {
-                    if (bill.getNameClient().equals(idCLIENT) && bill.getStatus().equals(EStatusBill.CONFIRMED)) {
+                    if (bill.getZclient().equals(idCLIENT) && bill.getStatus().equals(EStatusBill.CONFIRMED)) {
                         bill.setStatus(EStatusBill.DELETE);
                         hasCancelledBill = true;
                         break;
@@ -256,21 +269,22 @@ public class ClientView {
     }
 
     public static void orderInProgress() {
-        final String idCLIENT = getTheCurrentlyLoginID();
+        final String idCLIENT = checkUserName1();
         if (billList.isEmpty()) {
             System.err.println("Đơn hàng của bạn chưa tồn tại");
             return;
         }
         boolean hasPendingApproval = false;
         for (Bill bill : billList) {
-            if (bill.getNameClient().equals(idCLIENT) && bill.getStatus().equals(EStatusBill.INPROGRESS)) {
+            if (bill.getZclient().equals(idCLIENT) && bill.getStatus().equals(EStatusBill.INPROGRESS) ||
+                    bill.getZclient().equals(idCLIENT) && bill.getStatus().equals(EStatusBill.Refuse)) {
                 hasPendingApproval = true;
                 break;
             }
         }
         if (hasPendingApproval) {
-            displayBill(idCLIENT);
-        }else {
+            displayBilly(idCLIENT);
+        } else {
             System.err.println("Không có đơn đang chạy.");
             rentedOrder();
         }
@@ -280,7 +294,7 @@ public class ClientView {
             case 1:
                 boolean hasCancelledBill = false;
                 for (Bill bill : billList) {
-                    if (bill.getNameClient().equals(idCLIENT) && bill.getStatus().equals(EStatusBill.INPROGRESS)) {
+                    if (bill.getZclient().equals(idCLIENT) && bill.getStatus().equals(EStatusBill.INPROGRESS)) {
                         bill.setStatus(EStatusBill.DELETE);
                         hasCancelledBill = true;
                         break;
@@ -292,15 +306,26 @@ public class ClientView {
                 } else {
                     System.err.println("Đơn đã bị huỷ trước đó");
                 }
+                menuClient();
             case 2:
                 for (Bill bill : billList) {
-                    if (bill.getNameClient().equals(idCLIENT) && bill.getStatus().equals(EStatusBill.INPROGRESS)) {
+                    if (bill.getZclient().equals(idCLIENT) && bill.getStatus().equals(EStatusBill.INPROGRESS)) {
                         System.out.println("Thay đổi ngày kết thúc");
-                        LocalDate EndDate = AppUltis.getDate();
-                        long daysBetween = ChronoUnit.DAYS.between(bill.getStarDate(), EndDate);
-                        double Total = (daysBetween+1) * bill.getPrice();
+                        LocalDate endDate;
+                        long daysBetween;
+                        do {
+                            System.out.println("End Date (Ngày kết thúc)");
+                            endDate = AppUltis.getDate();
+                            daysBetween = ChronoUnit.DAYS.between(bill.getStarDate(), endDate);
+                            if (daysBetween < 2 || daysBetween > 31) {
+                                System.err.println("Invalid duration. End date must be at least 2 days after the start date and within 30 days " +
+                                        "(Thời lượng không hợp lệ. Ngày kết thúc phải sau ngày bắt đầu ít nhất 2 ngày và không quá 30 ngày).");
+                            }
+                        } while (daysBetween < 2 || daysBetween > 31);
+                         daysBetween = ChronoUnit.DAYS.between(bill.getStarDate(), endDate);
+                        double Total = (daysBetween + 1) * bill.getPrice();
                         covertPriceToString(Total);
-                        bill.setEndDate(EndDate);
+                        bill.setEndDate(endDate);
                         bill.setTotal(Total);
                         System.out.println("Sửa đơn thành công");
                     }
