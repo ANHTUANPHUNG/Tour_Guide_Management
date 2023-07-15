@@ -18,7 +18,7 @@ import static View.TotalView.menu;
 import static service.GuideSV.guideList;
 
 public class LoginSv {
-//    private static final StringBuilder result;
+    //    private static final StringBuilder result;
     public static String result;
     public static String result1;
 
@@ -30,10 +30,10 @@ public class LoginSv {
         AdminSV users = AdminSV.getInstance();
         List<Admin> list1 = users.getUserList();
         for (Admin user : list1) {
-            if (user.getUserName().equals(userName)&& user.getPassWord().equals(passWord)) {
+            if (user.getUserName().equals(userName) && user.getPassWord().equals(passWord)) {
                 result = userName;
-                hashPassword(passWord,generateSalt());
-
+                hashPassword(passWord, generateSalt());
+                System.out.println("Mật khẩu của bạn sau khi được mã hoá: "+hashPassword(passWord, generateSalt()));
                 menuAdmin();
                 break;
             }
@@ -41,11 +41,12 @@ public class LoginSv {
         GuideSV guideSV = GuideSV.getInstance();
         List<Guide> guides = guideSV.getGuideList();
         for (Guide user : guides) {
-            if (user.getUserName().equals(userName)&& user.getPassWord().equals(passWord)) {
+            if (user.getUserName().equals(userName) && user.getPassWord().equals(passWord)) {
                 if (isGuideActive(user.getIdGuide())) {
                     result = user.getName();
                     result1 = user.getUserName();
-                    hashPassword(passWord,generateSalt());
+                    hashPassword(passWord, generateSalt());
+                    System.out.println("Mật khẩu của bạn sau khi được mã hoá: "+hashPassword(passWord, generateSalt()));
 
                     menuTourGuide();
                 }
@@ -55,10 +56,12 @@ public class LoginSv {
         ClientSV clientSV = ClientSV.getInstance();
         List<Client> clientSV1 = clientSV.getClientList();
         for (Client user : clientSV1) {
-            if (user.getUserName().equals(userName)&& user.getPassword().equals(passWord) ) {
+            if (user.getUserName().equals(userName) && user.getPassword().equals(passWord)) {
                 result = user.getName();
                 result1 = userName;
-                hashPassword(passWord,generateSalt());
+                hashPassword(passWord, generateSalt());
+                System.out.println("The encoded version of your password(Mật khẩu của bạn sau khi được mã hoá): "+hashPassword(passWord, generateSalt()));
+
                 menuClient();
                 break;
             }
@@ -67,7 +70,7 @@ public class LoginSv {
         menu();
     }
 
-//    public static void main(String[] args) {
+    //    public static void main(String[] args) {
 //        System.out.println(hashPassword("123456",generateSalt()));
 //        System.out.println(hashPassword("123456",generateSalt()));
 //    }
@@ -82,6 +85,7 @@ public class LoginSv {
         }
         return null;
     }
+
     private static byte[] generateSalt() {
         SecureRandom random = new SecureRandom();
         byte[] salt = new byte[16];
@@ -97,6 +101,7 @@ public class LoginSv {
         }
         return hexString.toString();
     }
+
     private static boolean isGuideActive(int guideId) {
         GuideSV guideSV = GuideSV.getInstance();
         List<Guide> guideList = guideSV.getGuideList();
@@ -108,10 +113,11 @@ public class LoginSv {
         return false;
     }
 
-    public static String checkUserName1(){
+    public static String checkUserName1() {
         return result;
     }
-    public static String checkUserName2(){
+
+    public static String checkUserName2() {
         return result1;
     }
 
