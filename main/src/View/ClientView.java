@@ -43,7 +43,7 @@ public class ClientView {
                             "(Không thể chọn ngày. Bạn đang có Đang chờ xác nhận, Đã xác nhận hoặc Đang chạy).");
                     menuClient();
                 } else {
-                    LocalDate startDate = AppUltis.getDateBook("Start Date (Ngày khởi hành)");
+                    LocalDate startDate = AppUltis.getDateBook("Start Date (Ngày bắt đầu)");
                     LocalDate endDate;
                     long daysBetween;
                     do {
@@ -195,13 +195,36 @@ public class ClientView {
                         break;
                     }
                 }
-
                 if (hasCancelledBill) {
                     System.err.println("Hủy thành công");
                 } else {
                     System.err.println("Đơn đã bị huỷ trước đó");
                 }
                 menuClient();
+            case 2:
+                for (Bill bill : billList) {
+                    if (bill.getZclient().equals(idCLIENT) && bill.getStatus().equals(EStatusBill.WAITING)) {
+                        LocalDate StarDate = AppUltis.getDateBook("Start Date (Ngày bắt đầu)");
+                        LocalDate endDate;
+                        long daysBetween;
+                        do {
+                            System.out.println("End Date (Ngày kết thúc)");
+                            endDate = AppUltis.getDate();
+                            daysBetween = ChronoUnit.DAYS.between(StarDate, endDate);
+                            if (daysBetween < 2 || daysBetween > 31) {
+                                System.err.println("Invalid duration. End date must be at least 2 days after the start date and within 30 days " +
+                                        "(Thời lượng không hợp lệ. Ngày kết thúc phải sau ngày bắt đầu ít nhất 2 ngày và không quá 30 ngày).");
+                            }
+                        } while (daysBetween < 2 || daysBetween > 31);
+                         daysBetween = ChronoUnit.DAYS.between(StarDate, endDate);
+                        double Total = (daysBetween + 1) * bill.getPrice();
+                        covertPriceToString(Total);
+                        bill.setStarDate(StarDate);
+                        bill.setEndDate(endDate);
+                        bill.setTotal(Total);
+                        System.out.println("Sửa đơn thành công");
+                    }
+                }
             case 0:
                 menuClient();
         }
@@ -211,6 +234,7 @@ public class ClientView {
         System.out.println("╔═══════════════════════════════════════╗");
         System.out.println("║          Đơn hàng đang chờ duyệt      ║");
         System.out.println("║        1. Huỷ đơn hàng                ║");
+        System.out.println("║        2. Đổi lịch                    ║");
         System.out.println("║        0. Quay lại                    ║");
         System.out.println("╚═══════════════════════════════════════╝");
     }
@@ -237,7 +261,7 @@ public class ClientView {
             rentedOrder();
         }
         orderApprovedClient();
-        choice = AppUltis.getIntWithBound("    Enter your choice(Mời chọn ):", 0, 1);
+        choice = AppUltis.getIntWithBound("    Enter your choice(Mời chọn ):", 0, 2);
         switch (choice) {
             case 1:
                 boolean hasCancelledBill = false;
@@ -255,6 +279,30 @@ public class ClientView {
                     System.err.println("Đơn đã bị huỷ trước đó");
                 }
                 menuClient();
+            case 2:
+                for (Bill bill : billList) {
+                    if (bill.getZclient().equals(idCLIENT) && bill.getStatus().equals(EStatusBill.CONFIRMED)) {
+                        LocalDate StarDate = AppUltis.getDateBook("Start Date (Ngày bắt đầu)");
+                        LocalDate endDate;
+                        long daysBetween;
+                        do {
+                            System.out.println("End Date (Ngày kết thúc)");
+                            endDate = AppUltis.getDate();
+                            daysBetween = ChronoUnit.DAYS.between(StarDate, endDate);
+                            if (daysBetween < 2 || daysBetween > 31) {
+                                System.err.println("Invalid duration. End date must be at least 2 days after the start date and within 30 days " +
+                                        "(Thời lượng không hợp lệ. Ngày kết thúc phải sau ngày bắt đầu ít nhất 2 ngày và không quá 30 ngày).");
+                            }
+                        } while (daysBetween < 2 || daysBetween > 31);
+                        daysBetween = ChronoUnit.DAYS.between(StarDate, endDate);
+                        double Total = (daysBetween + 1) * bill.getPrice();
+                        covertPriceToString(Total);
+                        bill.setStarDate(StarDate);
+                        bill.setEndDate(endDate);
+                        bill.setTotal(Total);
+                        System.out.println("Sửa đơn thành công");
+                    }
+                }
             case 0:
                 menuClient();
         }
@@ -264,6 +312,7 @@ public class ClientView {
         System.out.println("╔═══════════════════════════════════════╗");
         System.out.println("║            Đơn hàng đã duyệt          ║");
         System.out.println("║        1. Huỷ đơn hàng                ║");
+        System.out.println("║        2. Đổi lịch                    ║");
         System.out.println("║        0. Quay lại                    ║");
         System.out.println("╚═══════════════════════════════════════╝");
     }
@@ -322,7 +371,7 @@ public class ClientView {
                                         "(Thời lượng không hợp lệ. Ngày kết thúc phải sau ngày bắt đầu ít nhất 2 ngày và không quá 30 ngày).");
                             }
                         } while (daysBetween < 2 || daysBetween > 31);
-                         daysBetween = ChronoUnit.DAYS.between(bill.getStarDate(), endDate);
+                        daysBetween = ChronoUnit.DAYS.between(bill.getStarDate(), endDate);
                         double Total = (daysBetween + 1) * bill.getPrice();
                         covertPriceToString(Total);
                         bill.setEndDate(endDate);

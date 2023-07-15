@@ -269,21 +269,21 @@ public class BillSV implements CRUD<Bill> {
     public  void update(int id) {
     }
     public static void updated(String id) {
-        for (Bill bill : billList) {
-            if (bill.getNameClient().equals(id)) {
-                System.out.println("Ngày bắt đầu");
-                LocalDate StarDate = AppUltis.getDateBook(id);
-                System.out.println("Ngày kết thúc");
-                LocalDate EndDate = AppUltis.getDateBook(id);
-                long daysBetween = ChronoUnit.DAYS.between(StarDate, EndDate);
-                double Total = (daysBetween+1) * bill.getPrice();
-                covertPriceToString(Total);
-                bill.setStarDate(StarDate);
-                bill.setEndDate(EndDate);
-                bill.setTotal(Total);
-                System.out.println("Sửa đơn thành công");
-            }
-        }
+//        for (Bill bill : billList) {
+//            if (bill.getNameClient().equals(id)) {
+//                System.out.println("Ngày bắt đầu");
+//                LocalDate StarDate = AppUltis.getDateBook(id);
+//                System.out.println("Ngày kết thúc");
+//                LocalDate EndDate = AppUltis.getDateBook(id);
+//                long daysBetween = ChronoUnit.DAYS.between(StarDate, EndDate);
+//                double Total = (daysBetween+1) * bill.getPrice();
+//                covertPriceToString(Total);
+//                bill.setStarDate(StarDate);
+//                bill.setEndDate(EndDate);
+//                bill.setTotal(Total);
+//                System.out.println("Sửa đơn thành công");
+//            }
+//        }
     }
 //    public static void extended(String id){
 //        for (Bill bill : billList) {
