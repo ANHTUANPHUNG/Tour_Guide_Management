@@ -167,16 +167,16 @@ public class AppUltis {
                 int minimumAge = 18;
                 LocalDate minimumDateOfBirth = LocalDate.now().minusYears(minimumAge);
                 if (userInput.isAfter(minimumDateOfBirth)) {
-                    System.out.println("You are not yet 18 years old(Bạn chưa đủ 18 tuổi).");
+                    System.err.println("You are not yet 18 years old(Bạn chưa đủ 18 tuổi).");
                     continue;
 
                 }
                 isValid = true;
             } catch (Exception e) {
                 invalidCount++;
-                System.out.println("Invalid date format. Please try again(Định dạng ngày không hợp lệ. Vui lòng thử lại).");
+                System.err.println("Invalid date format. Please try again(Định dạng ngày không hợp lệ. Vui lòng thử lại).");
                 if (invalidCount >= 3) {
-                    System.out.println("You have entered an invalid date 3 times. The program will exit(Bạn đã nhập sai quá 3 lần. Chương trình sẽ thoát).");
+                    System.err.println("You have entered an invalid date 3 times. The program will exit(Bạn đã nhập sai quá 3 lần. Chương trình sẽ thoát).");
                     System.exit(0);
                 }
             }

@@ -67,7 +67,7 @@ public class BillSV implements CRUD<Bill> {
         System.out.println("====================================================================================================================================================================");
         System.out.printf("|%-4s| %-15s| %-12s| %-15s| %-12s| %-12s| %-30s| %-15s| %-15s| %-15s|\n", "ID", "Client", "Invoice Date", "Guide", "Star Date", "End Date", "Note", "Status", "Price", "Total");
         for (Bill bill : billList) {
-            if (bill.getZclient().equals(id) && bill.getStatus().equals(EStatusBill.WAITING) ||bill.getZclient().equals(id) && bill.getStatus().equals(EStatusBill.Refuse)) {
+            if (bill.getZclient().equals(id) && bill.getStatus().equals(EStatusBill.WAITING)) {
                 System.out.printf("|%-4s| %-15s| %-12s| %-15s| %-12s| %-12s| %-30s| %-15s| %-15s| %-15s|\n",
                         bill.getIdBill(), bill.getZclient(), bill.getInvoiceDate(), bill.getNameGuide(),
                         bill.getStarDate(), bill.getEndDate(), bill.getNote(), bill.getStatus(),
@@ -81,7 +81,7 @@ public class BillSV implements CRUD<Bill> {
         System.out.println("=====================================================================================================================================================================");
         System.out.printf("|%-4s| %-15s| %-12s| %-15s| %-12s| %-12s| %-30s| %-15s| %-15s| %-15s|\n", "ID", "Client", "Invoice Date", "Guide", "Star Date", "End Date", "Note", "Status", "Price", "Total");
         for (Bill bill : billList) {
-            if (bill.getZclient().equals(id) && bill.getStatus().equals(EStatusBill.CONFIRMED) ||bill.getZclient().equals(id) && bill.getStatus().equals(EStatusBill.Refuse)) {
+            if (bill.getZclient().equals(id) && bill.getStatus().equals(EStatusBill.CONFIRMED) ) {
                 System.out.printf("|%-4s| %-15s| %-12s| %-15s| %-12s| %-12s| %-30s| %-15s| %-15s| %-15s|\n",
                         bill.getIdBill(), bill.getZclient(), bill.getInvoiceDate(), bill.getNameGuide(),
                         bill.getStarDate(), bill.getEndDate(), bill.getNote(), bill.getStatus(),
@@ -95,7 +95,21 @@ public class BillSV implements CRUD<Bill> {
         System.out.println("====================================================================================================================================================================");
         System.out.printf("|%-4s| %-15s| %-12s| %-15s| %-12s| %-12s| %-30s| %-15s| %-15s| %-15s|\n", "ID", "Client", "Invoice Date", "Guide", "Star Date", "End Date", "Note", "Status", "Price", "Total");
         for (Bill bill : billList) {
-            if (bill.getZclient().equals(id) && bill.getStatus().equals(EStatusBill.INPROGRESS) ||bill.getZclient().equals(id) && bill.getStatus().equals(EStatusBill.Refuse)) {
+            if (bill.getZclient().equals(id) && bill.getStatus().equals(EStatusBill.INPROGRESS) ) {
+                System.out.printf("|%-4s| %-15s| %-12s| %-15s| %-12s| %-12s| %-30s| %-15s| %-15s| %-15s|\n",
+                        bill.getIdBill(), bill.getZclient(), bill.getInvoiceDate(), bill.getNameGuide(),
+                        bill.getStarDate(), bill.getEndDate(), bill.getNote(), bill.getStatus(),
+                        covertPriceToString(bill.getPrice()), covertPriceToString(bill.getTotal()));
+            }
+        }
+        System.out.println("====================================================================================================================================================================");
+    }
+    public static void displayBillg(String id) {
+        System.out.println("                                                              Bill information(Thông tin hóa đơn):");
+        System.out.println("====================================================================================================================================================================");
+        System.out.printf("|%-4s| %-15s| %-12s| %-15s| %-12s| %-12s| %-30s| %-15s| %-15s| %-15s|\n", "ID", "Client", "Invoice Date", "Guide", "Star Date", "End Date", "Note", "Status", "Price", "Total");
+        for (Bill bill : billList) {
+            if (bill.getZclient().equals(id) && bill.getStatus().equals(EStatusBill.Refuse) ) {
                 System.out.printf("|%-4s| %-15s| %-12s| %-15s| %-12s| %-12s| %-30s| %-15s| %-15s| %-15s|\n",
                         bill.getIdBill(), bill.getZclient(), bill.getInvoiceDate(), bill.getNameGuide(),
                         bill.getStarDate(), bill.getEndDate(), bill.getNote(), bill.getStatus(),

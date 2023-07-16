@@ -66,13 +66,13 @@ public class ClientView {
     }
 
     public static void menuClientView() {
-        System.out.println("╔════════════════════════════════════╗");
-        System.out.println("║             Trang cá nhân          ║");
-        System.out.println("║          1. Chọn ngày đi Tour.     ║");
-        System.out.println("║          2. Đơn hàng của bạn.      ║");
-        System.out.println("║          3. Đánh giá nhân viên.    ║");
-        System.out.println("║          0. Quay lại.              ║");
-        System.out.println("╚════════════════════════════════════╝");
+        System.out.println("╔═══════════════════════════════════════════════════╗");
+        System.out.println("║             Personal page(Trang cá nhân)          ║");
+        System.out.println("║          1. Choose the date(Chọn ngày đi Tour).   ║");
+        System.out.println("║          2. Your order(Đơn hàng của bạn).         ║");
+        System.out.println("║          3. Employee rate(Đánh giá nhân viên).    ║");
+        System.out.println("║          0. Go back(Quay lại).                    ║");
+        System.out.println("╚═══════════════════════════════════════════════════╝");
     }
 
     // ngày để chọn guide
@@ -87,17 +87,17 @@ public class ClientView {
     }
 
     public static void listGuide() {
-        System.out.println("╔═══════════════════════════════════════════╗");
-        System.out.println("║          Danh sách hướng dẫn viên         ║");
-        System.out.println("║       1. Chọn hướng dẫn viên              ║");
-        System.out.println("║       0. Quay lại                         ║");
-        System.out.println("╚═══════════════════════════════════════════╝");
+        System.out.println("╔════════════════════════════════════════════════════════════════╗");
+        System.out.println("║          List of Tour Guides (Danh sách hướng dẫn viên)        ║");
+        System.out.println("║       1. Choose a Tour Guide(Chọn hướng dẫn viên)              ║");
+        System.out.println("║       0. Go back (Quay lại)                                    ║");
+        System.out.println("╚════════════════════════════════════════════════════════════════╝");
 
     }
 
     public static void pickATourGuide(LocalDate startDate, LocalDate endDate) {
         displayGuide();
-        System.out.println("0. Quay lại");
+        System.out.println("0. Go back (Quay lại)");
         choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn ):", 0, nextIdGuide() - 1);
         if (choice == 0) {
             setTourClient(startDate, endDate);
@@ -126,7 +126,7 @@ public class ClientView {
     public static void rentedOrder() {
         String idCLIENT = checkUserName1();
         if (billList.isEmpty()) {
-            System.err.println("Bạn chưa đặt hàng");
+            System.err.println("Your not order(Bạn chưa đặt hàng)");
             return;
         }
         boolean hasPendingApproval = false;
@@ -139,50 +139,81 @@ public class ClientView {
         if (hasPendingApproval) {
             displayBill(idCLIENT);
         } else {
-            System.out.println("Không có đơn hàng");
+            System.out.println("Your not order(Bạn chưa đặt hàng)");
             menuClient();
         }
         rentedOrderClients();
-        choice = AppUltis.getIntWithBound("     Enter your choice(Mời chọn):", 0, 3);
+        choice = AppUltis.getIntWithBound("     Enter your choice(Mời chọn):", 0, 4);
         switch (choice) {
-            case 1 -> orderPendingApproval();
+                case 1 -> orderPendingApproval();
             case 2 -> orderApproved();
             case 3 -> orderInProgress();
+            case 4 -> orderRefuse();
             case 0 -> menuClient();
         }
     }
 
     public static void rentedOrderClients() {
-        System.out.println("╔═══════════════════════════════════╗");
-        System.out.println("║           Đơn hàng                ║");
-        System.out.println("║     1. Đơn hàng đang chờ duyệt    ║");
-        System.out.println("║     2. Đơn hàng đã duyệt          ║");
-        System.out.println("║     3. Đơn hàng đang hoạt động    ║");
-        System.out.println("║     0. Quay lại                   ║");
-        System.out.println("╚═══════════════════════════════════╝");
+        System.out.println("╔════════════════════════════════════════════════════╗");
+        System.out.println("║           Oder(Đơn hàng)                           ║");
+        System.out.println("║     1. Order waiting(Đơn hàng đang chờ duyệt)      ║");
+        System.out.println("║     2. Order confirmed (Đơn hàng đã duyệt)         ║");
+        System.out.println("║     3. Oder in progress(Đơn hàng đang hoạt động)   ║");
+        System.out.println("║     4. Oder refuse (Đơn hàng bị từ chối)           ║");
+        System.out.println("║     0. Go back (Quay lại)                          ║");
+        System.out.println("╚════════════════════════════════════════════════════╝");
     }
 
-    public static void orderPendingApproval() {
+    public static void orderRefuse() {
         final String idCLIENT = checkUserName1();
         if (billList.isEmpty()) {
-            System.err.println("Bạn chưa đặt hàng");
+            System.err.println("Your not order(Bạn chưa đặt hàng)");
             return;
         }
         boolean hasPendingApproval = false;
         for (Bill bill : billList) {
-            if (bill.getZclient().equals(idCLIENT) && bill.getStatus().equals(EStatusBill.WAITING) ||
-                    bill.getZclient().equals(idCLIENT) && bill.getStatus().equals(EStatusBill.Refuse)) {
+            if (bill.getZclient().equals(idCLIENT) && bill.getStatus().equals(EStatusBill.Refuse)) {
                 hasPendingApproval = true;
                 break;
             }
         }
         if (hasPendingApproval) {
+            displayBillg(idCLIENT);
+            System.err.println("Sorry, the order is not approved(Xin lỗi, đơn không được chấp thuận).");
+            System.out.println("0. Go back (Quay lại).");
+            choice = AppUltis.getIntWithBound("    Enter your choice(Mời chọn):", 0, 0);
+            if (choice == 0) {
+                rentedOrder();
+            }
+        }else {
+            System.err.println("Your not order(Bạn chưa đặt hàng).");
+            rentedOrder();
+        }
+    }
+
+    public static void orderPendingApproval() {
+        final String idCLIENT = checkUserName1();
+        if (billList.isEmpty()) {
+            System.err.println("Your not order(Bạn chưa đặt hàng)");
+            return;
+        }
+        boolean hasPendingApproval = false;
+        for (Bill bill : billList) {
+            if (bill.getZclient().equals(idCLIENT) && bill.getStatus().equals(EStatusBill.WAITING)
+            ) {
+                hasPendingApproval = true;
+                break;
+            }
+
+        }
+        if (hasPendingApproval) {
             displayBillz(idCLIENT);
 
         } else {
-            System.err.println("Không có yêu cầu đang chờ duyệt.");
+            System.err.println("Your not order(Bạn chưa đặt hàng).");
             rentedOrder();
         }
+
         orderWaiting();
         choice = AppUltis.getIntWithBound("    Enter your choice(Mời chọn):", 0, 2);
         switch (choice) {
@@ -196,9 +227,9 @@ public class ClientView {
                     }
                 }
                 if (hasCancelledBill) {
-                    System.err.println("Hủy thành công");
+                    System.err.println("Cancelled successfully ( Hủy thành công).");
                 } else {
-                    System.err.println("Đơn đã bị huỷ trước đó");
+                    System.err.println("The order has already been cancelled before (Đơn đã bị huỷ trước đó)");
                 }
                 menuClient();
             case 2:
@@ -216,13 +247,13 @@ public class ClientView {
                                         "(Thời lượng không hợp lệ. Ngày kết thúc phải sau ngày bắt đầu ít nhất 2 ngày và không quá 30 ngày).");
                             }
                         } while (daysBetween < 2 || daysBetween > 31);
-                         daysBetween = ChronoUnit.DAYS.between(StarDate, endDate);
+                        daysBetween = ChronoUnit.DAYS.between(StarDate, endDate);
                         double Total = (daysBetween + 1) * bill.getPrice();
                         covertPriceToString(Total);
                         bill.setStarDate(StarDate);
                         bill.setEndDate(endDate);
                         bill.setTotal(Total);
-                        System.out.println("Sửa đơn thành công");
+                        System.out.println("Order modified successfully (Sửa đơn thành công)");
                     }
                 }
             case 0:
@@ -231,35 +262,36 @@ public class ClientView {
     }
 
     public static void orderWaiting() {
-        System.out.println("╔═══════════════════════════════════════╗");
-        System.out.println("║          Đơn hàng đang chờ duyệt      ║");
-        System.out.println("║        1. Huỷ đơn hàng                ║");
-        System.out.println("║        2. Đổi lịch                    ║");
-        System.out.println("║        0. Quay lại                    ║");
-        System.out.println("╚═══════════════════════════════════════╝");
+        System.out.println("╔══════════════════════════════════════════════════════╗");
+        System.out.println("║          Order waiting(Đơn hàng đang chờ duyệt)      ║");
+        System.out.println("║        1. Cancel order(Huỷ đơn hàng)                 ║");
+        System.out.println("║        2. Change date(Đổi ngày)                      ║");
+        System.out.println("║        0. Go back (Quay lại)                         ║");
+        System.out.println("╚══════════════════════════════════════════════════════╝");
     }
 
 
     public static void orderApproved() {
         final String idCLIENT = getTheCurrentlyLoginID();
         if (billList.isEmpty()) {
-            System.err.println("Đơn hàng của bạn chưa tồn tại");
+            System.err.println("Your not order(Bạn chưa đặt hàng)");
             return;
         }
         boolean hasPendingApproval = false;
         for (Bill bill : billList) {
-            if (bill.getZclient().equals(idCLIENT) && bill.getStatus().equals(EStatusBill.CONFIRMED) ||
-                    bill.getZclient().equals(idCLIENT) && bill.getStatus().equals(EStatusBill.Refuse)) {
+            if (bill.getZclient().equals(idCLIENT) && bill.getStatus().equals(EStatusBill.CONFIRMED)) {
                 hasPendingApproval = true;
                 break;
             }
+
         }
         if (hasPendingApproval) {
             displayBillx(idCLIENT);
         } else {
-            System.err.println("Không có đơn đã duyệt.");
+            System.err.println("Your not order(Bạn chưa đặt hàng).");
             rentedOrder();
         }
+
         orderApprovedClient();
         choice = AppUltis.getIntWithBound("    Enter your choice(Mời chọn ):", 0, 2);
         switch (choice) {
@@ -274,9 +306,9 @@ public class ClientView {
                 }
 
                 if (hasCancelledBill) {
-                    System.err.println("Hủy thành công");
+                    System.err.println("Cancelled successfully ( Hủy thành công).");
                 } else {
-                    System.err.println("Đơn đã bị huỷ trước đó");
+                    System.err.println("The order has already been cancelled before (Đơn đã bị huỷ trước đó)");
                 }
                 menuClient();
             case 2:
@@ -300,7 +332,7 @@ public class ClientView {
                         bill.setStarDate(StarDate);
                         bill.setEndDate(endDate);
                         bill.setTotal(Total);
-                        System.out.println("Sửa đơn thành công");
+                        System.out.println("Order modified successfully (Sửa đơn thành công)");
                     }
                 }
             case 0:
@@ -309,34 +341,37 @@ public class ClientView {
     }
 
     public static void orderApprovedClient() {
-        System.out.println("╔═══════════════════════════════════════╗");
-        System.out.println("║            Đơn hàng đã duyệt          ║");
-        System.out.println("║        1. Huỷ đơn hàng                ║");
-        System.out.println("║        2. Đổi lịch                    ║");
-        System.out.println("║        0. Quay lại                    ║");
-        System.out.println("╚═══════════════════════════════════════╝");
+        System.out.println("╔══════════════════════════════════════════════════════╗");
+        System.out.println("║           2. Order confirmed (Đơn hàng đã duyệt)     ║");
+        System.out.println("║        1. Cancel order(Huỷ đơn hàng)                 ║");
+        System.out.println("║        2. Change date(Đổi ngày)                      ║");
+        System.out.println("║        0. Go back (Quay lại)                         ║");
+        System.out.println("╚══════════════════════════════════════════════════════╝");
     }
 
     public static void orderInProgress() {
         final String idCLIENT = checkUserName1();
         if (billList.isEmpty()) {
-            System.err.println("Đơn hàng của bạn chưa tồn tại");
+            System.err.println("Your not order(Bạn chưa đặt hàng)");
             return;
         }
         boolean hasPendingApproval = false;
+
         for (Bill bill : billList) {
-            if (bill.getZclient().equals(idCLIENT) && bill.getStatus().equals(EStatusBill.INPROGRESS) ||
-                    bill.getZclient().equals(idCLIENT) && bill.getStatus().equals(EStatusBill.Refuse)) {
+            if (bill.getZclient().equals(idCLIENT) && bill.getStatus().equals(EStatusBill.INPROGRESS)) {
                 hasPendingApproval = true;
                 break;
             }
+
         }
         if (hasPendingApproval) {
             displayBilly(idCLIENT);
+
         } else {
-            System.err.println("Không có đơn đang chạy.");
+            System.err.println("Your not order(Bạn chưa đặt hàng).");
             rentedOrder();
         }
+
         orderInProgressClient();
         choice = AppUltis.getIntWithBound("    Enter your choice(Mời chọn ):", 0, 2);
         switch (choice) {
@@ -351,15 +386,15 @@ public class ClientView {
                 }
 
                 if (hasCancelledBill) {
-                    System.err.println("Hủy thành công");
+                    System.err.println("Cancelled successfully ( Hủy thành công).");
                 } else {
-                    System.err.println("Đơn đã bị huỷ trước đó");
+                    System.err.println("The order has already been cancelled before (Đơn đã bị huỷ trước đó)");
                 }
                 menuClient();
             case 2:
                 for (Bill bill : billList) {
                     if (bill.getZclient().equals(idCLIENT) && bill.getStatus().equals(EStatusBill.INPROGRESS)) {
-                        System.out.println("Thay đổi ngày kết thúc");
+                        System.out.println("Change end date(Thay đổi ngày kết thúc)");
                         LocalDate endDate;
                         long daysBetween;
                         do {
@@ -376,7 +411,7 @@ public class ClientView {
                         covertPriceToString(Total);
                         bill.setEndDate(endDate);
                         bill.setTotal(Total);
-                        System.out.println("Sửa đơn thành công");
+                        System.out.println("Order modified successfully (Sửa đơn thành công)");
                     }
                 }
             case 0:
@@ -385,12 +420,12 @@ public class ClientView {
     }
 
     public static void orderInProgressClient() {
-        System.out.println("╔═══════════════════════════════════════╗");
-        System.out.println("║       Đơn hàng đang hoạt động         ║");
-        System.out.println("║     1. Huỷ đơn hàng                   ║");
-        System.out.println("║     2. Gia hạn đơn hàng               ║");
-        System.out.println("║     0. Quay lại                       ║");
-        System.out.println("╚═══════════════════════════════════════╝");
+        System.out.println("╔══════════════════════════════════════════════════════╗");
+        System.out.println("║        Oder in progress(Đơn hàng đang hoạt động)     ║");
+        System.out.println("║     1. Cancel order(Huỷ đơn hàng)                    ║");
+        System.out.println("║     2. Extend tour(Gia hạn đơn hàng)                 ║");
+        System.out.println("║     0. Go back (Quay lại)                            ║");
+        System.out.println("╚══════════════════════════════════════════════════════╝");
     }
 
 }
