@@ -158,20 +158,17 @@ public class AppUltis {
     }
 
     public static LocalDate getUserDateOfBirth() {
-        Scanner scanner = new Scanner(System.in);
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-        LocalDate dateOfBirth = null;
+        LocalDate userInput = null;
         boolean isValid = false;
         int invalidCount = 0;
         while (!isValid) {
             try {
-                System.out.print("Enter your date of birth 'Nhập ngày sinh của bạn'(yyyy-MM-dd): ");
-                String userInput = scanner.nextLine();
-                dateOfBirth = LocalDate.parse(userInput, formatter);
+                 userInput = AppUltis.getDate();
                 int minimumAge = 18;
                 LocalDate minimumDateOfBirth = LocalDate.now().minusYears(minimumAge);
-                if (dateOfBirth.isAfter(minimumDateOfBirth)) {
-                    throw new Exception("You are not yet 18 years old(Bạn chưa đủ 18 tuổi).");
+                if (userInput.isAfter(minimumDateOfBirth)) {
+                    System.out.println("You are not yet 18 years old(Bạn chưa đủ 18 tuổi).");
+                    continue;
 
                 }
                 isValid = true;
@@ -186,7 +183,7 @@ public class AppUltis {
 
         }
 
-        return dateOfBirth;
+        return userInput;
     }
 
 
@@ -196,7 +193,6 @@ public class AppUltis {
             System.err.println("Please input phone:03 or 05 or 07 or 08 or 09(Nhập không hợp lệ, bắt đầu bằng:03 hoặc 05 hoặc 07 hoặc 08 hoặc 09)");
             getStringWithPattern(str, pattern);
         }
-        ;
         return result;
     }
 
