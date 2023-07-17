@@ -22,7 +22,6 @@ public class ClientView {
     static int choice;
 
     public static void menuClient() {
-        System.out.println("                    Chào mừng thượng đế đã đến với chúng tôi.");
         final String idCLIENT = getTheCurrentlyLoginID();
         menuClientView();
         choice = AppUltis.getIntWithBound("     Enter your choice(Mời chọn):", 0, 3);
