@@ -54,12 +54,11 @@ public class AppUltis {
     }
 
     public static LocalDate getDate() {
-        System.out.println("Vui lòng nhập ngày với định dạng YYYY-MM-DD: ");
         String input = sc.nextLine();
         try {
             return LocalDate.parse(input);
         } catch (Exception e) {
-            System.err.println("Định dạng ngày không hợp lệ. Vui lòng thử lại.");
+            System.err.println("Invalid date format:YYYY-MM-DD. Please try again(Định dạng ngày không hợp lệ:YYYY-MM-DD. Vui lòng thử lại)");
             return getDate();
         }
     }
@@ -148,15 +147,16 @@ public class AppUltis {
             }
             return dateTime;
         } catch (DateTimeParseException e) {
-            System.out.println("Invalid date format. Please try again(Định dạng ngày không hợp lệ. Vui lòng thử lại)");
+            System.err.println("Invalid date format. Please try again(Định dạng ngày không hợp lệ. Vui lòng thử lại)");
             return getDateBook(str);
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
             return getDateBook(str);
         }
     }
 
     public static LocalDate getUserDateOfBirth() {
+        System.out.println("Enter DOB(Nhập ngày sinh)");
         LocalDate userInput = null;
         boolean isValid = false;
         int invalidCount = 0;

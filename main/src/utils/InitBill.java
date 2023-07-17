@@ -61,7 +61,7 @@ public  class InitBill {
                 LocalDate.of(2023,6,18), "hòa đồng", EStatusBill.FINISH, 1100000);
         Bill bill21 = new Bill(21, "trungdung","Trung Dũng",  LocalDate.of(2023,2,1),"thienbao", "Thiên Bảo", LocalDate.of(2023,2,11),
                 LocalDate.of(2023,2,20), "Có con nít", EStatusBill.FINISH, 1800000);
-        Bill bill22 = new Bill(22, "minhan","Minh An",  LocalDate.of(2023,7,17),"thanhcong", "Thành Công", LocalDate.of(2023,7,29),
+        Bill bill22 = new Bill(22, "minhan","Minh An",  LocalDate.of(2023,7,17),"thanhcong", "Thành Công", LocalDate.of(2023,7,20),
                 LocalDate.of(2023,7,25), "Có con nít", EStatusBill.WAITING, 2700000);
         Bill bill23 = new Bill(23, "trungdung", "Trung Dũng", LocalDate.of(2023,7,18),"thuyanh", "Thùy Anh",
                 LocalDate.of(2023,7,19),

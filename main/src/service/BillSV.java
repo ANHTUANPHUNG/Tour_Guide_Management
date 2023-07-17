@@ -199,7 +199,7 @@ public class BillSV implements CRUD<Bill> {
         System.out.println("===================================================================================================================================================================================");
         System.out.printf("|%-4s| %-15s| %-12s| %-10s| %-8s| %-10s| %-20s| %-10s| %-25s| %-5s| %-25s| %-12s|\n", "ID", "Name", "Age", "Address", "Gender", "Phone", "Language", "Status", "FeedBack", "Rate", "Hashtag", "Price");
         List<Bill> list = billList.stream().filter(e ->
-                ((!(e.getStarDate().isAfter(endDate) && e.getEndDate().isBefore(startDate)) &&( e.getStatus().equals(EStatusBill.CONFIRMED)) ||
+                ((!(e.getStarDate().isAfter(endDate) && e.getEndDate().isBefore(startDate)) && (e.getStatus().equals(EStatusBill.CONFIRMED)) ||
                         e.getStatus().equals(EStatusBill.INPROGRESS)))
         ).toList();
         Map<String, Integer> guideName = new HashMap<>();
@@ -277,17 +277,24 @@ public class BillSV implements CRUD<Bill> {
     }
 
     public static void setTour(LocalDate StarDate, LocalDate EndDate) {
-        boolean hasPendingApproval = false;
-        for (Bill bill : billList) {
-            if (bill.getStarDate().isAfter(StarDate) && bill.getEndDate().isBefore(EndDate) && bill.getStatus().equals(EStatusBill.CONFIRMED) ||
-                    (bill.getStarDate().isAfter(StarDate) && bill.getEndDate().isBefore(EndDate) && bill.getStatus().equals(EStatusBill.INPROGRESS))) {
-                hasPendingApproval = true;
+        List<Bill> list = billList.stream().filter(e ->
+                ((!(e.getStarDate().isAfter(EndDate) && e.getEndDate().isBefore(StarDate)) && (e.getStatus().equals(EStatusBill.CONFIRMED)) ||
+                        e.getStatus().equals(EStatusBill.INPROGRESS)))
+        ).toList();
+        Map<String, Integer> guideName = new HashMap<>();
+        for (Bill b : list) {
+            guideName.put(b.getUserGuide(), 0);
+        }
+        boolean check = false;
+        for (Guide guide : guideList) {
+            if (!guideName.containsKey(guide.getUserName())) {
+                check = true;
                 break;
             }
         }
-        if (!hasPendingApproval) {
+        if (check) {
             displayGuideCheck(StarDate, EndDate);
-        } else {
+        }else {
             System.err.println("Không có hướng dẫn viên trong khoảng ngày đã chọn");
         }
     }
