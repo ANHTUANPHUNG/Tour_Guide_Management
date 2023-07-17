@@ -13,13 +13,13 @@ public class RegisterSV {
     public static String registerCheckUserName(String str) {
         String userName = getString(str);
         if (isUserNameTaken(userName)) {
-            System.err.println("Tài khoản đã tồn tại");
-            System.out.println("Mời nhập lại:");
+            System.err.println("The account already exists(Tài khoản đã tồn tại)");
+            System.out.println("Please enter again(Mời nhập lại):");
             return registerCheckUserName(str);
         }
         if(!checkUser(userName)){
-            System.err.println("Nhập sai");
-            System.out.println("Mời nhập lại");
+            System.err.println("Input error(Nhập sai)");
+            System.out.println("Please enter again(Mời nhập lại):");
             return registerCheckUserName(str);
         }
         return userName;
@@ -55,9 +55,9 @@ public class RegisterSV {
     public static String registerCheckPassWord(String str) {
         String passWord = getString(str);
         if(!(passWord.length() >= 6)){
-            System.err.println("Nhập sai.");
-            System.out.println("1. Tiếp tục.");
-            System.out.println("0. Quay lại.");
+            System.err.println("Input error(Nhập sai).");
+            System.out.println("1. Continue(tiếp tục).");
+            System.out.println("0. Go back (Quay lại).");
             choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn):", 0, 1);
             switch (choice){
                 case 1-> registerCheckPassWord(str);
@@ -69,9 +69,9 @@ public class RegisterSV {
     public static String registerCheckName(String str) {
         String name = getString(str);
         if(!(name.length() >= 6)){
-            System.err.println("Nhập sai.");
-            System.out.println("1. Tiếp tục.");
-            System.out.println("0. Quay lại.");
+            System.err.println("Input error(Nhập sai).");
+            System.out.println("1.Continue( Tiếp tục).");
+            System.out.println("0.Go back (Quay lại).");
             choice = AppUltis.getIntWithBound("Enter your choice(Mời chọn):", 0, 1);
             switch (choice){
                 case 1-> registerCheckName(str);
