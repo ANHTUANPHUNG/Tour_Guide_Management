@@ -23,6 +23,9 @@ public class AdminView {
     static int choice;
 
     public static void menuAdmin() {
+        System.out.println();
+        System.out.println();
+        System.out.println("              Chào mừng sếp yêu quý.");
         menuAdminView();
         choice = AppUltis.getIntWithBound("    Mời chọn chức năng:", 0, 3);
         switch (choice) {

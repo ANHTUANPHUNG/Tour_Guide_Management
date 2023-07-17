@@ -77,7 +77,7 @@ public class AppUltis {
         }
         displayCheckBill(start, end);
         String total = covertPriceToString(totalAmount);
-        System.out.println(total);
+        System.out.println("Doanh thu: "+total);
     }
 
     public static void salaryGuideOfAdmin(LocalDate start, LocalDate end) {
@@ -108,7 +108,6 @@ public class AppUltis {
 
     public static void salaryGuide(LocalDate start, LocalDate end) {
         Map<String, Double> salaryMap = new HashMap<>();
-
         for (Bill bill : billList) {
             if (bill.getNameGuide().equals(getTheCurrentlyLoginID())) {
                 if (bill.getStarDate().isAfter(start.minusDays(1)) && bill.getEndDate().isBefore(end.plusDays(1))) {
@@ -124,7 +123,7 @@ public class AppUltis {
             }
         }
         if (salaryMap.isEmpty()) {
-            System.out.println("Bạn không hoạt động vào thời gian này.");
+            System.err.println("Bạn không hoạt động vào thời gian này.");
         } else {
             for (Map.Entry<String, Double> entry : salaryMap.entrySet()) {
                 String guideName = entry.getKey();

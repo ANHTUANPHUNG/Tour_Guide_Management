@@ -117,7 +117,7 @@ public class GuideSV implements CRUD<Guide> {
     public void update(int id) {
         for (Guide guide : guideList) {
             if (guide.getIdGuide() == id) {
-                int choice = AppUltis.getIntWithBound("Mời chọn ví trí 1->10'Không sửa được rate':", 1, 10);
+                int choice = AppUltis.getIntWithBound("Mời chọn ví trí 1(Name)->10(Price)'Không sửa được rate':", 1, 10);
                 switch (choice) {
                     case 1 -> {
                         String Name = getString("Nhập họ tên");

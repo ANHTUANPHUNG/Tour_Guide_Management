@@ -46,7 +46,7 @@ public  class InitBill {
         Bill bill13 = new Bill(13, "taiduc","Tài Đức",  LocalDate.of(2023,4,24),"giabach", "Gia Bách", LocalDate.of(2023,5,13),
                 LocalDate.of(2023,5,17), "Vui vẻ", EStatusBill.FINISH, 1300000);
         Bill bill14 = new Bill(14, "duyluan","Duy Luận",  LocalDate.of(2023,1,25),"truongan", "Trường An", LocalDate.of(2023,2,21),
-                LocalDate.of(2023,2,20), "Có con nít", EStatusBill.FINISH, 1500000);
+                LocalDate.of(2023,2,28), "Có con nít", EStatusBill.FINISH, 1500000);
         Bill bill15 = new Bill(15, "hongnhung","Hồng Nhung",  LocalDate.of(2023,2,20),"huongtram", "Hương Tràm", LocalDate.of(2023,3,11),
                 LocalDate.of(2023,3,17), "Mang đẹp", EStatusBill.FINISH, 2100000);
         Bill bill16 = new Bill(16, "thaochi","Thảo Chi",  LocalDate.of(2023,3,1),"tonhu", "Tố Như", LocalDate.of(2023,3,3),
@@ -61,12 +61,14 @@ public  class InitBill {
                 LocalDate.of(2023,6,18), "hòa đồng", EStatusBill.FINISH, 1100000);
         Bill bill21 = new Bill(21, "trungdung","Trung Dũng",  LocalDate.of(2023,2,1),"thienbao", "Thiên Bảo", LocalDate.of(2023,2,11),
                 LocalDate.of(2023,2,20), "Có con nít", EStatusBill.FINISH, 1800000);
-        Bill bill22 = new Bill(19, "minhan","Minh An",  LocalDate.of(2023,7,12),"thanhcong", "Thành Công", LocalDate.of(2023,7,16),
-                LocalDate.of(2023,7,18), "Có con nít", EStatusBill.WAITING, 2700000);
-        Bill bill23 = new Bill(20, "trungdung", "Trung Dũng", LocalDate.of(2023,7,13),"thuyanh", "Thùy Anh", LocalDate.of(2023,7,16),
-                LocalDate.of(2023,7,18), "hòa đồng", EStatusBill.CONFIRMED, 1100000);
-        Bill bill24 = new Bill(21, "thaochi","Thảo Chi",  LocalDate.of(2023,7,13),"thienbao", "Thiên Bảo", LocalDate.of(2023,7,14),
-                LocalDate.of(2023,7,20), "Có con nít", EStatusBill.INPROGRESS, 1800000);
+        Bill bill22 = new Bill(22, "minhan","Minh An",  LocalDate.of(2023,7,17),"thanhcong", "Thành Công", LocalDate.of(2023,7,29),
+                LocalDate.of(2023,7,25), "Có con nít", EStatusBill.WAITING, 2700000);
+        Bill bill23 = new Bill(23, "trungdung", "Trung Dũng", LocalDate.of(2023,7,18),"thuyanh", "Thùy Anh",
+                LocalDate.of(2023,7,19),
+                LocalDate.of(2023,7,26), "hòa đồng", EStatusBill.CONFIRMED, 1100000);
+        Bill bill24 = new Bill(24, "thaochi","Thảo Chi",  LocalDate.of(2023,7,13),"thienbao", "Thiên Bảo",
+                LocalDate.of(2023,7,16),
+                LocalDate.of(2023,7,25), "Có con nít", EStatusBill.INPROGRESS, 1800000);
         billLists.add(bill1);
         billLists.add(bill2);
         billLists.add(bill3);

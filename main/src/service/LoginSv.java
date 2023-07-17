@@ -46,8 +46,6 @@ public class LoginSv {
                     result = user.getName();
                     result1 = user.getUserName();
                     hashPassword(passWord, generateSalt());
-                    System.out.println("Mật khẩu của bạn sau khi được mã hoá: "+hashPassword(passWord, generateSalt()));
-
                     menuTourGuide();
                 }
                 return;
@@ -60,8 +58,6 @@ public class LoginSv {
                 result = user.getName();
                 result1 = userName;
                 hashPassword(passWord, generateSalt());
-                System.out.println("The encoded version of your password(Mật khẩu của bạn sau khi được mã hoá): "+hashPassword(passWord, generateSalt()));
-
                 menuClient();
                 break;
             }
@@ -93,14 +89,14 @@ public class LoginSv {
         return salt;
     }
 
-    private static String bytesToHex(byte[] hash) {
-        StringBuilder hexString = new StringBuilder(2 * hash.length);
-        for (byte b : hash) {
-            String hex = String.format("%02x", b);
-            hexString.append(hex);
-        }
-        return hexString.toString();
-    }
+//    private static String bytesToHex(byte[] hash) {
+//        StringBuilder hexString = new StringBuilder(2 * hash.length);
+//        for (byte b : hash) {
+//            String hex = String.format("%02x", b);
+//            hexString.append(hex);
+//        }
+//        return hexString.toString();
+//    }
 
     private static boolean isGuideActive(int guideId) {
         GuideSV guideSV = GuideSV.getInstance();

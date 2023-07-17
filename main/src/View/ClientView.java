@@ -22,6 +22,7 @@ public class ClientView {
     static int choice;
 
     public static void menuClient() {
+        System.out.println("                    Chào mừng thượng đế đã đến với chúng tôi.");
         final String idCLIENT = getTheCurrentlyLoginID();
         menuClientView();
         choice = AppUltis.getIntWithBound("     Enter your choice(Mời chọn):", 0, 3);
@@ -40,7 +41,7 @@ public class ClientView {
 
                 if (check) {
                     System.err.println("Cannot select date. You have either Waiting for confirmation, Confirmed, or In progress status " +
-                            "(Không thể chọn ngày. Bạn đang có Đang chờ xác nhận, Đã xác nhận hoặc Đang chạy).");
+                            "(Không thể chọn ngày. Bạn đang có đơn Đang chờ xác nhận, Đã xác nhận hoặc Đang chạy).");
                     menuClient();
                 } else {
                     LocalDate startDate = AppUltis.getDateBook("Start Date (Ngày bắt đầu)");
@@ -77,7 +78,7 @@ public class ClientView {
 
     // ngày để chọn guide
     public static void setTourClient(LocalDate startDate, LocalDate endDate) {
-//        setTour(startDate, endDate);
+        setTour(startDate, endDate);
         listGuide();
         choice = AppUltis.getIntWithBound("    Enter your choice(Mời chọn ):", 0, 1);
         switch (choice) {

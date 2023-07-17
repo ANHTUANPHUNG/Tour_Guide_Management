@@ -21,6 +21,7 @@ public class GuideView {
 
     // quản lí danh sách
     public static void menuTourGuide() {
+        System.out.println("                      Chào mừng nhân viên yêu quý");
         menuGuideView();
         choice = AppUltis.getIntWithBound("        Mời chọn chức năng:", 0, 6);
         switch (choice) {
