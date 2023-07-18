@@ -259,6 +259,7 @@ public class GuideSV implements CRUD<Guide> {
                         .forEach(e -> e.setStatus(EStatusBill.CONFIRMED));
                 System.err.println("Duyệt đơn thành công");
                 menuTourGuide();
+
             }
             case 2 -> {
                 billList.stream()

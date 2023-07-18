@@ -1,6 +1,7 @@
 package utils;
 
 import Models.Bill;
+import eNum.EStatusBill;
 import service.BillSV;
 
 import java.awt.*;
@@ -71,8 +72,10 @@ public class AppUltis {
 
         double totalAmount = 0.0;
         for (Bill bill : billss) {
-            totalAmount += bill.getTotal();
+            if (!bill.getStatus().equals(EStatusBill.DELETE)) {
 
+                totalAmount += bill.getTotal();
+            }
         }
         displayCheckBill(start, end);
         String total = covertPriceToString(totalAmount);

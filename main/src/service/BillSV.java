@@ -121,10 +121,10 @@ public class BillSV implements CRUD<Bill> {
     public static void displayBillGuidex(String id) {
         System.out.println("                                                              Thông tin hóa đơn:");
         System.out.println("================================================================================================================================================================");
-        System.out.printf("|%-4s| %-15s| %-12s| %-15s| %-17s| %-17s| %-15s| %-15s| %-15s| %-15s|\n", "STT", "Khách", "Ngày đặt", "NV", "Ngày bắt dđầu", "Ngày kết thúc", "Ghi chú", "Trạng thái", "Giá", "Thành tiền");
+        System.out.printf("|%-4s| %-15s| %-12s| %-15s| %-17s| %-17s| %-25s| %-15s| %-15s| %-15s|\n", "STT", "Khách", "Ngày đặt", "NV", "Ngày bắt dđầu", "Ngày kết thúc", "Ghi chú", "Trạng thái", "Giá", "Thành tiền");
         for (Bill bill : billList) {
             if (bill.getNameGuide().equals(id) && bill.getStatus().equals(EStatusBill.FINISH)) {
-                System.out.printf("|%-4s| %-15s| %-12s| %-15s| %-17s| %-17s| %-15s| %-15s| %-15s| %-15s|\n",
+                System.out.printf("|%-4s| %-15s| %-12s| %-15s| %-17s| %-17s| %-25s| %-15s| %-15s| %-15s|\n",
                         bill.getIdBill(), bill.getZclient(), bill.getInvoiceDate(), bill.getNameGuide(),
                         bill.getStarDate(), bill.getEndDate(), bill.getNote(), bill.getStatus(),
                         covertPriceToString(bill.getPrice()), covertPriceToString(bill.getTotal()));
@@ -136,10 +136,10 @@ public class BillSV implements CRUD<Bill> {
     public static void displayBillGuidey(String id) {
         System.out.println("                                                              Thông tin hóa đơn:");
         System.out.println("================================================================================================================================================================");
-        System.out.printf("|%-4s| %-15s| %-12s| %-15s| %-17s| %-17s| %-15s| %-15s| %-15s| %-15s|\n", "STT", "Khách", "Ngày đặt", "NV", "Ngày bắt dđầu", "Ngày kết thúc", "Ghi chú", "Trạng thái", "Giá", "Thành tiền");
+        System.out.printf("|%-4s| %-15s| %-12s| %-15s| %-17s| %-17s| %-25s| %-15s| %-15s| %-15s|\n", "STT", "Khách", "Ngày đặt", "NV", "Ngày bắt dđầu", "Ngày kết thúc", "Ghi chú", "Trạng thái", "Giá", "Thành tiền");
         for (Bill bill : billList) {
             if (bill.getNameGuide().equals(id) && bill.getStatus().equals(EStatusBill.WAITING)) {
-                System.out.printf("|%-4s| %-15s| %-12s| %-15s| %-17s| %-17s| %-15s| %-15s| %-15s| %-15s|\n",
+                System.out.printf("|%-4s| %-15s| %-12s| %-15s| %-17s| %-17s| %-25s| %-15s| %-15s| %-15s|\n",
                         bill.getIdBill(), bill.getZclient(), bill.getInvoiceDate(), bill.getNameGuide(),
                         bill.getStarDate(), bill.getEndDate(), bill.getNote(), bill.getStatus(),
                         covertPriceToString(bill.getPrice()), covertPriceToString(bill.getTotal()));
@@ -151,10 +151,10 @@ public class BillSV implements CRUD<Bill> {
     public static void displayBillGuidez(String id) {
         System.out.println("                                                              Thông tin hóa đơn:");
         System.out.println("================================================================================================================================================================");
-        System.out.printf("|%-4s| %-15s| %-12s| %-15s| %-17s| %-17s| %-15s| %-15s| %-15s| %-15s|\n", "STT", "Khách", "Ngày đặt", "NV", "Ngày bắt dđầu", "Ngày kết thúc", "Ghi chú", "Trạng thái", "Giá", "Thành tiền");
+        System.out.printf("|%-4s| %-15s| %-12s| %-15s| %-17s| %-17s| %-25s| %-15s| %-15s| %-15s|\n", "STT", "Khách", "Ngày đặt", "NV", "Ngày bắt dđầu", "Ngày kết thúc", "Ghi chú", "Trạng thái", "Giá", "Thành tiền");
         for (Bill bill : billList) {
             if (bill.getNameGuide().equals(id) && bill.getStatus().equals(EStatusBill.INPROGRESS)) {
-                System.out.printf("|%-4s| %-15s| %-12s| %-15s| %-17s| %-17s| %-15s| %-15s| %-15s| %-15s|\n",
+                System.out.printf("|%-4s| %-15s| %-12s| %-15s| %-17s| %-17s| %-25s| %-15s| %-15s| %-15s|\n",
                         bill.getIdBill(), bill.getZclient(), bill.getInvoiceDate(), bill.getNameGuide(),
                         bill.getStarDate(), bill.getEndDate(), bill.getNote(), bill.getStatus(),
                         covertPriceToString(bill.getPrice()), covertPriceToString(bill.getTotal()));
@@ -166,10 +166,10 @@ public class BillSV implements CRUD<Bill> {
     public static void displayBillGuideg(String id) {
         System.out.println("                                                              Thông tin hóa đơn:");
         System.out.println("================================================================================================================================================================");
-        System.out.printf("|%-4s| %-15s| %-12s| %-15s| %-17s| %-17s| %-15s| %-15s| %-15s| %-15s|\n", "STT", "khách", "Ngày đặt", "NV", "Ngày bắt dđầu", "Ngày kết thúc", "Ghi chú", "Trạng thái", "Giá", "Thành tiền");
+        System.out.printf("|%-4s| %-15s| %-12s| %-15s| %-17s| %-17s| %-25s| %-15s| %-15s| %-15s|\n", "STT", "khách", "Ngày đặt", "NV", "Ngày bắt dđầu", "Ngày kết thúc", "Ghi chú", "Trạng thái", "Giá", "Thành tiền");
         for (Bill bill : billList) {
             if (bill.getNameGuide().equals(id) && bill.getStatus().equals(EStatusBill.CONFIRMED)) {
-                System.out.printf("|%-4s| %-15s| %-12s| %-15s| %-17s| %-17s| %-15s| %-15s| %-15s| %-15s|\n",
+                System.out.printf("|%-4s| %-15s| %-12s| %-15s| %-17s| %-17s| %-25s| %-15s| %-15s| %-15s|\n",
                         bill.getIdBill(), bill.getZclient(), bill.getInvoiceDate(), bill.getNameGuide(),
                         bill.getStarDate(), bill.getEndDate(), bill.getNote(), bill.getStatus(),
                         covertPriceToString(bill.getPrice()), covertPriceToString(bill.getTotal()));

@@ -54,7 +54,7 @@ public class AdminView {
         switch (choice) {
             case 1 -> {
                 displayClient();
-                choice = AppUltis.getIntWithBound("Mời chọn ví trí:", 0, nextIdGuide() - 1);
+                choice = AppUltis.getIntWithBound("Mời chọn ví trí:", 0, nextIdGuide() );
                 if (choice == 0) {
                     menuGuideAdmin();
                 } else {
